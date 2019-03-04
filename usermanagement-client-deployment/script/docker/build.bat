@@ -1,0 +1,1 @@
+docker build --tag "usermanagement-client:latest" ../../
