@@ -15,6 +15,7 @@ import org.cyk.utility.scope.ScopeSession;
 import org.cyk.utility.system.action.SystemActionCreate;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Role;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RoleCategory;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RoleType;
 import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.UserAccount;
 
@@ -42,7 +43,7 @@ public class MenuBuilderMapGetterFunctionRunnableImpl extends AbstractFunctionRu
 											__inject__(MenuItemBuilder.class).setCommandableName("Visualiser des privilèges")
 									)
 									
-									,__inject__(MenuItemBuilder.class).setCommandableName("Role").addEntitiesList(RoleType.class,Role.class)
+									,__inject__(MenuItemBuilder.class).setCommandableName("Role").addEntitiesList(RoleType.class,Role.class,RoleCategory.class)
 									,__inject__(MenuItemBuilder.class).setCommandableName("Fonction").addChild(
 											__inject__(MenuItemBuilder.class).setCommandableName("Fonction")
 									)
