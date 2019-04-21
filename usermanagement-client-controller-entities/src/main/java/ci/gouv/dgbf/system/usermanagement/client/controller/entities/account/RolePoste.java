@@ -1,0 +1,20 @@
+package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account;
+
+import org.cyk.utility.client.controller.data.Data;
+
+public interface RolePoste extends Data {
+
+	String getName();
+	RolePoste setName(String name);
+	
+	String getDescription();
+	RolePoste setDescription(String description);
+	
+	@Override RolePoste setIdentifier(Object identifier);
+	@Override RolePoste setCode(String code);
+	
+	/**/
+	
+	String PROPERTY_NAME = "name";
+	String PROPERTY_DESCRIPTION = "description";
+}

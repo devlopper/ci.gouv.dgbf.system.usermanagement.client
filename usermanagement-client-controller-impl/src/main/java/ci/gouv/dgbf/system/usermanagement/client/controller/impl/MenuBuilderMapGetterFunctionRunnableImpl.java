@@ -17,6 +17,8 @@ import org.cyk.utility.system.action.SystemActionCreate;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Role;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RoleCategory;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RoleType;
+import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.RoleFunction;
+import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.RolePoste;
 import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.UserAccount;
 
 public class MenuBuilderMapGetterFunctionRunnableImpl extends AbstractFunctionRunnableImpl<MenuBuilderMapGetter> implements Serializable {
@@ -43,7 +45,7 @@ public class MenuBuilderMapGetterFunctionRunnableImpl extends AbstractFunctionRu
 											__inject__(MenuItemBuilder.class).setCommandableName("Visualiser des privilèges")
 									)
 									
-									,__inject__(MenuItemBuilder.class).setCommandableName("Role").addEntitiesList(RoleType.class,Role.class,RoleCategory.class)
+									,__inject__(MenuItemBuilder.class).setCommandableName("Role").addEntitiesList(RoleType.class,Role.class,RoleCategory.class,RoleFunction.class,RolePoste.class)
 									,__inject__(MenuItemBuilder.class).setCommandableName("Fonction").addChild(
 											__inject__(MenuItemBuilder.class).setCommandableName("Fonction")
 									)
