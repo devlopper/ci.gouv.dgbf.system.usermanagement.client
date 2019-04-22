@@ -16,6 +16,7 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Rol
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RoleFunction;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RolePoste;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RoleType;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Service;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 
 @ApplicationScoped
@@ -28,7 +29,8 @@ public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeL
 		__inject__(FunctionRunnableMap.class).set(ThemeClassGetterImpl.class, ThemeClassGetterFunctionRunnableImpl.class,LEVEL);
 		__inject__(FunctionRunnableMap.class).set(CommandFunctionImpl.class, CommandFunctionFunctionRunnableImpl.class,LEVEL);
 	
-		__inject__(UniformResourceIdentifierParameterValueMatrix.class).setClasses(RoleType.class,Role.class,RoleCategory.class,RoleFunction.class,RolePoste.class);
+		__inject__(UniformResourceIdentifierParameterValueMatrix.class).setClasses(RoleType.class,Role.class,RoleCategory.class,RoleFunction.class,RolePoste.class
+				,Service.class);
 		__inject__(UniformResourceIdentifierParameterValueMatrix.class).setClass(UserAccount.class);
 	}
 	
