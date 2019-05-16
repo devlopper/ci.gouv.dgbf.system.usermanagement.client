@@ -6,9 +6,13 @@ public interface RolePoste extends DataIdentifiedByStringAndCoded {
 
 	String getName();
 	RolePoste setName(String name);
-	
+	/*
 	String getDescription();
 	RolePoste setDescription(String description);
+	*/
+	
+	RoleFunction getFunction();
+	RolePoste setFunction(RoleFunction function);
 	
 	@Override RolePoste setIdentifier(Object identifier);
 	@Override RolePoste setCode(String code);
@@ -16,5 +20,6 @@ public interface RolePoste extends DataIdentifiedByStringAndCoded {
 	/**/
 	
 	String PROPERTY_NAME = "name";
-	String PROPERTY_DESCRIPTION = "description";
+	//String PROPERTY_DESCRIPTION = "description";
+	String PROPERTY_FUNCTION = "function";
 }

@@ -7,6 +7,12 @@ public interface User extends DataIdentifiedByStringAndCoded {
 	@Override User setIdentifier(Object identifier);
 	@Override User setCode(String code);
 	
+	String getFirstName();
+	User setFirstName(String firstName);
+	
+	String getLastNames();
+	User setLastNames(String lastNames);
+	
 	String getElectronicMailAddress();
 	User setElectronicMailAddress(String electronicMailAddress);
 	

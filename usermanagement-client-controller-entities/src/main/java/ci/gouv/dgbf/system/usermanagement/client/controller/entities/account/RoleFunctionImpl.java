@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
 import org.cyk.utility.client.controller.component.annotation.Input;
+import org.cyk.utility.client.controller.component.annotation.InputChoice;
+import org.cyk.utility.client.controller.component.annotation.InputChoiceOne;
+import org.cyk.utility.client.controller.component.annotation.InputChoiceOneRadio;
 import org.cyk.utility.client.controller.component.annotation.InputString;
 import org.cyk.utility.client.controller.component.annotation.InputStringLineMany;
 import org.cyk.utility.client.controller.component.annotation.InputStringLineOne;
@@ -19,6 +22,9 @@ public class RoleFunctionImpl extends AbstractDataIdentifiedByStringAndCodedImpl
 	@Input @InputString @InputStringLineMany
 	private String description;
 	
+	@Input @InputChoice @InputChoiceOne @InputChoiceOneRadio
+	private RoleCategory category;
+	
 	@Override
 	public String getName() {
 		return name;
@@ -30,7 +36,7 @@ public class RoleFunctionImpl extends AbstractDataIdentifiedByStringAndCodedImpl
 		return this;
 	}
 	
-	@Override
+	/*@Override
 	public String getDescription() {
 		return description;
 	}
@@ -38,6 +44,17 @@ public class RoleFunctionImpl extends AbstractDataIdentifiedByStringAndCodedImpl
 	@Override
 	public RoleFunction setDescription(String description) {
 		this.description = description;
+		return this;
+	}*/
+	
+	@Override
+	public RoleCategory getCategory() {
+		return category;
+	}
+	
+	@Override
+	public RoleFunction setCategory(RoleCategory category) {
+		this.category = category;
 		return this;
 	}
 	

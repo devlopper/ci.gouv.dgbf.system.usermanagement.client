@@ -15,7 +15,7 @@ public class AccountImpl extends AbstractDataIdentifiedByStringAndCodedImpl impl
 	@Input @InputString @InputStringLineOne @NotNull private String pass;
 	
 	@Override
-	public Account setIdentifier(Object identifier) {
+	public Account setIdentifier(String identifier) {
 		return (Account) super.setIdentifier(identifier);
 	}
 	

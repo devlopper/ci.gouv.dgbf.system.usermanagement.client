@@ -4,7 +4,7 @@ import org.cyk.utility.client.controller.data.DataIdentifiedByStringAndCoded;
 
 public interface Account extends DataIdentifiedByStringAndCoded {
 
-	@Override Account setIdentifier(Object identifier);
+	@Override Account setIdentifier(String identifier);
 	@Override Account setCode(String code);
 	
 	String getPass();

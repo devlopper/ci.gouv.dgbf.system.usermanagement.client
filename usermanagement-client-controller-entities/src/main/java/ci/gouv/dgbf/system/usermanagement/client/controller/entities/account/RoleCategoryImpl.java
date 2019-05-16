@@ -29,7 +29,7 @@ public class RoleCategoryImpl extends AbstractDataIdentifiedByStringAndCodedImpl
 		this.name = name;
 		return this;
 	}
-	
+	/*
 	@Override
 	public String getDescription() {
 		return description;
@@ -40,7 +40,7 @@ public class RoleCategoryImpl extends AbstractDataIdentifiedByStringAndCodedImpl
 		this.description = description;
 		return this;
 	}
-	
+	*/
 	@Override
 	public RoleCategory setIdentifier(Object identifier) {
 		return (RoleCategory) super.setIdentifier(identifier);
