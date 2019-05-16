@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull;
 import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputString;
 import org.cyk.utility.client.controller.component.annotation.InputStringLineOne;
-import org.cyk.utility.client.controller.data.AbstractDataImpl;
+import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringAndCodedImpl;
 
-public class UserNaturalPersonImpl extends AbstractDataImpl implements UserNaturalPerson,Serializable {
+public class UserNaturalPersonImpl extends AbstractDataIdentifiedByStringAndCodedImpl implements UserNaturalPerson,Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Input @InputString @InputStringLineOne @NotNull private String firstName;

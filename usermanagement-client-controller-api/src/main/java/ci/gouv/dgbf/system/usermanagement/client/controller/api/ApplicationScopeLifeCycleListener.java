@@ -5,8 +5,10 @@ import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.cyk.utility.__kernel__.AbstractApplicationScopeLifeCycleListener;
-import org.cyk.utility.__kernel__.function.FunctionRunnableMap;
-import org.cyk.utility.instance.InstanceBuilderImpl;
+import org.cyk.utility.__kernel__.annotation.Client;
+import org.cyk.utility.__kernel__.annotation.Controller;
+import org.cyk.utility.__kernel__.annotation.System;
+import org.cyk.utility.instance.InstanceBuilder;
 import org.cyk.utility.system.node.SystemNodeClient;
 
 @ApplicationScoped
@@ -15,7 +17,7 @@ public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeL
 
 	@Override
 	public void __initialize__(Object object) {
-		__inject__(FunctionRunnableMap.class).set(InstanceBuilderImpl.class, InstanceBuilderFunctionRunnableImpl.class,LEVEL);
+		__setQualifiersClasses__(InstanceBuilder.class, System.class,Client.class,Controller.class);
 		__inject__(SystemNodeClient.class).setName("SIIB");
 		__inject__(org.cyk.utility.client.controller.ApplicationScopeLifeCycleListener.class).initialize(null);
 	}

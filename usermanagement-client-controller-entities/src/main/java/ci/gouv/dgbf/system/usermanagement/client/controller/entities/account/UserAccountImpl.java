@@ -2,9 +2,9 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account;
 
 import java.io.Serializable;
 
-import org.cyk.utility.client.controller.data.AbstractDataImpl;
+import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
 
-public class UserAccountImpl extends AbstractDataImpl implements UserAccount,Serializable {
+public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implements UserAccount,Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private User user;
@@ -13,11 +13,6 @@ public class UserAccountImpl extends AbstractDataImpl implements UserAccount,Ser
 	@Override
 	public UserAccount setIdentifier(Object identifier) {
 		return (UserAccount) super.setIdentifier(identifier);
-	}
-	
-	@Override
-	public UserAccount setCode(String code) {
-		return (UserAccount) super.setCode(code);
 	}
 
 	@Override

@@ -1,8 +1,8 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account;
 
-import org.cyk.utility.client.controller.data.Data;
+import org.cyk.utility.client.controller.data.DataIdentifiedByStringAndCoded;
 
-public interface RolePoste extends Data {
+public interface RolePoste extends DataIdentifiedByStringAndCoded {
 
 	String getName();
 	RolePoste setName(String name);

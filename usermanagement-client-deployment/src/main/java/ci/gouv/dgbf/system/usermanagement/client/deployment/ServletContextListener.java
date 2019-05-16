@@ -3,17 +3,23 @@ package ci.gouv.dgbf.system.usermanagement.client.deployment;
 import java.io.Serializable;
 
 import javax.servlet.ServletContextEvent;
+import javax.servlet.annotation.WebListener;
 
-public class ServletContextListener implements javax.servlet.ServletContextListener , Serializable {
+import org.cyk.utility.client.deployment.AbstractServletContextListener;
+
+import ci.gouv.dgbf.system.usermanagement.client.controller.impl.ApplicationScopeLifeCycleListener;
+
+@WebListener
+public class ServletContextListener extends AbstractServletContextListener implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void contextInitialized(ServletContextEvent servletContextEvent) {
-		
+	protected void __listenContextInitialized__(ServletContextEvent servletContextEvent) {
+		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
 	}
-
+	
 	@Override
-	public void contextDestroyed(ServletContextEvent servletContextEvent) {
+	protected void __listenContextDestroyed__(ServletContextEvent servletContextEvent) {
 		
 	}
 

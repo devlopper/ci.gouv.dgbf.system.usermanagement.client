@@ -1,8 +1,8 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account;
 
-import org.cyk.utility.client.controller.data.Data;
+import org.cyk.utility.client.controller.data.DataIdentifiedByStringAndCoded;
 
-public interface UserNaturalPerson extends Data {
+public interface UserNaturalPerson extends DataIdentifiedByStringAndCoded {
 
 	@Override UserNaturalPerson setIdentifier(Object identifier);
 	@Override UserNaturalPerson setCode(String code);
