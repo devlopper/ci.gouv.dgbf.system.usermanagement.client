@@ -1,8 +1,14 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import org.cyk.utility.client.controller.component.annotation.Input;
+import org.cyk.utility.client.controller.component.annotation.InputChoice;
+import org.cyk.utility.client.controller.component.annotation.InputChoiceMany;
+import org.cyk.utility.client.controller.component.annotation.InputChoiceManyCheckBox;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
 
 public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implements UserAccount,Serializable {
@@ -10,7 +16,9 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 
 	private User user;
 	private Account account;
-	private Roles roles;
+	
+	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
+	private List<RolePoste> rolePostes;
 	
 	@Override
 	public UserAccount setIdentifier(Object identifier) {
@@ -50,35 +58,38 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	}
 	
 	@Override
-	public Roles getRoles() {
-		return roles;
+	public List<RolePoste> getRolePostes() {
+		return rolePostes;
 	}
 	
 	@Override
-	public UserAccount setRoles(Roles roles) {
-		this.roles = roles;
+	public UserAccount setRolePostes(List<RolePoste> rolePostes) {
+		this.rolePostes = rolePostes;
 		return this;
 	}
 	
 	@Override
-	public Roles getRoles(Boolean injectIfNull) {
-		return (Roles) __getInjectIfNull__(FIELD_ROLES, injectIfNull);
+	public List<RolePoste> getRolePostes(Boolean injectIfNull) {
+		if(rolePostes == null)
+			rolePostes = new ArrayList<>();
+		return rolePostes;
+		//return (List<RolePoste>) __getInjectIfNull__(FIELD_ROLE_POSTES, injectIfNull);
 	}
 	
 	@Override
-	public UserAccount addRoles(Collection<Role> roles) {
-		getRoles(Boolean.TRUE).add(roles);
+	public UserAccount addRolePostes(Collection<RolePoste> rolePostes) {
+		getRolePostes(Boolean.TRUE).addAll(rolePostes);
 		return this;
 	}
 	
 	@Override
-	public UserAccount addRoles(Role... roles) {
-		getRoles(Boolean.TRUE).add(roles);
+	public UserAccount addRolePostes(RolePoste... rolePostes) {
+		//getRolePostes(Boolean.TRUE).add(rolePostes);
 		return this;
 	}
 	
 	/**/
 	
-	public static final String FIELD_ROLES = "roles";
+	public static final String FIELD_ROLE_POSTES = "rolePostes";
 	
 }

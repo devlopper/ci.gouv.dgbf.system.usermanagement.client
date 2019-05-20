@@ -1,6 +1,7 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import org.cyk.utility.client.controller.component.view.ViewBuilder;
 import org.cyk.utility.client.controller.component.window.AbstractWindowContainerManagedWindowBuilderEditDataImpl;
@@ -22,10 +23,12 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 		if(systemAction instanceof SystemActionCreate) {
 			((UserAccount)data).setUser(__inject__(User.class));
 			((UserAccount)data).getUser().setPerson(__inject__(UserNaturalPerson.class));
+			((UserAccount)data).setRolePostes(new ArrayList<>());
 		}
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_PERSON,UserNaturalPerson.PROPERTY_FIRST_NAME);
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_PERSON,UserNaturalPerson.PROPERTY_LAST_NAMES);
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_ELECTRONIC_MAIL_ADDRESS);
+		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_ROLE_POSTES);
 	}
 
 }

@@ -21,6 +21,7 @@ import org.junit.Test;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.ApplicationScopeLifeCycleListener;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Role;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RoleCategory;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RolePoste;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RoleType;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 
@@ -148,7 +149,7 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 		UserAccount userAccount = __inject__(UserAccount.class);
 		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress("kycdev@gmail.com");
 		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
-		userAccount.addRoles(__inject__(Role.class).setCode("CE"));
+		userAccount.addRolePostes(__inject__(RolePoste.class).setCode("AS_MIN_21"));
 		__inject__(UserAccountController.class).create(userAccount);
 		
 		__inject__(TimeHelper.class).pause(1000l * 25);
