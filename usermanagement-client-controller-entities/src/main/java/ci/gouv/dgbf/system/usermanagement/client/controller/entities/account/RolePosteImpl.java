@@ -2,51 +2,17 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
 import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOne;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOneCombo;
-import org.cyk.utility.client.controller.component.annotation.InputString;
-import org.cyk.utility.client.controller.component.annotation.InputStringLineMany;
-import org.cyk.utility.client.controller.component.annotation.InputStringLineOne;
-import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringAndCodedImpl;
+import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringAndCodedAndNamedImpl;
 
-public class RolePosteImpl extends AbstractDataIdentifiedByStringAndCodedImpl implements RolePoste,Serializable {
+public class RolePosteImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedImpl implements RolePoste,Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Input @InputString @InputStringLineOne @NotNull
-	private String name;
-	
-	@Input @InputString @InputStringLineMany
-	private String description;
-	
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
 	private RoleFunction function;
-	
-	@Override
-	public String getName() {
-		return name;
-	}
-	
-	@Override
-	public RolePoste setName(String name) {
-		this.name = name;
-		return this;
-	}
-	/*
-	@Override
-	public String getDescription() {
-		return description;
-	}
-	
-	@Override
-	public RolePoste setDescription(String description) {
-		this.description = description;
-		return this;
-	}
-	*/
 	
 	@Override
 	public RoleFunction getFunction() {
@@ -59,7 +25,7 @@ public class RolePosteImpl extends AbstractDataIdentifiedByStringAndCodedImpl im
 	}
 	
 	@Override
-	public RolePoste setIdentifier(Object identifier) {
+	public RolePoste setIdentifier(String identifier) {
 		return (RolePoste) super.setIdentifier(identifier);
 	}
 	
@@ -68,4 +34,8 @@ public class RolePosteImpl extends AbstractDataIdentifiedByStringAndCodedImpl im
 		return (RolePoste) super.setCode(code);
 	}
 	
+	@Override
+	public RolePoste setName(String name) {
+		return (RolePoste) super.setName(name);
+	}
 }

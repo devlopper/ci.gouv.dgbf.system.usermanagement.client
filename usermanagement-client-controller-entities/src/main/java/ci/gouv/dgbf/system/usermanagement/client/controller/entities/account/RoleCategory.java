@@ -1,20 +1,11 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account;
 
-import org.cyk.utility.client.controller.data.DataIdentifiedByStringAndCoded;
+import org.cyk.utility.client.controller.data.DataIdentifiedByStringAndCodedAndNamed;
 
-public interface RoleCategory extends DataIdentifiedByStringAndCoded {
+public interface RoleCategory extends DataIdentifiedByStringAndCodedAndNamed {
 
-	String getName();
-	RoleCategory setName(String name);
-	/*
-	String getDescription();
-	RoleCategory setDescription(String description);
-	/
-	@Override RoleCategory setIdentifier(Object identifier);
+	@Override RoleCategory setIdentifier(String identifier);
 	@Override RoleCategory setCode(String code);
+	@Override RoleCategory setName(String name);
 	
-	/**/
-	
-	String PROPERTY_NAME = "name";
-	//String PROPERTY_DESCRIPTION = "description";
 }
