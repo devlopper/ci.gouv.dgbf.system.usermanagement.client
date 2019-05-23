@@ -1,4 +1,4 @@
-package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account;
+package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role;
 
 import java.io.Serializable;
 
@@ -14,6 +14,15 @@ public class RolePosteImpl extends AbstractDataIdentifiedByStringAndCodedAndName
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
 	private RoleFunction function;
 	
+	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
+	private Ministry ministry;
+	
+	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
+	private Program program;
+	
+	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
+	private AdministrativeUnit administrativeUnit;
+	
 	@Override
 	public RoleFunction getFunction() {
 		return function;
@@ -21,6 +30,36 @@ public class RolePosteImpl extends AbstractDataIdentifiedByStringAndCodedAndName
 	@Override
 	public RolePoste setFunction(RoleFunction function) {
 		this.function = function;
+		return this;
+	}
+	
+	@Override
+	public Ministry getMinistry() {
+		return ministry;
+	}
+	@Override
+	public RolePoste setMinistry(Ministry ministry) {
+		this.ministry = ministry;
+		return this;
+	}
+	
+	@Override
+	public Program getProgram() {
+		return program;
+	}
+	@Override
+	public RolePoste setProgram(Program program) {
+		this.program = program;
+		return this;
+	}
+	
+	@Override
+	public AdministrativeUnit getAdministrativeUnit() {
+		return administrativeUnit;
+	}
+	@Override
+	public RolePoste setAdministrativeUnit(AdministrativeUnit administrativeUnit) {
+		this.administrativeUnit = administrativeUnit;
 		return this;
 	}
 	

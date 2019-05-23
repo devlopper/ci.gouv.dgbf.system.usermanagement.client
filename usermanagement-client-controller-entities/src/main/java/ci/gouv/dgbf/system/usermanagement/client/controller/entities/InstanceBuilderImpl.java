@@ -1,4 +1,4 @@
-package ci.gouv.dgbf.system.usermanagement.client.controller.api;
+package ci.gouv.dgbf.system.usermanagement.client.controller.entities;
 
 import java.io.Serializable;
 
@@ -9,14 +9,11 @@ import org.cyk.utility.instance.InstanceHelper;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Account;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.User;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserNaturalPerson;
-import ci.gouv.dgbf.system.usermanagement.server.annotation.UserManagement;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.AccountDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserAccountDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserDto;
-import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserNaturalPersonDto;
 
-@UserManagement
+@ci.gouv.dgbf.system.usermanagement.server.annotation.System
 public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -37,14 +34,10 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 			UserDto representation = (UserDto) source;
 			User data = (User) destination;
 			data.setIdentifier(representation.getIdentifier());
-			data.setCode(representation.getCode());
-			data.setPerson(__inject__(InstanceHelper.class).buildOne(UserNaturalPerson.class, representation.getPerson()));
 		}else if(source instanceof User && destination instanceof UserDto) {
 			User data = (User) source;
 			UserDto representation = (UserDto) destination;
-			representation.setCode(data.getCode());
-			representation.setElectronicMailAddress(data.getElectronicMailAddress());
-			representation.setPerson(__inject__(InstanceHelper.class).buildOne(UserNaturalPersonDto.class, data.getPerson()));		
+			representation.setElectronicMailAddress(data.getElectronicMailAddress());	
 		}else
 			super.__copy__(source, destination,properties);
 	}

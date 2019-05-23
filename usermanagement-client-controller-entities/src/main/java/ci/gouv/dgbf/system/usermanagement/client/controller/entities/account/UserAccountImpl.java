@@ -11,6 +11,8 @@ import org.cyk.utility.client.controller.component.annotation.InputChoiceMany;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceManyCheckBox;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
 
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
+
 public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implements UserAccount,Serializable {
 	private static final long serialVersionUID = 1L;
 

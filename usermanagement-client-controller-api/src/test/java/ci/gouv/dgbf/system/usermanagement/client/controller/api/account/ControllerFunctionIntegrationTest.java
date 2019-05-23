@@ -16,9 +16,12 @@ import org.cyk.utility.client.controller.test.arquillian.AbstractControllerArqui
 import org.junit.Test;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.ApplicationScopeLifeCycleListener;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RoleCategory;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RolePoste;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.RoleCategoryController;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.RoleFunctionController;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.RolePosteController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleCategory;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
 
 public class ControllerFunctionIntegrationTest extends AbstractControllerArquillianIntegrationTestWithDefaultDeploymentAsSwram {
 	private static final long serialVersionUID = 1L;

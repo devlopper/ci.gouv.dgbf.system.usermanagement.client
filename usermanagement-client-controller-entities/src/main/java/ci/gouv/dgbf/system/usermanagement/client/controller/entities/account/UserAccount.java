@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.cyk.utility.client.controller.data.DataIdentifiedByString;
 
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
+
 public interface UserAccount extends DataIdentifiedByString {
 
 	@Override UserAccount setIdentifier(Object identifier);
