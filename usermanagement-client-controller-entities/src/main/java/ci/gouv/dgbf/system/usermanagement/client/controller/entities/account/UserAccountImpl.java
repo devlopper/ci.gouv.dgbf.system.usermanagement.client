@@ -8,7 +8,7 @@ import java.util.List;
 import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceMany;
-import org.cyk.utility.client.controller.component.annotation.InputChoiceManyCheckBox;
+import org.cyk.utility.client.controller.component.annotation.InputChoiceManyAutoComplete;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
@@ -19,7 +19,7 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	private User user;
 	private Account account;
 	
-	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
+	@Input @InputChoice @InputChoiceMany @InputChoiceManyAutoComplete
 	private List<RolePoste> rolePostes;
 	
 	@Override

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOne;
+import org.cyk.utility.client.controller.component.annotation.InputChoiceOneAutoComplete;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOneCombo;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringAndCodedAndNamedImpl;
 
@@ -17,10 +18,10 @@ public class RolePosteImpl extends AbstractDataIdentifiedByStringAndCodedAndName
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
 	private Ministry ministry;
 	
-	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
+	@Input @InputChoice @InputChoiceOne @InputChoiceOneAutoComplete
 	private Program program;
 	
-	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
+	@Input @InputChoice @InputChoiceOne @InputChoiceOneAutoComplete
 	private AdministrativeUnit administrativeUnit;
 	
 	@Override
