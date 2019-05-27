@@ -30,11 +30,11 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	protected void __listenBeforeCallCountIsZero__() throws Exception {
 		super.__listenBeforeCallCountIsZero__();
 		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
+		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
 	}
 	
 	@Test
 	public void read_roleCategories() throws Exception{
-		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
 		//__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
 		assertThat(__inject__(ControllerLayer.class).getInterfaceClassFromEntityClass(RoleCategory.class)).isEqualTo(RoleCategoryController.class);
 		assertThat(__inject__(RoleCategoryController.class).read(new Properties().setIsPageable(Boolean.FALSE))
@@ -46,8 +46,14 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	}
 	
 	@Test
+	public void count_roleCategories() throws Exception{
+		Long count = (Long) __inject__(RoleCategoryController.class).count();
+		assertThat(count).isEqualTo(2);
+	}
+	
+	@Test
 	public void read_roleFunctions() throws Exception{
-		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
+		//__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
 		//__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
 		assertThat(__inject__(RoleFunctionController.class).read(new Properties().setIsPageable(Boolean.FALSE))
 				.stream().map(x -> x.getCode()).collect(Collectors.toList())).contains("ASSISTANT","DIRECTEUR");
@@ -55,7 +61,7 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 
 	@Test
 	public void read_rolePostes() throws Exception{
-		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
+		//__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
 		//__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
 		assertThat(__inject__(RolePosteController.class).read(new Properties().setIsPageable(Boolean.FALSE))
 				.stream().map(x -> x.getCode()).collect(Collectors.toList())).contains("ASSISTANT_SAISIE_MINISTERE_21","AGENT_VERIFICATEUR_MINISTERE_21");
