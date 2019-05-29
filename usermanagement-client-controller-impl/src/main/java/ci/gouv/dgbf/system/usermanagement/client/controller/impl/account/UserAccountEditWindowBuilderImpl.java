@@ -20,12 +20,6 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 	
 	@Override
 	protected void __execute__(Form form,SystemAction systemAction,Data data,ViewBuilder viewBuilder) {
-		/*
-		if(systemAction instanceof SystemActionCreate) {
-			((UserAccount)data).setUser(__inject__(User.class));
-			((UserAccount)data).setAccount(__inject__(Account.class));
-		}
-		*/
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_ACCOUNT,Account.PROPERTY_IDENTIFIER);
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_ACCOUNT,Account.PROPERTY_PASS);
 		

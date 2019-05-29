@@ -69,14 +69,6 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	
 	@Test
 	public void create_userAccount() throws Exception{
-		/*startServersZookeeperAndKafka();
-		__inject__(TimeHelper.class).pause(1000l * 15);
-		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
-		*/
-		
-		//__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
-		//__inject__(TimeHelper.class).pause(1000l * 15);
-		
 		UserAccount userAccount = __inject__(UserAccount.class);
 		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress("kycdev@gmail.com");
 		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
@@ -95,11 +87,34 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 				assertThat(userAccount01.getRolePostes().stream().map(RolePoste::getCode).collect(Collectors.toList())).contains("ASSISTANT_SAISIE_MINISTERE_21");
 			}
 		}).execute();
+	}
+	
+	@Test
+	public void update_userAccount() throws Exception{
+		UserAccount userAccount = __inject__(UserAccount.class);
+		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomCode__()+"@mail.com");
+		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
+		userAccount.addRolePostes(__inject__(RolePoste.class).setCode("CONTROLEUR_FINANCIER_MINISTERE_21"));
 		
-		//__inject__(TimeHelper.class).pause(1000l * 25);
-		/*
-		stopServersKafkaAndZookeeper();	
-		*/
+		__inject__(UserAccountController.class).create(userAccount);
+		
+		userAccount = __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_ROLE_POSTES));
+		assertThat(userAccount).isNotNull();
+		assertThat(userAccount.getRolePostes()).isNotNull();
+		assertThat(userAccount.getRolePostes()).isNotEmpty();
+		assertThat(userAccount.getRolePostes().stream().map(RolePoste::getCode).collect(Collectors.toList())).contains("CONTROLEUR_FINANCIER_MINISTERE_21");
+		
+		userAccount.addRolePostes(__inject__(RolePoste.class).setCode("ASSISTANT_SAISIE_MINISTERE_21"));
+		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields(UserAccount.PROPERTY_ROLE_POSTES));
+		
+		userAccount = __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_ROLE_POSTES));
+		assertThat(userAccount).isNotNull();
+		assertThat(userAccount.getRolePostes()).isNotNull();
+		assertThat(userAccount.getRolePostes()).isNotEmpty();
+		assertThat(userAccount.getRolePostes().stream().map(RolePoste::getCode).collect(Collectors.toList())).contains("CONTROLEUR_FINANCIER_MINISTERE_21"
+				,"ASSISTANT_SAISIE_MINISTERE_21");
+		
+		__inject__(UserAccountController.class).delete(userAccount);
 	}
 	
 	/**/
