@@ -9,14 +9,8 @@
 		<from-view-id>*</from-view-id>
 		
 		<navigation-case>
-			<from-outcome>loginView</from-outcome>
-			<to-view-id>/public/account/login.jsf</to-view-id>
-			<redirect />
-		</navigation-case>
-		
-		<navigation-case>
-			<from-outcome>accountTestConnectionView</from-outcome>
-			<to-view-id>/public/account/testconnection.jsf</to-view-id>
+			<from-outcome>userAccountAssignRolePostes</from-outcome>
+			<to-view-id>/private/useraccount/assignrolepostes.jsf</to-view-id>
 			<redirect />
 		</navigation-case>
 		

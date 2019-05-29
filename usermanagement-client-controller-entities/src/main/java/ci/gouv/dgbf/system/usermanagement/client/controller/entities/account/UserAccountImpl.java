@@ -10,6 +10,7 @@ import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceMany;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceManyAutoComplete;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
+import org.cyk.utility.collection.CollectionHelper;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
 
@@ -86,7 +87,7 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	
 	@Override
 	public UserAccount addRolePostes(RolePoste... rolePostes) {
-		//getRolePostes(Boolean.TRUE).add(rolePostes);
+		addRolePostes(__inject__(CollectionHelper.class).instanciate(rolePostes));
 		return this;
 	}
 	

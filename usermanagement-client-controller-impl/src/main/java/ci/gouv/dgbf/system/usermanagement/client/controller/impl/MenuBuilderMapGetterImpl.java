@@ -1,4 +1,4 @@
-package ci.gouv.dgbf.system.usermanagement.client.controller.entities;
+package ci.gouv.dgbf.system.usermanagement.client.controller.impl;
 
 import java.io.Serializable;
 import java.security.Principal;
@@ -64,6 +64,9 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 							.setCommandableNavigationIdentifierBuilderSystemAction(__inject__(SystemActionCreate.class).setEntityClass(UserAccount.class))
 							,__inject__(MenuItemBuilder.class).setCommandableName("Liste des comptes utilisateurs")
 							.setCommandableNavigationIdentifierBuilderSystemAction(__inject__(SystemActionList.class).setEntityClass(UserAccount.class))
+							/*,__inject__(MenuItemBuilder.class).setCommandableName("Assignation de profile à un compte utilisateur")
+							.setCommandableNavigationIdentifier("userAccountAssignRolePostes")
+							*/
 							/*,__inject__(MenuItemBuilder.class).setCommandableName("Tester la connection à un compte").setCommandableIcon(Icon.FLASH)
 							.setCommandableNavigationIdentifier("accountTestConnectionView")
 							*/

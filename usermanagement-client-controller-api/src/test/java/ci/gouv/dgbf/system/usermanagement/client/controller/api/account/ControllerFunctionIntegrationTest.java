@@ -81,7 +81,20 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress("kycdev@gmail.com");
 		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
 		userAccount.addRolePostes(__inject__(RolePoste.class).setCode("ASSISTANT_SAISIE_MINISTERE_21"));
-		__inject__(TestControllerCreate.class).addObjects(userAccount);
+		__inject__(TestControllerCreate.class).addObjects(userAccount).addTryEndRunnables(new Runnable() {
+			@Override
+			public void run() {
+				UserAccount userAccount01 = (UserAccount) __inject__(UserAccountController.class).readOne(userAccount.getIdentifier());
+				assertThat(userAccount01).as("user account is null").isNotNull();
+				assertThat(userAccount01.getRolePostes()).as("user account roles collection is not null").isNull();
+				
+				userAccount01 = (UserAccount) __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(),new Properties().setFields(UserAccount.PROPERTY_ROLE_POSTES));
+				assertThat(userAccount01).as("user account is null").isNotNull();
+				assertThat(userAccount01.getRolePostes()).as("user account roles collection is null").isNotNull();
+				assertThat(userAccount01.getRolePostes()).as("user account roles collection is empty").isNotEmpty();
+				assertThat(userAccount01.getRolePostes().stream().map(RolePoste::getCode).collect(Collectors.toList())).contains("ASSISTANT_SAISIE_MINISTERE_21");
+			}
+		}).execute();
 		
 		//__inject__(TimeHelper.class).pause(1000l * 25);
 		/*

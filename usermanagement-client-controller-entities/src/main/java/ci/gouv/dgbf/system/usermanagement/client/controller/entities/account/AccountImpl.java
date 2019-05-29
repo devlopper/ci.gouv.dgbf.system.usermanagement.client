@@ -20,11 +20,6 @@ public class AccountImpl extends AbstractDataIdentifiedByStringAndCodedImpl impl
 	}
 	
 	@Override
-	public Account setCode(String code) {
-		return (Account) super.setCode(code);
-	}
-
-	@Override
 	public String getPass() {
 		return pass;
 	}
