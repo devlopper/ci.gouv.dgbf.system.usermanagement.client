@@ -52,4 +52,5 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 		properties.setFields(UserAccount.PROPERTY_ROLE_POSTES);
 		return super.__readOne__(klass, identifier, properties);
 	}
+	
 }
