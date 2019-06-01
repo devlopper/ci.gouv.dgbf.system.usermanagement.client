@@ -64,6 +64,7 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 							.setCommandableNavigationIdentifierBuilderSystemAction(__inject__(SystemActionCreate.class).setEntityClass(UserAccount.class))
 							,__inject__(MenuItemBuilder.class).setCommandableName("Liste des comptes utilisateurs")
 							.setCommandableNavigationIdentifierBuilderSystemAction(__inject__(SystemActionList.class).setEntityClass(UserAccount.class))
+							
 							/*,__inject__(MenuItemBuilder.class).setCommandableName("Assignation de profile à un compte utilisateur")
 							.setCommandableNavigationIdentifier("userAccountAssignRolePostes")
 							*/
@@ -71,7 +72,7 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 							.setCommandableNavigationIdentifier("accountTestConnectionView")
 							*/
 							
-					)		
+					).addEntitySelect(UserAccount.class, "assignrolepostes")		
 				);	
 		//}
 	}
