@@ -40,11 +40,11 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 	}
 	
 	@Override
-	protected Object __readOne__(Class<?> klass, Object identifier, Properties properties) {
+	protected Object __readOne__(SystemAction systemAction,Class<?> klass, Object identifier, Properties properties) {
 		if(properties == null)
 			properties = new Properties();
 		properties.setFields(UserAccount.PROPERTY_ROLE_POSTES);
-		return super.__readOne__(klass, identifier, properties);
+		return super.__readOne__(systemAction,klass, identifier, properties);
 	}
 	
 }

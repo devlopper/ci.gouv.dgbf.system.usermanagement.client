@@ -70,7 +70,7 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	@Test
 	public void create_userAccount() throws Exception{
 		UserAccount userAccount = __inject__(UserAccount.class);
-		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress("kycdev@gmail.com");
+		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomCode__()+"@gmail.com");
 		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
 		userAccount.addRolePostes(__inject__(RolePoste.class).setCode("ASSISTANT_SAISIE_MINISTERE_21"));
 		__inject__(TestControllerCreate.class).addObjects(userAccount).addTryEndRunnables(new Runnable() {

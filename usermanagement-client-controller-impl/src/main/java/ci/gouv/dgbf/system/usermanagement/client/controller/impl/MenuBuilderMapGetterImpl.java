@@ -15,6 +15,7 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Use
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleCategory;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleFunction;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
+import ci.gouv.dgbf.system.usermanagement.server.Constant;
 
 @ci.gouv.dgbf.system.usermanagement.server.annotation.System
 public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl implements Serializable {
@@ -42,7 +43,7 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 									__inject__(MenuItemBuilder.class).setCommandableName("Visualiser des privilèges")
 							)
 							
-							,*/__inject__(MenuItemBuilder.class).setCommandableName("Role").addEntitiesList(RoleCategory.class,RoleFunction.class,RolePoste.class)
+							,*/__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").addEntitiesList(RoleCategory.class,RoleFunction.class,RolePoste.class)
 							,__inject__(MenuItemBuilder.class).setCommandableName("Service").addEntitiesList(Service.class)
 							/*,__inject__(MenuItemBuilder.class).setCommandableName("Fonction").addChild(
 									__inject__(MenuItemBuilder.class).setCommandableName("Fonction")
@@ -72,7 +73,7 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 							.setCommandableNavigationIdentifier("accountTestConnectionView")
 							*/
 							
-					).addEntitySelect(UserAccount.class, "assignrolepostes")		
+					).addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_ROLE_POSTES)		
 				);	
 		//}
 	}

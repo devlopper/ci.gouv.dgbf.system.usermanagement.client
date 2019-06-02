@@ -10,6 +10,7 @@ import org.cyk.utility.client.controller.ControllerServiceProvider;
 import org.cyk.utility.system.action.SystemAction;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
+import ci.gouv.dgbf.system.usermanagement.server.Constant;
 
 @Singleton
 public class UserAccountControllerImpl extends AbstractControllerEntityImpl<UserAccount> implements UserAccountController,Serializable {
@@ -18,8 +19,8 @@ public class UserAccountControllerImpl extends AbstractControllerEntityImpl<User
 	@Override
 	public ControllerServiceProvider<UserAccount> process(UserAccount userAccount, Properties properties) {
 		SystemAction systemAction = (SystemAction) properties.getSystemAction();
-		if("assignrolepostes".equals(systemAction.getIdentifier())) {
-			update(userAccount,new Properties().setFields(UserAccount.PROPERTY_ROLE_POSTES));
+		if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_ROLE_POSTES.equals(systemAction.getIdentifier())) {
+			update(userAccount,new Properties().setSystemAction(systemAction).setFields(UserAccount.PROPERTY_ROLE_POSTES));
 		}
 		return this;
 	}
