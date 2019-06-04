@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import org.cyk.utility.__kernel__.function.AbstractFunctionRunnableImpl;
 import org.cyk.utility.__kernel__.function.FunctionRunnableMap;
 import org.cyk.utility.__kernel__.properties.Properties;
-import org.cyk.utility.client.controller.ControllerLayer;
 import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifierStringProvider;
 import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifierStringProviderImpl;
 import org.cyk.utility.client.controller.test.TestControllerCreate;
@@ -16,11 +15,14 @@ import org.cyk.utility.client.controller.test.arquillian.AbstractControllerArqui
 import org.junit.Test;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.ApplicationScopeLifeCycleListener;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.MinistryController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.RoleCategoryController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.RoleFunctionController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.RolePosteController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Ministry;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleCategory;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleFunction;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
 
 public class ControllerFunctionIntegrationTest extends AbstractControllerArquillianIntegrationTestWithDefaultDeploymentAsSwram {
@@ -34,46 +36,37 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	}
 	
 	@Test
-	public void read_roleCategories() throws Exception{
-		//__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
-		assertThat(__inject__(ControllerLayer.class).getInterfaceClassFromEntityClass(RoleCategory.class)).isEqualTo(RoleCategoryController.class);
-		assertThat(__inject__(RoleCategoryController.class).read(new Properties().setIsPageable(Boolean.FALSE))
-					.stream().map(x -> x.getCode()).collect(Collectors.toList())).contains("ADMINISTRATIF","BUDGETAIRE");
-		assertThat(__inject__(RoleCategoryController.class).readOneByBusinessIdentifier("ADMINISTRATIF")).isNotNull();
-		assertThat(__inject__(RoleCategoryController.class).readOneByBusinessIdentifier("BUDGETAIRE")).isNotNull();
-		assertThat(__inject__(RoleCategoryController.class).readOneByBusinessIdentifier("administratif")).isNull();
-		assertThat(__inject__(RoleCategoryController.class).readOneByBusinessIdentifier("budgetaire")).isNull();
+	public void create_roleCategories() throws Exception{
+		__inject__(TestControllerCreate.class).addObjects(__inject__(RoleCategory.class).setCode(__getRandomCode__())
+				.setName(__getRandomName__())).execute();
 	}
 	
 	@Test
-	public void count_roleCategories() throws Exception{
-		Long count = (Long) __inject__(RoleCategoryController.class).count();
-		assertThat(count).isEqualTo(2);
-	}
-	
-	@Test
-	public void read_roleFunctions() throws Exception{
-		//__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
-		//__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
-		assertThat(__inject__(RoleFunctionController.class).read(new Properties().setIsPageable(Boolean.FALSE))
-				.stream().map(x -> x.getCode()).collect(Collectors.toList())).contains("ASSISTANT","DIRECTEUR");
+	public void create_roleFunctions() throws Exception{
+		RoleCategory category = __inject__(RoleCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
+		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(category).addObjects(__inject__(RoleFunction.class).setCode(__getRandomCode__())
+				.setName(__getRandomName__()).setCategory(category)).execute();
 	}
 
 	@Test
-	public void read_rolePostes() throws Exception{
-		//__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
-		//__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
-		assertThat(__inject__(RolePosteController.class).read(new Properties().setIsPageable(Boolean.FALSE))
-				.stream().map(x -> x.getCode()).collect(Collectors.toList())).contains("ASSISTANT_SAISIE_MINISTERE_21","AGENT_VERIFICATEUR_MINISTERE_21");
+	public void create_rolePostes() throws Exception{
+		RoleCategory category = __inject__(RoleCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
+		RoleFunction function = __inject__(RoleFunction.class).setCode(__getRandomCode__()).setName(__getRandomName__()).setCategory(category);
+		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(category,function).addObjects(__inject__(RolePoste.class).setFunction(function)).execute();
 	}
 	
 	@Test
 	public void create_userAccount() throws Exception{
+		Ministry ministry = __inject__(Ministry.class).setIdentifier("21");
+		RoleCategory category = __inject__(RoleCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
+		RoleFunction function = __inject__(RoleFunction.class).setCode("ASSISTANT_SAISIE").setName(__getRandomName__()).setCategory(category);
+		RolePoste poste = __inject__(RolePoste.class).setFunction(function).setMinistry(ministry);
+		
 		UserAccount userAccount = __inject__(UserAccount.class);
-		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomCode__()+"@gmail.com");
+		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomElectronicMailAddress__());
 		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
 		userAccount.addRolePostes(__inject__(RolePoste.class).setCode("ASSISTANT_SAISIE_MINISTERE_21"));
-		__inject__(TestControllerCreate.class).addObjects(userAccount).addTryEndRunnables(new Runnable() {
+		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(ministry,category,function,poste).addObjects(userAccount).addTryEndRunnables(new Runnable() {
 			@Override
 			public void run() {
 				UserAccount userAccount01 = (UserAccount) __inject__(UserAccountController.class).readOne(userAccount.getIdentifier());
@@ -91,10 +84,19 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	
 	@Test
 	public void update_userAccount() throws Exception{
+		Ministry ministry = __inject__(Ministry.class).setIdentifier("21");
+		__inject__(MinistryController.class).create(ministry);
+		RoleCategory category = __inject__(RoleCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
+		__inject__(RoleCategoryController.class).create(category);
+		RoleFunction function = __inject__(RoleFunction.class).setCode("CONTROLEUR_FINANCIER").setName(__getRandomName__()).setCategory(category);
+		__inject__(RoleFunctionController.class).create(function);
+		RolePoste poste = __inject__(RolePoste.class).setFunction(function).setMinistry(ministry);
+		__inject__(RolePosteController.class).create(poste);
+		
 		UserAccount userAccount = __inject__(UserAccount.class);
 		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomCode__()+"@mail.com");
 		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
-		userAccount.addRolePostes(__inject__(RolePoste.class).setCode("CONTROLEUR_FINANCIER_MINISTERE_21"));
+		userAccount.addRolePostes(poste);
 		
 		__inject__(UserAccountController.class).create(userAccount);
 		
@@ -104,7 +106,12 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 		assertThat(userAccount.getRolePostes()).isNotEmpty();
 		assertThat(userAccount.getRolePostes().stream().map(RolePoste::getCode).collect(Collectors.toList())).contains("CONTROLEUR_FINANCIER_MINISTERE_21");
 		
-		userAccount.addRolePostes(__inject__(RolePoste.class).setCode("ASSISTANT_SAISIE_MINISTERE_21"));
+		function = __inject__(RoleFunction.class).setCode("ASSISTANT_SAISIE").setName(__getRandomName__()).setCategory(category);
+		__inject__(RoleFunctionController.class).create(function);
+		poste = __inject__(RolePoste.class).setFunction(function).setMinistry(ministry);
+		__inject__(RolePosteController.class).create(poste);
+		
+		userAccount.addRolePostes(poste);
 		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields(UserAccount.PROPERTY_ROLE_POSTES));
 		
 		userAccount = __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_ROLE_POSTES));
@@ -115,6 +122,8 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 				,"ASSISTANT_SAISIE_MINISTERE_21");
 		
 		__inject__(UserAccountController.class).delete(userAccount);
+		__inject__(RolePosteController.class).deleteAll();
+		__inject__(RoleFunctionController.class).deleteAll();
 	}
 	
 	/**/
