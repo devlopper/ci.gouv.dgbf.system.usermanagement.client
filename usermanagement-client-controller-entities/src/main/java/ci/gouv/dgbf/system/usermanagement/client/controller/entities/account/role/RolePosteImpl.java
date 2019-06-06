@@ -2,6 +2,8 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.ro
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOne;
@@ -13,6 +15,7 @@ public class RolePosteImpl extends AbstractDataIdentifiedByStringAndCodedAndName
 	private static final long serialVersionUID = 1L;
 
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
+	@NotNull
 	private RoleFunction function;
 	
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
