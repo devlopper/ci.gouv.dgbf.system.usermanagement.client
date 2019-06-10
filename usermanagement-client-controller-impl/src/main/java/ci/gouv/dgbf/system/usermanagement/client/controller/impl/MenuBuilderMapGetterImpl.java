@@ -12,6 +12,8 @@ import org.cyk.utility.system.action.SystemActionList;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Service;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PosteLocation;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PosteLocationType;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleCategory;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleFunction;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
@@ -43,7 +45,8 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 									__inject__(MenuItemBuilder.class).setCommandableName("Visualiser des privilèges")
 							)
 							
-							,*/__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").addEntitiesList(RoleCategory.class,RoleFunction.class,RolePoste.class)
+							,*/__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").addEntitiesList(RolePoste.class,RoleFunction.class,RoleCategory.class
+									,PosteLocation.class,PosteLocationType.class)
 							,__inject__(MenuItemBuilder.class).setCommandableName("Service").addEntitiesList(Service.class)
 							/*,__inject__(MenuItemBuilder.class).setCommandableName("Fonction").addChild(
 									__inject__(MenuItemBuilder.class).setCommandableName("Fonction")

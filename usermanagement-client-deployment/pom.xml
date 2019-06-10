@@ -30,5 +30,17 @@
 			<version>0.0.1</version>
 		</dependency>
 	</dependencies>		
+	
+	<profiles>
+		<profile>
+			<id>atlantis.dgbf</id>
+			<properties>
+				<cyk.parameter.system.name>Gestion des acteurs</cyk.parameter.system.name>
+				<cyk.context.parameter.theme.primefaces>atlantis-blue</cyk.context.parameter.theme.primefaces>
+				<cyk.context.parameter.theme.logo.file.name.prefix>ivorycoastLogo</cyk.context.parameter.theme.logo.file.name.prefix>
+				<cyk.context.parameter.theme.favicon.file.name.prefix>ivorycoast</cyk.context.parameter.theme.favicon.file.name.prefix>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>

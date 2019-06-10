@@ -5,7 +5,6 @@ import java.io.Serializable;
 import org.cyk.utility.clazz.ClassHelper;
 import org.cyk.utility.client.controller.data.AbstractDataFieldDescriptionsGetterImpl;
 import org.cyk.utility.field.FieldDescription;
-import org.cyk.utility.field.FieldDescriptions;
 import org.cyk.utility.system.action.SystemAction;
 import org.cyk.utility.system.action.SystemActionCreate;
 import org.cyk.utility.system.action.SystemActionUpdate;
@@ -24,12 +23,6 @@ public class DataFieldDescriptionsGetterImpl extends AbstractDataFieldDescriptio
 				&& (systemAction instanceof SystemActionCreate || systemAction instanceof SystemActionUpdate)) {
 			fieldDescription.setIsNullable(Boolean.TRUE);
 		}
-	}
-	
-	@Override
-	protected FieldDescriptions __execute__() throws Exception {
-		// TODO Auto-generated method stub
-		return super.__execute__();
 	}
 	
 }

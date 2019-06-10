@@ -18,14 +18,8 @@ public class RolePosteImpl extends AbstractDataIdentifiedByStringAndCodedAndName
 	@NotNull
 	private RoleFunction function;
 	
-	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
-	private Ministry ministry;
-	
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneAutoComplete
-	private Program program;
-	
-	@Input @InputChoice @InputChoiceOne @InputChoiceOneAutoComplete
-	private AdministrativeUnit administrativeUnit;
+	private PosteLocation location;
 	
 	@Override
 	public RoleFunction getFunction() {
@@ -38,32 +32,13 @@ public class RolePosteImpl extends AbstractDataIdentifiedByStringAndCodedAndName
 	}
 	
 	@Override
-	public Ministry getMinistry() {
-		return ministry;
-	}
-	@Override
-	public RolePoste setMinistry(Ministry ministry) {
-		this.ministry = ministry;
-		return this;
+	public PosteLocation getLocation() {
+		return location;
 	}
 	
 	@Override
-	public Program getProgram() {
-		return program;
-	}
-	@Override
-	public RolePoste setProgram(Program program) {
-		this.program = program;
-		return this;
-	}
-	
-	@Override
-	public AdministrativeUnit getAdministrativeUnit() {
-		return administrativeUnit;
-	}
-	@Override
-	public RolePoste setAdministrativeUnit(AdministrativeUnit administrativeUnit) {
-		this.administrativeUnit = administrativeUnit;
+	public RolePoste setLocation(PosteLocation location) {
+		this.location = location;
 		return this;
 	}
 	
