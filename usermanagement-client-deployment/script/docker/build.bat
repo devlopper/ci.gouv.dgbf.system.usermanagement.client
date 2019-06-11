@@ -1,1 +1,1 @@
-docker build --tag "usermanagement-client:latest" ../../
+docker build --tag "mic-utilisateur-gestion-client:latest" ../../

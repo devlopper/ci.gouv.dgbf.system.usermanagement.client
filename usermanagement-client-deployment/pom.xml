@@ -33,12 +33,36 @@
 	
 	<profiles>
 		<profile>
-			<id>atlantis.dgbf</id>
+			<id>deployment.common</id>
 			<properties>
 				<cyk.parameter.system.name>Gestion des acteurs</cyk.parameter.system.name>
 				<cyk.context.parameter.theme.primefaces>atlantis-blue</cyk.context.parameter.theme.primefaces>
 				<cyk.context.parameter.theme.logo.file.name.prefix>ivorycoastLogo</cyk.context.parameter.theme.logo.file.name.prefix>
 				<cyk.context.parameter.theme.favicon.file.name.prefix>ivorycoast</cyk.context.parameter.theme.favicon.file.name.prefix>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>deployment.server.jboss.wildfly.local</id>
+			<properties>
+				<cyk.parameter.proxy.uniform.resource.identifier>http://localhost:8080/usermanagement/server</cyk.parameter.proxy.uniform.resource.identifier>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>deployment.microservice.thorntail.local</id>
+			<properties>
+				<deployment.standalone.port.offset>2</deployment.standalone.port.offset>
+				<deployment.client.proxy.port>8081</deployment.client.proxy.port>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>deployment.microservice.thorntail.remote</id>
+			<properties>
+				<deployment.standalone.port.offset>0</deployment.standalone.port.offset>
+				<deployment.client.proxy.host>mic-utilisateur-gestion-server</deployment.client.proxy.host>
+				<deployment.client.proxy.port>80</deployment.client.proxy.port>
 			</properties>
 		</profile>
 	</profiles>
