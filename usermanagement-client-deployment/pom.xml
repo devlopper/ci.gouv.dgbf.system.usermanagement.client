@@ -24,6 +24,7 @@
 			<artifactId>usermanagement-client-controller-impl</artifactId>
 			<version>0.0.1</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.cyk.jee.utility.client.deployment</groupId>
 			<artifactId>jee-utility-client-deployment</artifactId>
@@ -43,14 +44,14 @@
 		</profile>
 		
 		<profile>
-			<id>deployment.server.jboss.wildfly.local</id>
+			<id>deployment.wildfly.local</id>
 			<properties>
 				<cyk.parameter.proxy.uniform.resource.identifier>http://localhost:8080/usermanagement/server</cyk.parameter.proxy.uniform.resource.identifier>
 			</properties>
 		</profile>
 		
 		<profile>
-			<id>deployment.microservice.thorntail.local</id>
+			<id>deployment.thorntail.local</id>
 			<properties>
 				<deployment.standalone.port.offset>2</deployment.standalone.port.offset>
 				<deployment.client.proxy.port>8081</deployment.client.proxy.port>
@@ -58,7 +59,7 @@
 		</profile>
 		
 		<profile>
-			<id>deployment.microservice.thorntail.remote</id>
+			<id>deployment.thorntail.remote</id>
 			<properties>
 				<deployment.standalone.port.offset>0</deployment.standalone.port.offset>
 				<deployment.client.proxy.host>mic-utilisateur-gestion-server</deployment.client.proxy.host>

@@ -1,3 +1,5 @@
 swarm:
+  context:
+    path: /sib/utilisateur-gestion-client
   port:
     offset: ${deployment.standalone.port.offset}
