@@ -3,16 +3,18 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.api.account;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
+import org.cyk.utility.__kernel__.DependencyInjection;
 import org.cyk.utility.__kernel__.function.AbstractFunctionRunnableImpl;
 import org.cyk.utility.__kernel__.function.FunctionRunnableMap;
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifierStringProvider;
 import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifierStringProviderImpl;
 import org.cyk.utility.client.controller.test.TestControllerCreate;
-import org.cyk.utility.client.controller.test.arquillian.AbstractControllerArquillianIntegrationTestWithDefaultDeploymentAsSwram;
-import org.cyk.utility.system.node.SystemNodeClient;
+import org.cyk.utility.client.controller.test.arquillian.AbstractControllerArquillianIntegrationTestWithDefaultDeployment;
+import org.cyk.utility.request.RequestGetter;
 import org.junit.Test;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.ApplicationScopeLifeCycleListener;
@@ -22,35 +24,47 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.Rol
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.RoleFunctionController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.RolePosteController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccountInterim;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PosteLocation;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PosteLocationType;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleCategory;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleFunction;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
 
-public class ControllerFunctionIntegrationTest extends AbstractControllerArquillianIntegrationTestWithDefaultDeploymentAsSwram {
+public class ControllerFunctionIntegrationTest extends AbstractControllerArquillianIntegrationTestWithDefaultDeployment {
 	private static final long serialVersionUID = 1L;
+	
+	@Override
+	protected void __listenBefore__() {
+		super.__listenBefore__();
+		System.out.println("ControllerFunctionIntegrationTest.__listenBefore__()");
+	}
 	
 	@Override
 	protected void __listenBeforeCallCountIsZero__() throws Exception {
 		super.__listenBeforeCallCountIsZero__();
+		System.out.println("ControllerFunctionIntegrationTest.__listenBeforeCallCountIsZero__() INITIALISATION ");
 		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
 		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
+		DependencyInjection.setQualifierClass(RequestGetter.class, org.cyk.utility.__kernel__.annotation.Test.class);
 	}
 	
-	//@Test
-	public void read_systemName() throws Exception{
-		assertThat(__inject__(SystemNodeClient.class).getName()).isEqualTo("SIIB");
+	private void __setup__() {
+		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
+		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
+		DependencyInjection.setQualifierClass(RequestGetter.class, org.cyk.utility.__kernel__.annotation.Test.class);
 	}
 	
 	@Test
 	public void create_roleCategories() throws Exception{
+		__setup__();
 		__inject__(TestControllerCreate.class).addObjects(__inject__(RoleCategory.class).setCode(__getRandomCode__())
 				.setName(__getRandomName__())).execute();
 	}
 	
 	@Test
 	public void create_roleFunctions() throws Exception{
+		__setup__();
 		RoleCategory category = __inject__(RoleCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(category).addObjects(__inject__(RoleFunction.class).setCode(__getRandomCode__())
 				.setName(__getRandomName__()).setCategory(category)).execute();
@@ -58,6 +72,7 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 
 	@Test
 	public void create_rolePostes() throws Exception{
+		__setup__();
 		PosteLocationType locationType = __inject__(PosteLocationType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		PosteLocation location = __inject__(PosteLocation.class).setIdentifier(__getRandomCode__()).setType(locationType);
 		RoleCategory category = __inject__(RoleCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
@@ -67,6 +82,7 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	
 	@Test
 	public void create_userAccount() throws Exception{
+		__setup__();
 		PosteLocationType locationType = __inject__(PosteLocationType.class).setCode("MINISTERE").setName("Ministère");
 		PosteLocation location = __inject__(PosteLocation.class).setIdentifier("21").setType(locationType);
 		RoleCategory category = __inject__(RoleCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
@@ -95,6 +111,7 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	
 	@Test
 	public void update_userAccount() throws Exception{
+		__setup__();
 		PosteLocationType locationType = __inject__(PosteLocationType.class).setCode("MINISTERE").setName("Ministère");
 		__inject__(PosteLocationTypeController.class).create(locationType);
 		PosteLocation location = __inject__(PosteLocation.class).setIdentifier("21").setType(locationType);
@@ -141,6 +158,25 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 		__inject__(PosteLocationTypeController.class).deleteAll();
 	}
 	
+	@Test
+	public void create_userAccountInterim() throws Exception{
+		__setup__();
+		UserAccount userAccount = __inject__(UserAccount.class);
+		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomElectronicMailAddress__());
+		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
+		
+		UserAccount interim = __inject__(UserAccount.class);
+		interim.getUser(Boolean.TRUE).setFirstName("Mel").setLastNames("Theo").setElectronicMailAddress(__getRandomElectronicMailAddress__());
+		interim.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
+		
+		UserAccountInterim userAccountInterim = __inject__(UserAccountInterim.class);
+		userAccountInterim.setUserAccount(userAccount);
+		userAccountInterim.setInterim(interim);
+		userAccountInterim.setFromDate(LocalDateTime.of(2000, 1, 1,0,0)).setToDate(LocalDateTime.of(2000, 2, 1,0,0));
+		
+		__inject__(TestControllerCreate.class).setName("Create UserAccountInterim").addObjectsToBeCreatedArray(userAccount,interim).addObjects(userAccountInterim).execute();
+	}
+	
 	/**/
 	
 	public static class ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl extends AbstractFunctionRunnableImpl<ProxyClassUniformResourceIdentifierStringProvider> implements Serializable {
@@ -156,5 +192,5 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 		}
 		
 	}
-	
+
 }

@@ -3,6 +3,7 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account;
 import java.io.Serializable;
 
 import org.cyk.utility.__kernel__.properties.Properties;
+import org.cyk.utility.client.controller.component.input.InputBuilder;
 import org.cyk.utility.client.controller.component.view.ViewBuilder;
 import org.cyk.utility.client.controller.component.window.AbstractWindowContainerManagedWindowBuilderEditDataImpl;
 import org.cyk.utility.client.controller.data.Data;
@@ -20,8 +21,11 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 	
 	@Override
 	protected void __execute__(Form form,SystemAction systemAction,Data data,ViewBuilder viewBuilder) {
-		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_ACCOUNT,Account.PROPERTY_IDENTIFIER);
-		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_ACCOUNT,Account.PROPERTY_PASS);
+		InputBuilder<?, ?> inputBuilder = (InputBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_ACCOUNT
+				,Account.PROPERTY_IDENTIFIER);
+		inputBuilder.getLabel(Boolean.TRUE).setValue("Nom d'utilisateur");
+		inputBuilder = (InputBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_ACCOUNT,Account.PROPERTY_PASS);
+		inputBuilder.getLabel(Boolean.TRUE).setValue("Mot de passe");
 		
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_FIRST_NAME);
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_LAST_NAMES);

@@ -15,6 +15,7 @@ public class UserImpl extends AbstractDataIdentifiedByStringImpl implements User
 	@Input @InputString @InputStringLineOne @NotNull private String firstName;
 	@Input @InputString @InputStringLineOne @NotNull private String lastNames;
 	@Input @InputString @InputStringLineOne @NotNull private String electronicMailAddress;
+	private String names;
 	
 	@Override
 	public User setIdentifier(String identifier) {
@@ -40,6 +41,17 @@ public class UserImpl extends AbstractDataIdentifiedByStringImpl implements User
 	@Override
 	public User setLastNames(String lastNames) {
 		this.lastNames = lastNames;
+		return this;
+	}
+	
+	@Override
+	public String getNames() {
+		return names;
+	}
+	
+	@Override
+	public User setNames(String names) {
+		this.names = names;
 		return this;
 	}
 	

@@ -12,6 +12,8 @@ import org.cyk.utility.system.action.SystemActionList;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Service;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccountInterim;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccountInterimModel;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PosteLocation;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PosteLocationType;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleCategory;
@@ -76,7 +78,8 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 							.setCommandableNavigationIdentifier("accountTestConnectionView")
 							*/
 							
-					).addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_ROLE_POSTES)		
+					).addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_ROLE_POSTES)
+					.addEntitiesList(UserAccountInterim.class,UserAccountInterimModel.class)
 				);	
 		//}
 	}

@@ -2,7 +2,7 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.api.account;
 
 import java.io.Serializable;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.AbstractControllerEntityImpl;
@@ -12,7 +12,7 @@ import org.cyk.utility.system.action.SystemAction;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.server.Constant;
 
-@Singleton
+@ApplicationScoped
 public class UserAccountControllerImpl extends AbstractControllerEntityImpl<UserAccount> implements UserAccountController,Serializable {
 	private static final long serialVersionUID = 1L;
 	

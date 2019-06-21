@@ -12,6 +12,9 @@ public interface User extends DataIdentifiedByString {
 	String getLastNames();
 	User setLastNames(String lastNames);
 	
+	String getNames();
+	User setNames(String names);
+	
 	String getElectronicMailAddress();
 	User setElectronicMailAddress(String electronicMailAddress);
 	
