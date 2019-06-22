@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
-import org.cyk.utility.__kernel__.DependencyInjection;
 import org.cyk.utility.__kernel__.function.AbstractFunctionRunnableImpl;
 import org.cyk.utility.__kernel__.function.FunctionRunnableMap;
 import org.cyk.utility.__kernel__.properties.Properties;
@@ -14,7 +13,6 @@ import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifi
 import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifierStringProviderImpl;
 import org.cyk.utility.client.controller.test.TestControllerCreate;
 import org.cyk.utility.client.controller.test.arquillian.AbstractControllerArquillianIntegrationTestWithDefaultDeployment;
-import org.cyk.utility.request.RequestGetter;
 import org.junit.Test;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.ApplicationScopeLifeCycleListener;
@@ -35,36 +33,20 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	private static final long serialVersionUID = 1L;
 	
 	@Override
-	protected void __listenBefore__() {
-		super.__listenBefore__();
-		System.out.println("ControllerFunctionIntegrationTest.__listenBefore__()");
-	}
-	
-	@Override
 	protected void __listenBeforeCallCountIsZero__() throws Exception {
 		super.__listenBeforeCallCountIsZero__();
-		System.out.println("ControllerFunctionIntegrationTest.__listenBeforeCallCountIsZero__() INITIALISATION ");
 		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
 		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
-		DependencyInjection.setQualifierClass(RequestGetter.class, org.cyk.utility.__kernel__.annotation.Test.class);
-	}
-	
-	private void __setup__() {
-		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
-		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
-		DependencyInjection.setQualifierClass(RequestGetter.class, org.cyk.utility.__kernel__.annotation.Test.class);
 	}
 	
 	@Test
 	public void create_roleCategories() throws Exception{
-		__setup__();
 		__inject__(TestControllerCreate.class).addObjects(__inject__(RoleCategory.class).setCode(__getRandomCode__())
 				.setName(__getRandomName__())).execute();
 	}
 	
 	@Test
 	public void create_roleFunctions() throws Exception{
-		__setup__();
 		RoleCategory category = __inject__(RoleCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(category).addObjects(__inject__(RoleFunction.class).setCode(__getRandomCode__())
 				.setName(__getRandomName__()).setCategory(category)).execute();
@@ -72,7 +54,6 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 
 	@Test
 	public void create_rolePostes() throws Exception{
-		__setup__();
 		PosteLocationType locationType = __inject__(PosteLocationType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		PosteLocation location = __inject__(PosteLocation.class).setIdentifier(__getRandomCode__()).setType(locationType);
 		RoleCategory category = __inject__(RoleCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
@@ -82,7 +63,6 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	
 	@Test
 	public void create_userAccount() throws Exception{
-		__setup__();
 		PosteLocationType locationType = __inject__(PosteLocationType.class).setCode("MINISTERE").setName("Ministère");
 		PosteLocation location = __inject__(PosteLocation.class).setIdentifier("21").setType(locationType);
 		RoleCategory category = __inject__(RoleCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
@@ -111,7 +91,6 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	
 	@Test
 	public void update_userAccount() throws Exception{
-		__setup__();
 		PosteLocationType locationType = __inject__(PosteLocationType.class).setCode("MINISTERE").setName("Ministère");
 		__inject__(PosteLocationTypeController.class).create(locationType);
 		PosteLocation location = __inject__(PosteLocation.class).setIdentifier("21").setType(locationType);
@@ -160,7 +139,6 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	
 	@Test
 	public void create_userAccountInterim() throws Exception{
-		__setup__();
 		UserAccount userAccount = __inject__(UserAccount.class);
 		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomElectronicMailAddress__());
 		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
