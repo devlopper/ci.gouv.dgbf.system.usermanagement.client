@@ -28,10 +28,10 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 			data.setIdentifier(representation.getIdentifier());
 			data.setUser(__inject__(InstanceHelper.class).buildOne(__inject__(User.class).getClass(), representation.getUser()));
 			data.setAccount(__inject__(InstanceHelper.class).buildOne(__inject__(Account.class).getClass(), representation.getAccount()));
-			if(representation.getRolePostes()!=null && representation.getRolePostes().getCollection()!=null) {
+			if(representation.getPostes()!=null && representation.getPostes().getCollection()!=null) {
 				Class<? extends RolePoste> klass = __inject__(RolePoste.class).getClass();
-				for(RolePosteDto index : representation.getRolePostes().getCollection())
-					data.getRolePostes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(klass, index));	
+				for(RolePosteDto index : representation.getPostes().getCollection())
+					data.getPostes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(klass, index));	
 			}
 		}else if(source instanceof UserAccount && destination instanceof UserAccountDto) {
 			UserAccount data = (UserAccount) source;
@@ -39,9 +39,9 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 			representation.setIdentifier(data.getIdentifier());
 			representation.setUser(__inject__(InstanceHelper.class).buildOne(UserDto.class, data.getUser()));			
 			representation.setAccount(__inject__(InstanceHelper.class).buildOne(AccountDto.class, data.getAccount()));
-			if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(data.getRolePostes()))) {
-				for(RolePoste index : data.getRolePostes())
-					representation.getRolePostes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(RolePosteDto.class, index));	
+			if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(data.getPostes()))) {
+				for(RolePoste index : data.getPostes())
+					representation.getPostes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(RolePosteDto.class, index));	
 			}
 		}/*else if(source instanceof UserDto && destination instanceof User) {
 			UserDto representation = (UserDto) source;

@@ -9,9 +9,12 @@ import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceMany;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceManyAutoComplete;
+import org.cyk.utility.client.controller.component.annotation.InputChoiceOneCombo;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
 import org.cyk.utility.collection.CollectionHelper;
 
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleFunction;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
 
 public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implements UserAccount,Serializable {
@@ -20,8 +23,14 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	private User user;
 	private Account account;
 	
+	@Input @InputChoice @InputChoiceMany @InputChoiceOneCombo
+	private List<RoleFunction> functions;
+	
+	@Input @InputChoice @InputChoiceMany @InputChoiceOneCombo
+	private List<Profile> profiles;
+	
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyAutoComplete
-	private List<RolePoste> rolePostes;
+	private List<RolePoste> postes;
 	
 	@Override
 	public UserAccount setIdentifier(Object identifier) {
@@ -61,38 +70,103 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	}
 	
 	@Override
-	public List<RolePoste> getRolePostes() {
-		return rolePostes;
+	public List<RolePoste> getPostes() {
+		return postes;
 	}
 	
 	@Override
-	public UserAccount setRolePostes(List<RolePoste> rolePostes) {
-		this.rolePostes = rolePostes;
+	public UserAccount setPostes(List<RolePoste> postes) {
+		this.postes = postes;
 		return this;
 	}
 	
 	@Override
-	public List<RolePoste> getRolePostes(Boolean injectIfNull) {
-		if(rolePostes == null)
-			rolePostes = new ArrayList<>();
-		return rolePostes;
-		//return (List<RolePoste>) __getInjectIfNull__(FIELD_ROLE_POSTES, injectIfNull);
+	public List<RolePoste> getPostes(Boolean injectIfNull) {
+		if(postes == null && Boolean.TRUE.equals(injectIfNull))
+			postes = new ArrayList<>();
+		return postes;
 	}
 	
 	@Override
-	public UserAccount addRolePostes(Collection<RolePoste> rolePostes) {
-		getRolePostes(Boolean.TRUE).addAll(rolePostes);
+	public UserAccount addPostes(Collection<RolePoste> postes) {
+		getPostes(Boolean.TRUE).addAll(postes);
 		return this;
 	}
 	
 	@Override
-	public UserAccount addRolePostes(RolePoste... rolePostes) {
-		addRolePostes(__inject__(CollectionHelper.class).instanciate(rolePostes));
+	public UserAccount addPostes(RolePoste... postes) {
+		addPostes(__inject__(CollectionHelper.class).instanciate(postes));
 		return this;
 	}
 	
 	/**/
 	
-	public static final String FIELD_ROLE_POSTES = "rolePostes";
+	@Override
+	public List<RoleFunction> getFunctions() {
+		return functions;
+	}
+	
+	@Override
+	public UserAccount setFunctions(List<RoleFunction> functions) {
+		this.functions = functions;
+		return this;
+	}
+	
+	@Override
+	public List<RoleFunction> getFunctions(Boolean injectIfNull) {
+		if(functions == null && Boolean.TRUE.equals(injectIfNull))
+			functions = new ArrayList<>();
+		return functions;
+	}
+	
+	@Override
+	public UserAccount addFunctions(Collection<RoleFunction> functions) {
+		getFunctions(Boolean.TRUE).addAll(functions);
+		return this;
+	}
+	
+	@Override
+	public UserAccount addFunctions(RoleFunction... functions) {
+		addFunctions(__inject__(CollectionHelper.class).instanciate(functions));
+		return this;
+	}
+	
+	/**/
+	
+	@Override
+	public List<Profile> getProfiles() {
+		return profiles;
+	}
+	
+	@Override
+	public UserAccount setProfiles(List<Profile> profiles) {
+		this.profiles = profiles;
+		return this;
+	}
+	
+	@Override
+	public List<Profile> getProfiles(Boolean injectIfNull) {
+		if(profiles == null && Boolean.TRUE.equals(injectIfNull))
+			profiles = new ArrayList<>();
+		return profiles;
+	}
+	
+	@Override
+	public UserAccount addProfiles(Collection<Profile> profiles) {
+		getProfiles(Boolean.TRUE).addAll(profiles);
+		return this;
+	}
+	
+	@Override
+	public UserAccount addProfiles(Profile... profiles) {
+		addProfiles(__inject__(CollectionHelper.class).instanciate(profiles));
+		return this;
+	}
+	
+	/**/
+	
+	public static final String FIELD_FUNCTIONS = "functions";
+	public static final String FIELD_PROFILES = "profiles";
+	public static final String FIELD_ROLE_POSTES = "postes";
 	
 }
