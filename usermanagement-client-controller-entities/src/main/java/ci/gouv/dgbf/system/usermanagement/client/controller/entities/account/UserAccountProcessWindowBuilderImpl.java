@@ -24,7 +24,7 @@ public class UserAccountProcessWindowBuilderImpl extends AbstractWindowContainer
 			viewBuilder.addInputBuilderByObjectByFieldNames(data, Boolean.FALSE, UserAccount.PROPERTY_USER,User.PROPERTY_LAST_NAMES);
 			viewBuilder.addInputBuilderByObjectByFieldNames(data, Boolean.FALSE, UserAccount.PROPERTY_USER,User.PROPERTY_ELECTRONIC_MAIL_ADDRESS);
 			
-			InputBuilder<?, ?> inputBuilder = (InputBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data, Boolean.TRUE, UserAccount.PROPERTY_ROLE_POSTES);
+			InputBuilder<?, ?> inputBuilder = (InputBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data, Boolean.TRUE, UserAccount.PROPERTY_POSTES);
 			inputBuilder.setIsNullable(Boolean.FALSE);
 		}
 	}
@@ -33,7 +33,7 @@ public class UserAccountProcessWindowBuilderImpl extends AbstractWindowContainer
 	protected Object __readOne__(SystemAction systemAction,Class<?> klass, Object identifier, Properties properties) {
 		if(properties == null)
 			properties = new Properties();
-		properties.setFields(UserAccount.PROPERTY_ROLE_POSTES);
+		properties.setFields(UserAccount.PROPERTY_POSTES);
 		return super.__readOne__(systemAction,klass, identifier, properties);
 	}
 	

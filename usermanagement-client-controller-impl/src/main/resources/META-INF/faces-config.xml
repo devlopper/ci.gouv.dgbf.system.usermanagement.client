@@ -14,6 +14,12 @@
 			<redirect />
 		</navigation-case>
 		
+		<navigation-case>
+			<from-outcome>userAccountAssignProfiles</from-outcome>
+			<to-view-id>/private/useraccount/assignprofiles.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
 	</navigation-rule>
 
 </faces-config>

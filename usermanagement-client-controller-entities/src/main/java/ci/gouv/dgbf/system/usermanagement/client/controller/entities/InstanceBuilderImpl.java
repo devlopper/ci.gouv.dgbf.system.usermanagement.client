@@ -10,10 +10,12 @@ import org.cyk.utility.instance.InstanceHelper;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Account;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.User;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.AccountDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserAccountDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserDto;
+import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.role.ProfileDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.role.RolePosteDto;
 
 @ci.gouv.dgbf.system.usermanagement.server.annotation.System
@@ -33,6 +35,11 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 				for(RolePosteDto index : representation.getPostes().getCollection())
 					data.getPostes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(klass, index));	
 			}
+			if(representation.getProfiles()!=null && representation.getProfiles().getCollection()!=null) {
+				Class<? extends Profile> klass = __inject__(Profile.class).getClass();
+				for(ProfileDto index : representation.getProfiles().getCollection())
+					data.getProfiles(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(klass, index));	
+			}
 		}else if(source instanceof UserAccount && destination instanceof UserAccountDto) {
 			UserAccount data = (UserAccount) source;
 			UserAccountDto representation = (UserAccountDto) destination;
@@ -42,6 +49,10 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 			if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(data.getPostes()))) {
 				for(RolePoste index : data.getPostes())
 					representation.getPostes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(RolePosteDto.class, index));	
+			}
+			if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(data.getProfiles()))) {
+				for(Profile index : data.getProfiles())
+					representation.getProfiles(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(ProfileDto.class, index));	
 			}
 		}/*else if(source instanceof UserDto && destination instanceof User) {
 			UserDto representation = (UserDto) source;

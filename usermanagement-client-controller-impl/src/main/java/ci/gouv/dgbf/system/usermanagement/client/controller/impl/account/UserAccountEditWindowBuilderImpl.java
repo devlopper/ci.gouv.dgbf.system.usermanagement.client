@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.component.input.InputBuilder;
+import org.cyk.utility.client.controller.component.input.choice.InputChoiceBuilder;
 import org.cyk.utility.client.controller.component.view.ViewBuilder;
 import org.cyk.utility.client.controller.component.window.AbstractWindowContainerManagedWindowBuilderEditDataImpl;
 import org.cyk.utility.client.controller.data.Data;
@@ -30,7 +31,10 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_FIRST_NAME);
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_LAST_NAMES);
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_ELECTRONIC_MAIL_ADDRESS);
-		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_ROLE_POSTES);
+		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_FUNCTIONS);
+		InputChoiceBuilder<?, ?> inputChoiceBuilder = (InputChoiceBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_PROFILES);
+		inputChoiceBuilder.setIsGetChoices(Boolean.FALSE);
+		//viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_POSTES);
 	}
 
 	@Override
@@ -47,7 +51,7 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 	protected Object __readOne__(SystemAction systemAction,Class<?> klass, Object identifier, Properties properties) {
 		if(properties == null)
 			properties = new Properties();
-		properties.setFields(UserAccount.PROPERTY_ROLE_POSTES);
+		properties.setFields(UserAccount.PROPERTY_POSTES+","+UserAccount.PROPERTY_PROFILES);
 		return super.__readOne__(systemAction,klass, identifier, properties);
 	}
 	

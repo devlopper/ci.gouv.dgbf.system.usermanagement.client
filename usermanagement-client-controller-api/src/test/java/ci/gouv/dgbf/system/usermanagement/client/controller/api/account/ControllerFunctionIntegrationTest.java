@@ -85,23 +85,28 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 		RoleCategory category = __inject__(RoleCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		RoleFunction function = __inject__(RoleFunction.class).setCode("ASSISTANT_SAISIE").setName(__getRandomName__()).setCategory(category);
 		RolePoste poste = __inject__(RolePoste.class).setFunction(function).setLocation(location);
+		Profile profile = __inject__(Profile.class).setCode("p001").setName(__getRandomName__());
 		
 		UserAccount userAccount = __inject__(UserAccount.class);
 		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomElectronicMailAddress__());
 		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
-		userAccount.addPostes(__inject__(RolePoste.class).setCode("ASSISTANT_SAISIE_MINISTERE_21"));
-		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(locationType,location,category,function,poste).addObjects(userAccount).addTryEndRunnables(new Runnable() {
+		userAccount.addPostes(__inject__(RolePoste.class).setCode("ASSISTANT_SAISIE_MINISTERE_21")).addProfiles(__inject__(Profile.class).setCode("p001").setName(__getRandomName__()));
+		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(locationType,location,category,function,poste,profile).addObjects(userAccount).addTryEndRunnables(new Runnable() {
 			@Override
 			public void run() {
 				UserAccount userAccount01 = (UserAccount) __inject__(UserAccountController.class).readOne(userAccount.getIdentifier());
 				assertThat(userAccount01).as("user account is null").isNotNull();
 				assertThat(userAccount01.getPostes()).as("user account roles collection is not null").isNull();
 				
-				userAccount01 = (UserAccount) __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(),new Properties().setFields(UserAccount.PROPERTY_ROLE_POSTES));
+				userAccount01 = (UserAccount) __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(),new Properties()
+						.setFields(UserAccount.PROPERTY_POSTES+","+UserAccount.PROPERTY_PROFILES));
 				assertThat(userAccount01).as("user account is null").isNotNull();
 				assertThat(userAccount01.getPostes()).as("user account roles collection is null").isNotNull();
 				assertThat(userAccount01.getPostes()).as("user account roles collection is empty").isNotEmpty();
 				assertThat(userAccount01.getPostes().stream().map(RolePoste::getCode).collect(Collectors.toList())).contains("ASSISTANT_SAISIE_MINISTERE_21");
+				assertThat(userAccount01.getProfiles()).as("user account profiles collection is null").isNotNull();
+				assertThat(userAccount01.getProfiles()).as("user account profiles collection is empty").isNotEmpty();
+				assertThat(userAccount01.getProfiles().stream().map(Profile::getCode).collect(Collectors.toList())).contains("p001");
 			}
 		}).execute();
 	}
@@ -126,7 +131,7 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 		
 		__inject__(UserAccountController.class).create(userAccount);
 		
-		userAccount = __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_ROLE_POSTES));
+		userAccount = __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_POSTES));
 		assertThat(userAccount).isNotNull();
 		assertThat(userAccount.getPostes()).isNotNull();
 		assertThat(userAccount.getPostes()).isNotEmpty();
@@ -138,9 +143,9 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 		__inject__(RolePosteController.class).create(poste);
 		
 		userAccount.addPostes(poste);
-		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields(UserAccount.PROPERTY_ROLE_POSTES));
+		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields(UserAccount.PROPERTY_POSTES));
 		
-		userAccount = __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_ROLE_POSTES));
+		userAccount = __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_POSTES));
 		assertThat(userAccount).isNotNull();
 		assertThat(userAccount.getPostes()).isNotNull();
 		assertThat(userAccount.getPostes()).isNotEmpty();

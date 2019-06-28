@@ -20,7 +20,7 @@ public class UserAccountControllerImpl extends AbstractControllerEntityImpl<User
 	public ControllerServiceProvider<UserAccount> process(UserAccount userAccount, Properties properties) {
 		SystemAction systemAction = (SystemAction) properties.getSystemAction();
 		if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_ROLE_POSTES.equals(systemAction.getIdentifier())) {
-			update(userAccount,new Properties().setSystemAction(systemAction).setFields(UserAccount.PROPERTY_ROLE_POSTES));
+			update(userAccount,new Properties().setSystemAction(systemAction).setFields(UserAccount.PROPERTY_POSTES));
 		}
 		return this;
 	}

@@ -9,7 +9,7 @@ import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceMany;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceManyAutoComplete;
-import org.cyk.utility.client.controller.component.annotation.InputChoiceOneCombo;
+import org.cyk.utility.client.controller.component.annotation.InputChoiceManyCheckBox;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
 import org.cyk.utility.collection.CollectionHelper;
 
@@ -23,10 +23,10 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	private User user;
 	private Account account;
 	
-	@Input @InputChoice @InputChoiceMany @InputChoiceOneCombo
+	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
 	private List<RoleFunction> functions;
 	
-	@Input @InputChoice @InputChoiceMany @InputChoiceOneCombo
+	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
 	private List<Profile> profiles;
 	
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyAutoComplete

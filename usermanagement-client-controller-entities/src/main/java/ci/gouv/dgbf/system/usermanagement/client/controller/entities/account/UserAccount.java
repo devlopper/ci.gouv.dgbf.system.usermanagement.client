@@ -43,6 +43,7 @@ public interface UserAccount extends DataIdentifiedByString {
 	
 	String PROPERTY_USER = "user";
 	String PROPERTY_ACCOUNT = "account";
-	String PROPERTY_ROLE_POSTES = "postes";
+	String PROPERTY_FUNCTIONS = "functions";
+	String PROPERTY_POSTES = "postes";
 	String PROPERTY_PROFILES = "profiles";
 }

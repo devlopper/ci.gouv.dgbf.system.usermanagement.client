@@ -78,7 +78,8 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 							.setCommandableNavigationIdentifier("accountTestConnectionView")
 							*/
 							
-					).addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_ROLE_POSTES)
+					)//.addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_ROLE_POSTES)
+					.addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PROFILES)
 					.addEntitiesList(UserAccountInterim.class,UserAccountInterimModel.class)
 				);	
 		//}
