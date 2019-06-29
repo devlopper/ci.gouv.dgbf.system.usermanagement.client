@@ -16,7 +16,7 @@ import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserAccountDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.role.ProfileDto;
-import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.role.RolePosteDto;
+import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.role.FunctionScopeDto;
 
 @ci.gouv.dgbf.system.usermanagement.server.annotation.System
 public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements Serializable {
@@ -32,7 +32,7 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 			data.setAccount(__inject__(InstanceHelper.class).buildOne(__inject__(Account.class).getClass(), representation.getAccount()));
 			if(representation.getPostes()!=null && representation.getPostes().getCollection()!=null) {
 				Class<? extends RolePoste> klass = __inject__(RolePoste.class).getClass();
-				for(RolePosteDto index : representation.getPostes().getCollection())
+				for(FunctionScopeDto index : representation.getPostes().getCollection())
 					data.getPostes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(klass, index));	
 			}
 			if(representation.getProfiles()!=null && representation.getProfiles().getCollection()!=null) {
@@ -48,7 +48,7 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 			representation.setAccount(__inject__(InstanceHelper.class).buildOne(AccountDto.class, data.getAccount()));
 			if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(data.getPostes()))) {
 				for(RolePoste index : data.getPostes())
-					representation.getPostes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(RolePosteDto.class, index));	
+					representation.getPostes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(FunctionScopeDto.class, index));	
 			}
 			if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(data.getProfiles()))) {
 				for(Profile index : data.getProfiles())
