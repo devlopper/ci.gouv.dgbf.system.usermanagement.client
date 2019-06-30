@@ -14,8 +14,8 @@ import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl
 import org.cyk.utility.collection.CollectionHelper;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleFunction;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
 
 public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implements UserAccount,Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,13 +24,13 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	private Account account;
 	
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
-	private List<RoleFunction> functions;
+	private List<Function> functions;
 	
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
 	private List<Profile> profiles;
 	
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyAutoComplete
-	private List<RolePoste> postes;
+	private List<FunctionScope> functionScopes;
 	
 	@Override
 	public UserAccount setIdentifier(Object identifier) {
@@ -70,63 +70,63 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	}
 	
 	@Override
-	public List<RolePoste> getPostes() {
-		return postes;
+	public List<FunctionScope> getFunctionScopes() {
+		return functionScopes;
 	}
 	
 	@Override
-	public UserAccount setPostes(List<RolePoste> postes) {
-		this.postes = postes;
+	public UserAccount setFunctionScopes(List<FunctionScope> functionScopes) {
+		this.functionScopes = functionScopes;
 		return this;
 	}
 	
 	@Override
-	public List<RolePoste> getPostes(Boolean injectIfNull) {
-		if(postes == null && Boolean.TRUE.equals(injectIfNull))
-			postes = new ArrayList<>();
-		return postes;
+	public List<FunctionScope> getFunctionScopes(Boolean injectIfNull) {
+		if(functionScopes == null && Boolean.TRUE.equals(injectIfNull))
+			functionScopes = new ArrayList<>();
+		return functionScopes;
 	}
 	
 	@Override
-	public UserAccount addPostes(Collection<RolePoste> postes) {
-		getPostes(Boolean.TRUE).addAll(postes);
+	public UserAccount addFunctionScopes(Collection<FunctionScope> functionScopes) {
+		getFunctionScopes(Boolean.TRUE).addAll(functionScopes);
 		return this;
 	}
 	
 	@Override
-	public UserAccount addPostes(RolePoste... postes) {
-		addPostes(__inject__(CollectionHelper.class).instanciate(postes));
+	public UserAccount addFunctionScopes(FunctionScope... functionScopes) {
+		addFunctionScopes(__inject__(CollectionHelper.class).instanciate(functionScopes));
 		return this;
 	}
 	
 	/**/
 	
 	@Override
-	public List<RoleFunction> getFunctions() {
+	public List<Function> getFunctions() {
 		return functions;
 	}
 	
 	@Override
-	public UserAccount setFunctions(List<RoleFunction> functions) {
+	public UserAccount setFunctions(List<Function> functions) {
 		this.functions = functions;
 		return this;
 	}
 	
 	@Override
-	public List<RoleFunction> getFunctions(Boolean injectIfNull) {
+	public List<Function> getFunctions(Boolean injectIfNull) {
 		if(functions == null && Boolean.TRUE.equals(injectIfNull))
 			functions = new ArrayList<>();
 		return functions;
 	}
 	
 	@Override
-	public UserAccount addFunctions(Collection<RoleFunction> functions) {
+	public UserAccount addFunctions(Collection<Function> functions) {
 		getFunctions(Boolean.TRUE).addAll(functions);
 		return this;
 	}
 	
 	@Override
-	public UserAccount addFunctions(RoleFunction... functions) {
+	public UserAccount addFunctions(Function... functions) {
 		addFunctions(__inject__(CollectionHelper.class).instanciate(functions));
 		return this;
 	}
@@ -162,11 +162,5 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 		addProfiles(__inject__(CollectionHelper.class).instanciate(profiles));
 		return this;
 	}
-	
-	/**/
-	
-	public static final String FIELD_FUNCTIONS = "functions";
-	public static final String FIELD_PROFILES = "profiles";
-	public static final String FIELD_ROLE_POSTES = "postes";
-	
+		
 }

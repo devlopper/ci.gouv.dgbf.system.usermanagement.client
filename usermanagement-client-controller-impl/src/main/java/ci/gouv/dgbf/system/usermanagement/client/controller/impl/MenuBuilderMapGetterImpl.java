@@ -14,11 +14,11 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Ser
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccountInterim;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccountInterimModel;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PosteLocation;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PosteLocationType;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleCategory;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleFunction;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionCategory;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
 import ci.gouv.dgbf.system.usermanagement.server.Constant;
 
 @ci.gouv.dgbf.system.usermanagement.server.annotation.System
@@ -47,8 +47,8 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 									__inject__(MenuItemBuilder.class).setCommandableName("Visualiser des privilèges")
 							)
 							
-							,*/__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").addEntitiesList(RolePoste.class,RoleFunction.class,RoleCategory.class
-									,PosteLocation.class,PosteLocationType.class)
+							,*/__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").addEntitiesList(FunctionScope.class,Function.class,FunctionCategory.class
+									,Scope.class,ScopeType.class)
 							,__inject__(MenuItemBuilder.class).setCommandableName("Service").addEntitiesList(Service.class)
 							/*,__inject__(MenuItemBuilder.class).setCommandableName("Fonction").addChild(
 									__inject__(MenuItemBuilder.class).setCommandableName("Fonction")

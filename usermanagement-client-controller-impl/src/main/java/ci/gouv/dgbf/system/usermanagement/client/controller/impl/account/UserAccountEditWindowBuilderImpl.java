@@ -20,7 +20,7 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Use
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccountEditWindowBuilder;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleFunction;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 
 public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerManagedWindowBuilderEditDataImpl implements UserAccountEditWindowBuilder, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -43,7 +43,7 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 			@Override
 			public void run() {
 				@SuppressWarnings("unchecked")
-				Collection<RoleFunction> values = (Collection<RoleFunction>) functions.getComponent().getValue();
+				Collection<Function> values = (Collection<Function>) functions.getComponent().getValue();
 				Collection<Profile> f;
 				profiles.getComponent().addChoices(__inject__(CollectionHelper.class).cast(Object.class, values));
 			}
@@ -66,7 +66,7 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 	protected Object __readOne__(SystemAction systemAction,Class<?> klass, Object identifier, Properties properties) {
 		if(properties == null)
 			properties = new Properties();
-		properties.setFields(UserAccount.PROPERTY_POSTES+","+UserAccount.PROPERTY_PROFILES);
+		properties.setFields(UserAccount.PROPERTY_FUNCTION_SCOPES+","+UserAccount.PROPERTY_PROFILES);
 		return super.__readOne__(systemAction,klass, identifier, properties);
 	}
 	

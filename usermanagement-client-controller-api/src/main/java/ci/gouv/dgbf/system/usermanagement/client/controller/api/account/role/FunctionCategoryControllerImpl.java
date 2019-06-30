@@ -6,10 +6,10 @@ import javax.enterprise.context.ApplicationScoped;
 
 import org.cyk.utility.client.controller.AbstractControllerEntityImpl;
 
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RoleFunction;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionCategory;
 
 @ApplicationScoped
-public class RoleFunctionControllerImpl extends AbstractControllerEntityImpl<RoleFunction> implements RoleFunctionController,Serializable {
+public class FunctionCategoryControllerImpl extends AbstractControllerEntityImpl<FunctionCategory> implements FunctionCategoryController,Serializable {
 	private static final long serialVersionUID = 1L;
 	
 }

@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
 
-public class ProfileRoleFunctionImpl extends AbstractDataIdentifiedByStringImpl implements ProfileRoleFunction,Serializable {
+public class ProfileFunctionImpl extends AbstractDataIdentifiedByStringImpl implements ProfileFunction,Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Profile profile;
-	private RoleFunction function;
+	private Function function;
 	
 	@Override
-	public ProfileRoleFunction setIdentifier(String identifier) {
-		return (ProfileRoleFunction) super.setIdentifier(identifier);
+	public ProfileFunction setIdentifier(String identifier) {
+		return (ProfileFunction) super.setIdentifier(identifier);
 	}
 
 	@Override
-	public ProfileRoleFunction setProfile(Profile profile) {
+	public ProfileFunction setProfile(Profile profile) {
 		this.profile = profile;
 		return this;
 	}
@@ -27,13 +27,13 @@ public class ProfileRoleFunctionImpl extends AbstractDataIdentifiedByStringImpl 
 	}
 
 	@Override
-	public ProfileRoleFunction setFunction(RoleFunction function) {
+	public ProfileFunction setFunction(Function function) {
 		this.function = function;
 		return this;
 	}
 
 	@Override
-	public RoleFunction getFunction() {
+	public Function getFunction() {
 		return function;
 	}
 	

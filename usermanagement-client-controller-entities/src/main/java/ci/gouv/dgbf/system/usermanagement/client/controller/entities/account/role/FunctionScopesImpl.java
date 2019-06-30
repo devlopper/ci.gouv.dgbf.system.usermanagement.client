@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.cyk.utility.collection.AbstractCollectionInstanceImpl;
 
-public class RolePostesImpl extends AbstractCollectionInstanceImpl<RolePoste> implements RolePostes,Serializable {
+public class FunctionScopesImpl extends AbstractCollectionInstanceImpl<FunctionScope> implements FunctionScopes,Serializable {
 	private static final long serialVersionUID = 1L;
 
 }

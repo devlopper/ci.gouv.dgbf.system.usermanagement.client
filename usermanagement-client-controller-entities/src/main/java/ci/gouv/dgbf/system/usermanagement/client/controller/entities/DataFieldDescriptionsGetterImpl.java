@@ -13,7 +13,7 @@ import org.cyk.utility.system.action.SystemActionUpdate;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Account;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccountInterim;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
 
 @ci.gouv.dgbf.system.usermanagement.server.annotation.System
 public class DataFieldDescriptionsGetterImpl extends AbstractDataFieldDescriptionsGetterImpl implements Serializable {
@@ -31,8 +31,8 @@ public class DataFieldDescriptionsGetterImpl extends AbstractDataFieldDescriptio
 	@Override
 	protected void __process__(SystemAction systemAction, FieldDescription fieldDescription) {
 		super.__process__(systemAction, fieldDescription);
-		if(Boolean.TRUE.equals( __inject__(ClassHelper.class).isInstanceOf(systemAction.getEntityClass(), RolePoste.class)) 
-				&& (fieldDescription.getName().equals(RolePoste.PROPERTY_CODE) || fieldDescription.getName().equals(RolePoste.PROPERTY_NAME)) 
+		if(Boolean.TRUE.equals( __inject__(ClassHelper.class).isInstanceOf(systemAction.getEntityClass(), FunctionScope.class)) 
+				&& (fieldDescription.getName().equals(FunctionScope.PROPERTY_CODE) || fieldDescription.getName().equals(FunctionScope.PROPERTY_NAME)) 
 				&& (systemAction instanceof SystemActionCreate || systemAction instanceof SystemActionUpdate)) {
 			fieldDescription.setIsNullable(Boolean.TRUE);
 		}else if(Boolean.TRUE.equals( __inject__(ClassHelper.class).isInstanceOf(systemAction.getEntityClass(), UserAccount.class)) 

@@ -6,7 +6,7 @@ import org.cyk.utility.client.controller.component.input.choice.AbstractChoicePr
 import org.cyk.utility.client.controller.component.input.choice.ChoiceProperty;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PosteLocation;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
 
 @ci.gouv.dgbf.system.usermanagement.server.annotation.System
 public class ChoicePropertyValueBuilderImpl extends AbstractChoicePropertyValueBuilderImpl implements Serializable {
@@ -15,10 +15,10 @@ public class ChoicePropertyValueBuilderImpl extends AbstractChoicePropertyValueB
 	@Override
 	protected String __execute__() throws Exception {
 		Object object = getObject();
-		if(object instanceof PosteLocation) {
+		if(object instanceof Scope) {
 			ChoiceProperty property = getProperty();
 			if(ChoiceProperty.LABEL.equals(property))
-				return ((PosteLocation)object).getType().getName()+ConstantCharacter.SPACE+((PosteLocation)object).getIdentifier();
+				return ((Scope)object).getType().getName()+ConstantCharacter.SPACE+((Scope)object).getIdentifier();
 		}else if(object instanceof UserAccount) {
 			ChoiceProperty property = getProperty();
 			if(ChoiceProperty.LABEL.equals(property))

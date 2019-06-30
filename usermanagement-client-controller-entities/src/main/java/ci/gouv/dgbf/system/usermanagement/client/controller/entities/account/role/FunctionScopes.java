@@ -2,6 +2,6 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.ro
 
 import org.cyk.utility.collection.CollectionInstance;
 
-public interface RolePostes extends CollectionInstance<RolePoste> {
+public interface FunctionScopes extends CollectionInstance<FunctionScope> {
 
 }

@@ -11,7 +11,7 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Acc
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.User;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.RolePoste;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.AccountDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserAccountDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserDto;
@@ -30,10 +30,10 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 			data.setIdentifier(representation.getIdentifier());
 			data.setUser(__inject__(InstanceHelper.class).buildOne(__inject__(User.class).getClass(), representation.getUser()));
 			data.setAccount(__inject__(InstanceHelper.class).buildOne(__inject__(Account.class).getClass(), representation.getAccount()));
-			if(representation.getPostes()!=null && representation.getPostes().getCollection()!=null) {
-				Class<? extends RolePoste> klass = __inject__(RolePoste.class).getClass();
-				for(FunctionScopeDto index : representation.getPostes().getCollection())
-					data.getPostes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(klass, index));	
+			if(representation.getFunctionScopes()!=null && representation.getFunctionScopes().getCollection()!=null) {
+				Class<? extends FunctionScope> klass = __inject__(FunctionScope.class).getClass();
+				for(FunctionScopeDto index : representation.getFunctionScopes().getCollection())
+					data.getFunctionScopes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(klass, index));	
 			}
 			if(representation.getProfiles()!=null && representation.getProfiles().getCollection()!=null) {
 				Class<? extends Profile> klass = __inject__(Profile.class).getClass();
@@ -46,9 +46,9 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 			representation.setIdentifier(data.getIdentifier());
 			representation.setUser(__inject__(InstanceHelper.class).buildOne(UserDto.class, data.getUser()));			
 			representation.setAccount(__inject__(InstanceHelper.class).buildOne(AccountDto.class, data.getAccount()));
-			if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(data.getPostes()))) {
-				for(RolePoste index : data.getPostes())
-					representation.getPostes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(FunctionScopeDto.class, index));	
+			if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(data.getFunctionScopes()))) {
+				for(FunctionScope index : data.getFunctionScopes())
+					representation.getFunctionScopes(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(FunctionScopeDto.class, index));	
 			}
 			if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(data.getProfiles()))) {
 				for(Profile index : data.getProfiles())

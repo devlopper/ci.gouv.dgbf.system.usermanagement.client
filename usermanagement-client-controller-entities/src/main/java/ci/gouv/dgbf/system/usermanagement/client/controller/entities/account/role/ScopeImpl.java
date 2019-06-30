@@ -8,26 +8,26 @@ import org.cyk.utility.client.controller.component.annotation.InputChoiceOne;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOneCombo;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
 
-public class PosteLocationImpl extends AbstractDataIdentifiedByStringImpl implements PosteLocation,Serializable {
+public class ScopeImpl extends AbstractDataIdentifiedByStringImpl implements Scope,Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
-	private PosteLocationType type;
+	private ScopeType type;
 	
 	@Override
-	public PosteLocationType getType() {
+	public ScopeType getType() {
 		return type;
 	}
 	
 	@Override
-	public PosteLocation setType(PosteLocationType type) {
+	public Scope setType(ScopeType type) {
 		this.type = type;
 		return this;
 	}
 	
 	@Override
-	public PosteLocation setIdentifier(String identifier) {
-		return (PosteLocation) super.setIdentifier(identifier);
+	public Scope setIdentifier(String identifier) {
+		return (Scope) super.setIdentifier(identifier);
 	}
 	
 }

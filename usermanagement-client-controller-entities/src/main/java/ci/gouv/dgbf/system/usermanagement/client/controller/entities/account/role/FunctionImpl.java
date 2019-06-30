@@ -8,35 +8,35 @@ import org.cyk.utility.client.controller.component.annotation.InputChoiceOne;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOneRadio;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringAndCodedAndNamedImpl;
 
-public class RoleFunctionImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedImpl implements RoleFunction,Serializable {
+public class FunctionImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedImpl implements Function,Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneRadio
-	private RoleCategory category;
+	private FunctionCategory category;
 	
 	@Override
-	public RoleCategory getCategory() {
+	public FunctionCategory getCategory() {
 		return category;
 	}
 	
 	@Override
-	public RoleFunction setCategory(RoleCategory category) {
+	public Function setCategory(FunctionCategory category) {
 		this.category = category;
 		return this;
 	}
 	
 	@Override
-	public RoleFunction setIdentifier(String identifier) {
-		return (RoleFunction) super.setIdentifier(identifier);
+	public Function setIdentifier(String identifier) {
+		return (Function) super.setIdentifier(identifier);
 	}
 	
 	@Override
-	public RoleFunction setCode(String code) {
-		return (RoleFunction) super.setCode(code);
+	public Function setCode(String code) {
+		return (Function) super.setCode(code);
 	}
 	
 	@Override
-	public RoleFunction setName(String name) {
-		return (RoleFunction) super.setName(name);
+	public Function setName(String name) {
+		return (Function) super.setName(name);
 	}
 }
