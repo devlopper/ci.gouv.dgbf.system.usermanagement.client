@@ -66,5 +66,21 @@ public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedI
 		return this;
 	}
 	
+	@Override
+	public Profile addFunctionsByCodes(Collection<String> codes) {
+		if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(codes))) {
+			for(String index : codes)
+				addFunctions(__inject__(Function.class).setCode(index));
+		}
+		return this;
+	}
+	
+	@Override
+	public Profile addFunctionsByCodes(String... codes) {
+		if(Boolean.TRUE.equals(__inject__(ArrayHelper.class).isNotEmpty(codes)))
+			addFunctionsByCodes(__inject__(CollectionHelper.class).instanciate(codes));
+		return this;
+	}
+	
 	/**/
 }

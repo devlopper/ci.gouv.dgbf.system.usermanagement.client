@@ -8,6 +8,7 @@ import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputString;
 import org.cyk.utility.client.controller.component.annotation.InputStringLineOne;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
+import org.cyk.utility.string.StringHelper;
 
 public class UserImpl extends AbstractDataIdentifiedByStringImpl implements User,Serializable {
 	private static final long serialVersionUID = 1L;
@@ -46,6 +47,11 @@ public class UserImpl extends AbstractDataIdentifiedByStringImpl implements User
 	
 	@Override
 	public String getNames() {
+		if(names == null) {
+			names = firstName;
+			if(Boolean.TRUE.equals(__inject__(StringHelper.class).isNotBlank(lastNames)))
+				names += " " + lastNames; 
+		}
 		return names;
 	}
 	

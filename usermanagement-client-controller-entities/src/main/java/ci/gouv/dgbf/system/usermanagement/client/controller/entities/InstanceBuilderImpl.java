@@ -56,20 +56,12 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 				for(Profile index : data.getProfiles())
 					representation.getProfiles(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(ProfileDto.class, index));	
 			}
-		}/*else if(source instanceof UserDto && destination instanceof User) {
-			UserDto representation = (UserDto) source;
-			User data = (User) destination;
-			data.setIdentifier(representation.getIdentifier());
-		}/*else if(source instanceof User && destination instanceof UserDto) {
-			User data = (User) source;
-			UserDto representation = (UserDto) destination;
-			representation.setElectronicMailAddress(data.getElectronicMailAddress());	
-		}*/else
-			super.__copy__(source, destination,properties);
-		
-		if(source instanceof ProfileDto && destination instanceof Profile) {
+		}else if(source instanceof ProfileDto && destination instanceof Profile) {
 			ProfileDto representation = (ProfileDto) source;
 			Profile data = (Profile) destination;
+			data.setIdentifier(representation.getIdentifier());
+			data.setCode(representation.getCode());
+			data.setName(representation.getName());
 			if(representation.getFunctions()!=null && representation.getFunctions().getCollection()!=null) {
 				Class<? extends Function> klass = __inject__(Function.class).getClass();
 				for(FunctionDto index : representation.getFunctions().getCollection())
@@ -78,11 +70,17 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 		}else if(source instanceof Profile && destination instanceof ProfileDto) {
 			Profile data = (Profile) source;
 			ProfileDto representation = (ProfileDto) destination;
+			representation.setIdentifier(data.getIdentifier());
+			representation.setCode(data.getCode());
+			representation.setName(data.getName());
 			if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(data.getFunctions()))) {
 				for(Function index : data.getFunctions())
 					representation.getFunctions(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(FunctionDto.class, index));	
 			}
-		}
+		}else
+			super.__copy__(source, destination,properties);
+		
+		
 	}
 	
 }

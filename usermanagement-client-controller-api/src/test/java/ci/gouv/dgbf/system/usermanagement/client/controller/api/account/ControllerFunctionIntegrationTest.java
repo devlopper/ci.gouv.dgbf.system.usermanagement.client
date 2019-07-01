@@ -16,20 +16,22 @@ import org.cyk.utility.client.controller.test.arquillian.AbstractControllerArqui
 import org.junit.Test;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.ApplicationScopeLifeCycleListener;
-import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ScopeController;
-import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ScopeTypeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.FunctionCategoryController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.FunctionController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.FunctionScopeController;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfileController;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfileFunctionController;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ScopeController;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ScopeTypeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccountInterim;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionCategory;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ProfileFunction;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionCategory;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
 
 public class ControllerFunctionIntegrationTest extends AbstractControllerArquillianIntegrationTestWithDefaultDeployment {
 	private static final long serialVersionUID = 1L;
@@ -76,6 +78,29 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 		Function function = __inject__(Function.class).setCode(__getRandomCode__()).setName(__getRandomName__()).setCategory(category);
 		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(profile,category,function).addObjects(__inject__(ProfileFunction.class)
 				.setProfile(profile).setFunction(function)).execute();
+	}
+	
+	@Test
+	public void create_profile_withFunctions() throws Exception {
+		FunctionCategory category = __inject__(FunctionCategory.class).setCode("c01").setName(__getRandomName__());
+		__inject__(FunctionCategoryController.class).create(category);
+		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f01").setName(__getRandomName__()).setCategory(__inject__(FunctionCategory.class).setCode("c01")));
+		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f02").setName(__getRandomName__()).setCategory(__inject__(FunctionCategory.class).setCode("c01")));
+		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f03").setName(__getRandomName__()).setCategory(__inject__(FunctionCategory.class).setCode("c01")));
+		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(0l);
+		__inject__(ProfileController.class).create(__inject__(Profile.class).setCode("p01").setName(__getRandomName__()).addFunctionsByCodes("f01","f03"));
+		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(2l);
+		__inject__(ProfileController.class).create(__inject__(Profile.class).setCode("p02").setName(__getRandomName__()).addFunctionsByCodes("f01","f02","f03"));
+		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(5l);
+		__inject__(ProfileController.class).update(__inject__(Profile.class).setCode("p02").setName(__getRandomName__()).addFunctionsByCodes("f02"),
+				new Properties().setFields(Profile.PROPERTY_FUNCTIONS));
+		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(3l);
+		__inject__(ProfileController.class).delete(__inject__(Profile.class).setCode("p01"));
+		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(1l);
+		
+		__inject__(ProfileController.class).deleteAll();
+		__inject__(FunctionController.class).deleteAll();
+		__inject__(FunctionCategoryController.class).deleteAll();
 	}
 	
 	@Test

@@ -16,6 +16,8 @@ public interface Profile extends DataIdentifiedByStringAndCodedAndNamed {
 	Profile setFunctions(List<Function> functions);
 	Profile addFunctions(Collection<Function> functions);
 	Profile addFunctions(Function...functions);
+	Profile addFunctionsByCodes(Collection<String> codes);
+	Profile addFunctionsByCodes(String...codes);
 	
 	String PROPERTY_FUNCTIONS = "functions";
 }

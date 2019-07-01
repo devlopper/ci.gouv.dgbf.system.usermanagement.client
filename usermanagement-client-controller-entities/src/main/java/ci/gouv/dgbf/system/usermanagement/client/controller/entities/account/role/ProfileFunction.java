@@ -11,4 +11,7 @@ public interface ProfileFunction extends DataIdentifiedByString {
 	
 	ProfileFunction setFunction(Function function);
 	Function getFunction();
+	
+	String PROPERTY_PROFILE = "profile";
+	String PROPERTY_FUNCTION = "function";
 }
