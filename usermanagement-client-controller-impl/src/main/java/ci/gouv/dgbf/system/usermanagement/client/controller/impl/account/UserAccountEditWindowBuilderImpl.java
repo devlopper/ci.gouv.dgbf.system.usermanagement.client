@@ -36,6 +36,7 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_FIRST_NAME);
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_LAST_NAMES);
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_ELECTRONIC_MAIL_ADDRESS);
+		/*
 		InputChoiceBuilder<?, ?> functions = (InputChoiceBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_FUNCTIONS);
 		InputChoiceBuilder<?, ?> profiles = (InputChoiceBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_PROFILES);
 		profiles.setIsGetChoices(Boolean.FALSE);
@@ -48,7 +49,7 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 				profiles.getComponent().addChoices(__inject__(CollectionHelper.class).cast(Object.class, values));
 			}
 		},profiles);
-		
+		*/
 		//viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_POSTES);
 	}
 
@@ -61,13 +62,13 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 		}
 		return userAccount;
 	}
-	
+	/*
 	@Override
 	protected Object __readOne__(SystemAction systemAction,Class<?> klass, Object identifier, Properties properties) {
 		if(properties == null)
 			properties = new Properties();
 		properties.setFields(UserAccount.PROPERTY_FUNCTION_SCOPES+","+UserAccount.PROPERTY_PROFILES);
 		return super.__readOne__(systemAction,klass, identifier, properties);
-	}
+	}*/
 	
 }

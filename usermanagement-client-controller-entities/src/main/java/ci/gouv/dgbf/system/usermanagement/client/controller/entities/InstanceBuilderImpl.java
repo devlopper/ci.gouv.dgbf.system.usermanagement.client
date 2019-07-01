@@ -11,11 +11,13 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Acc
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.User;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.AccountDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserAccountDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.role.ProfileDto;
+import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.role.FunctionDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.role.FunctionScopeDto;
 
 @ci.gouv.dgbf.system.usermanagement.server.annotation.System
@@ -64,6 +66,23 @@ public class InstanceBuilderImpl extends AbstractInstanceBuilderImpl implements 
 			representation.setElectronicMailAddress(data.getElectronicMailAddress());	
 		}*/else
 			super.__copy__(source, destination,properties);
+		
+		if(source instanceof ProfileDto && destination instanceof Profile) {
+			ProfileDto representation = (ProfileDto) source;
+			Profile data = (Profile) destination;
+			if(representation.getFunctions()!=null && representation.getFunctions().getCollection()!=null) {
+				Class<? extends Function> klass = __inject__(Function.class).getClass();
+				for(FunctionDto index : representation.getFunctions().getCollection())
+					data.getFunctions(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(klass, index));	
+			}
+		}else if(source instanceof Profile && destination instanceof ProfileDto) {
+			Profile data = (Profile) source;
+			ProfileDto representation = (ProfileDto) destination;
+			if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(data.getFunctions()))) {
+				for(Function index : data.getFunctions())
+					representation.getFunctions(Boolean.TRUE).add(__inject__(InstanceHelper.class).buildOne(FunctionDto.class, index));	
+			}
+		}
 	}
 	
 }
