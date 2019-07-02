@@ -29,6 +29,7 @@ import ci.gouv.dgbf.system.usermanagement.server.Constant;
 public class UserAccountProcessWindowBuilderImpl extends AbstractWindowContainerManagedWindowBuilderProcessDataImpl implements UserAccountProcessWindowBuilder,Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	protected void __execute__(Form form,SystemAction systemAction, Data data, ViewBuilder viewBuilder) {
 		if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PROFILES.equals(systemAction.getIdentifier()) || Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_FUNCTION_SCOPES
@@ -47,15 +48,15 @@ public class UserAccountProcessWindowBuilderImpl extends AbstractWindowContainer
 				functions.setChoicesLayout(__inject__(ChoicesLayoutResponsive.class).setNumberOfColumns(5));
 				InputChoiceBuilder<?, ?> profiles = (InputChoiceBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data, Boolean.TRUE, UserAccount.PROPERTY_PROFILES);
 				profiles.setIsGetChoices(Boolean.FALSE);
+				profiles.addChoices((Collection)((UserAccount)data).getProfiles());
 				functions.addEvent(EventName.CHANGE, new Runnable() {
 					@Override
 					public void run() {
-						@SuppressWarnings("unchecked")
 						Collection<Function> selectedFunctions = (Collection<Function>) functions.getComponent().getValue();
 						Map<String,Object> map = null;
 						if(Boolean.TRUE.equals(__injectCollectionHelper__().isNotEmpty(selectedFunctions))) {
 							map = __injectMapHelper__().instanciateKeyAsStringValueAsObject(ProfileFunction.PROPERTY_FUNCTION
-									,__injectStringHelper__().concatenate(selectedFunctions.stream().map(Function::getCode).collect(Collectors.toList()),","));
+									,selectedFunctions.stream().map(Function::getCode).collect(Collectors.toList()));
 						}
 						Collection<ProfileFunction> profileFunctions = __inject__(ProfileFunctionController.class).read(new Properties().setIsPageable(Boolean.FALSE)
 								.setFilters(map));
@@ -63,10 +64,15 @@ public class UserAccountProcessWindowBuilderImpl extends AbstractWindowContainer
 						if(Boolean.TRUE.equals(__injectCollectionHelper__().isNotEmpty(profileFunctions))) {
 							selectableProfiles = profileFunctions.stream().map(ProfileFunction::getProfile).collect(Collectors.toSet());
 						}
+						
 						if(profiles.getComponent().getChoices()!=null)
 							profiles.getComponent().getChoices().removeAll();
-						profiles.getComponent().addChoices(__inject__(CollectionHelper.class).cast(Object.class, selectableProfiles));
+						((UserAccount)data).setProfiles(null);
 						
+						if(Boolean.TRUE.equals(__injectCollectionHelper__().isNotEmpty(selectableProfiles))) {
+							((UserAccount)data).addProfiles(selectableProfiles);
+							profiles.getComponent().addChoices(__inject__(CollectionHelper.class).cast(Object.class, selectableProfiles));	
+						}
 					}
 				},profiles);
 			}else if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_FUNCTION_SCOPES.equals(systemAction.getIdentifier())) {

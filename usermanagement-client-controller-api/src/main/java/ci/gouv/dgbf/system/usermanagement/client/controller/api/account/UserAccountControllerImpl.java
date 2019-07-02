@@ -19,7 +19,9 @@ public class UserAccountControllerImpl extends AbstractControllerEntityImpl<User
 	@Override
 	public ControllerServiceProvider<UserAccount> process(UserAccount userAccount, Properties properties) {
 		SystemAction systemAction = (SystemAction) properties.getSystemAction();
-		if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_FUNCTION_SCOPES.equals(systemAction.getIdentifier())) {
+		if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PROFILES.equals(systemAction.getIdentifier())) {
+			update(userAccount,new Properties().setSystemAction(systemAction).setFields(UserAccount.PROPERTY_PROFILES));
+		}else if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_FUNCTION_SCOPES.equals(systemAction.getIdentifier())) {
 			update(userAccount,new Properties().setSystemAction(systemAction).setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
 		}
 		return this;
