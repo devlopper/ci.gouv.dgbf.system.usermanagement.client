@@ -4,5 +4,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
-   
+   <!--
+   	<factory>
+		<view-declaration-language-factory>ci.gouv.dgbf.system.usermanagement.client.deployment.VdlLoggerFactory</view-declaration-language-factory>
+	</factory>
+   -->
 </faces-config>

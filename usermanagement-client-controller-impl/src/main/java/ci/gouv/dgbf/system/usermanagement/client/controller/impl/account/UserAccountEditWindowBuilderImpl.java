@@ -26,14 +26,18 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 	protected void __execute__(Form form,SystemAction systemAction,Data data,ViewBuilder viewBuilder) {
 		ComponentBuilder<?> componentBuilder = (ComponentBuilder<?>) viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_ACCOUNT
 				,Account.PROPERTY_IDENTIFIER);
+		InputBuilder<?, ?> inputBuilder = null;
 		if(componentBuilder instanceof InputBuilder) {
-			InputBuilder<?, ?> inputBuilder = (InputBuilder<?, ?>) componentBuilder;
+			inputBuilder = (InputBuilder<?, ?>) componentBuilder;
 			inputBuilder.getLabel(Boolean.TRUE).setValue("Nom d'utilisateur");
-			inputBuilder = (InputBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_ACCOUNT,Account.PROPERTY_PASS);
-			inputBuilder.getLabel(Boolean.TRUE).setValue("Mot de passe");	
 		}else if(componentBuilder instanceof OutputStringTextBuilder) {
 			OutputStringTextBuilder outputStringTextBuilder = (OutputStringTextBuilder) componentBuilder;
 			//outputStringTextBuilder.getl
+		}
+		
+		if(systemAction instanceof SystemActionCreate) {
+			inputBuilder = (InputBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_ACCOUNT,Account.PROPERTY_PASS);
+			inputBuilder.getLabel(Boolean.TRUE).setValue("Mot de passe");		
 		}
 		
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_FIRST_NAME);
