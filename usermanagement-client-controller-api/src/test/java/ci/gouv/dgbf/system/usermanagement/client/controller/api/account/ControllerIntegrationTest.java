@@ -33,14 +33,27 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.rol
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
 
-public class ControllerFunctionIntegrationTest extends AbstractControllerArquillianIntegrationTestWithDefaultDeployment {
+public class ControllerIntegrationTest extends AbstractControllerArquillianIntegrationTestWithDefaultDeployment {
 	private static final long serialVersionUID = 1L;
 	
 	@Override
-	protected void __listenBeforeCallCountIsZero__() throws Exception {
-		super.__listenBeforeCallCountIsZero__();
-		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
-		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);
+	protected void __listenBeforeCallCountIs__(Integer count) throws Exception {
+		super.__listenBeforeCallCountIs__(count);
+		if(count != null && count == 0) {
+			__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
+			__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);	
+		}
+		/* Clean */
+		__inject__(UserAccountInterimController.class).deleteAll();
+		__inject__(UserAccountInterimModelController.class).deleteAll();
+		__inject__(UserAccountController.class).deleteAll();
+		__inject__(ProfileFunctionController.class).deleteAll();
+		__inject__(ProfileController.class).deleteAll();
+		__inject__(FunctionScopeController.class).deleteAll();
+		__inject__(FunctionController.class).deleteAll();
+		__inject__(FunctionCategoryController.class).deleteAll();
+		__inject__(ScopeController.class).deleteAll();
+		__inject__(ScopeTypeController.class).deleteAll();
 	}
 	
 	@Test
@@ -58,11 +71,11 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 
 	@Test
 	public void create_rolePostes() throws Exception{
-		ScopeType locationType = __inject__(ScopeType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
-		Scope location = __inject__(Scope.class).setIdentifier(__getRandomCode__()).setType(locationType);
+		ScopeType scopeType = __inject__(ScopeType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
+		Scope scope = __inject__(Scope.class).setIdentifier(__getRandomCode__()).setType(scopeType);
 		FunctionCategory category = __inject__(FunctionCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		Function function = __inject__(Function.class).setCode(__getRandomCode__()).setName(__getRandomName__()).setCategory(category);
-		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(locationType,location,category,function).addObjects(__inject__(FunctionScope.class).setFunction(function).setScope(location)).execute();
+		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(scopeType,scope,category,function).addObjects(__inject__(FunctionScope.class).setFunction(function).setScope(scope)).execute();
 	}
 	
 	@Test
@@ -97,26 +110,22 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(3l);
 		__inject__(ProfileController.class).delete(__inject__(Profile.class).setCode("p01"));
 		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(1l);
-		
-		__inject__(ProfileController.class).deleteAll();
-		__inject__(FunctionController.class).deleteAll();
-		__inject__(FunctionCategoryController.class).deleteAll();
 	}
 	
 	@Test
 	public void create_userAccount() throws Exception{
-		ScopeType locationType = __inject__(ScopeType.class).setCode("MINISTERE").setName("Ministère");
-		Scope location = __inject__(Scope.class).setIdentifier("21").setType(locationType);
+		ScopeType scopeType = __inject__(ScopeType.class).setCode("MINISTERE").setName("Ministère");
+		Scope scope = __inject__(Scope.class).setIdentifier("21").setType(scopeType);
 		FunctionCategory category = __inject__(FunctionCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		Function function = __inject__(Function.class).setCode("ASSISTANT_SAISIE").setName(__getRandomName__()).setCategory(category);
-		FunctionScope poste = __inject__(FunctionScope.class).setFunction(function).setScope(location);
+		FunctionScope poste = __inject__(FunctionScope.class).setFunction(function).setScope(scope);
 		Profile profile = __inject__(Profile.class).setCode("p001").setName(__getRandomName__());
 		
 		UserAccount userAccount = __inject__(UserAccount.class);
 		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomElectronicMailAddress__());
 		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
 		userAccount.addFunctionScopes(__inject__(FunctionScope.class).setCode("ASSISTANT_SAISIE_MINISTERE_21")).addProfiles(__inject__(Profile.class).setCode("p001").setName(__getRandomName__()));
-		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(locationType,location,category,function,poste,profile).addObjects(userAccount).addTryEndRunnables(new Runnable() {
+		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(scopeType,scope,category,function,poste,profile).addObjects(userAccount).addTryEndRunnables(new Runnable() {
 			@Override
 			public void run() {
 				UserAccount userAccount01 = (UserAccount) __inject__(UserAccountController.class).readOne(userAccount.getIdentifier());
@@ -138,24 +147,25 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 	
 	@Test
 	public void update_userAccount() throws Exception{
-		ScopeType locationType = __inject__(ScopeType.class).setCode("MINISTERE").setName("Ministère");
-		__inject__(ScopeTypeController.class).create(locationType);
-		Scope location = __inject__(Scope.class).setIdentifier("21").setType(locationType);
-		__inject__(ScopeController.class).create(location);
+		assertThat(__inject__(UserAccountFunctionScopeController.class).count()).isEqualTo(0l);
+		ScopeType scopeType = __inject__(ScopeType.class).setCode("MINISTERE").setName("Ministère");
+		__inject__(ScopeTypeController.class).create(scopeType);
+		Scope scope = __inject__(Scope.class).setIdentifier("21").setType(scopeType);
+		__inject__(ScopeController.class).create(scope);
 		FunctionCategory category = __inject__(FunctionCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		__inject__(FunctionCategoryController.class).create(category);
 		Function function = __inject__(Function.class).setCode("CONTROLEUR_FINANCIER").setName(__getRandomName__()).setCategory(category);
 		__inject__(FunctionController.class).create(function);
-		FunctionScope poste = __inject__(FunctionScope.class).setFunction(function).setScope(location);
-		__inject__(FunctionScopeController.class).create(poste);
-		
+		FunctionScope functionScope = __inject__(FunctionScope.class).setFunction(function).setScope(scope);
+		__inject__(FunctionScopeController.class).create(functionScope);
 		UserAccount userAccount = __inject__(UserAccount.class);
 		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomElectronicMailAddress__());
 		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
-		userAccount.addFunctionScopes(poste);
+		userAccount.addFunctionScopes(functionScope);
 		
 		__inject__(UserAccountController.class).create(userAccount);
 		
+		assertThat(__inject__(UserAccountFunctionScopeController.class).count()).isEqualTo(1l);
 		userAccount = __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
 		assertThat(userAccount).isNotNull();
 		assertThat(userAccount.getFunctionScopes()).isNotNull();
@@ -164,24 +174,21 @@ public class ControllerFunctionIntegrationTest extends AbstractControllerArquill
 		
 		function = __inject__(Function.class).setCode("ASSISTANT_SAISIE").setName(__getRandomName__()).setCategory(category);
 		__inject__(FunctionController.class).create(function);
-		poste = __inject__(FunctionScope.class).setFunction(function).setScope(location);
-		__inject__(FunctionScopeController.class).create(poste);
+		functionScope = __inject__(FunctionScope.class).setFunction(function).setScope(scope);
+		__inject__(FunctionScopeController.class).create(functionScope);
 		
-		userAccount.addFunctionScopes(poste);
+		userAccount.addFunctionScopes(functionScope);
+		assertThat(userAccount.getFunctionScopes().stream().map(FunctionScope::getCode).collect(Collectors.toList())).contains("CONTROLEUR_FINANCIER_MINISTERE_21"
+				,"ASSISTANT_SAISIE_MINISTERE_21");
 		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
 		
+		assertThat(__inject__(UserAccountFunctionScopeController.class).count()).isEqualTo(2l);
 		userAccount = __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
 		assertThat(userAccount).isNotNull();
 		assertThat(userAccount.getFunctionScopes()).isNotNull();
 		assertThat(userAccount.getFunctionScopes()).isNotEmpty();
 		assertThat(userAccount.getFunctionScopes().stream().map(FunctionScope::getCode).collect(Collectors.toList())).contains("CONTROLEUR_FINANCIER_MINISTERE_21"
 				,"ASSISTANT_SAISIE_MINISTERE_21");
-		
-		__inject__(UserAccountController.class).delete(userAccount);
-		__inject__(FunctionScopeController.class).deleteAll();
-		__inject__(FunctionController.class).deleteAll();
-		__inject__(ScopeController.class).deleteAll();
-		__inject__(ScopeTypeController.class).deleteAll();
 	}
 	
 	@Test

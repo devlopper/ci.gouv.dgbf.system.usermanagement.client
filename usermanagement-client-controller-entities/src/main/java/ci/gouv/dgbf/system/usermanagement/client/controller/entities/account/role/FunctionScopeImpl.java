@@ -56,4 +56,9 @@ public class FunctionScopeImpl extends AbstractDataIdentifiedByStringAndCodedAnd
 	public FunctionScope setName(String name) {
 		return (FunctionScope) super.setName(name);
 	}
+	
+	@Override
+	public String toString() {
+		return function+"/"+scope;
+	}
 }
