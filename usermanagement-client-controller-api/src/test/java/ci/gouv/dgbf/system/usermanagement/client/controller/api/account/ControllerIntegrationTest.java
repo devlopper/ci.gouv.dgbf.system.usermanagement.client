@@ -37,23 +37,10 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 	private static final long serialVersionUID = 1L;
 	
 	@Override
-	protected void __listenBeforeCallCountIs__(Integer count) throws Exception {
-		super.__listenBeforeCallCountIs__(count);
-		if(count != null && count == 0) {
-			__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
-			__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);	
-		}
-		/* Clean */
-		__inject__(UserAccountInterimController.class).deleteAll();
-		__inject__(UserAccountInterimModelController.class).deleteAll();
-		__inject__(UserAccountController.class).deleteAll();
-		__inject__(ProfileFunctionController.class).deleteAll();
-		__inject__(ProfileController.class).deleteAll();
-		__inject__(FunctionScopeController.class).deleteAll();
-		__inject__(FunctionController.class).deleteAll();
-		__inject__(FunctionCategoryController.class).deleteAll();
-		__inject__(ScopeController.class).deleteAll();
-		__inject__(ScopeTypeController.class).deleteAll();
+	protected void __listenBefore__() {
+		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
+		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);	
+		super.__listenBefore__();
 	}
 	
 	@Test
