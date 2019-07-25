@@ -41,9 +41,9 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 				);	*/
 		}//else {
 		sessionMenuBuilder.addItems(
-				__inject__(MenuItemBuilder.class).setCommandableName("Gestion des privilèges").addEntitiesList(Service.class)
-				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").addEntitiesList(Profile.class,Function.class,FunctionCategory.class)
-				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des visibilité").addEntitiesList(FunctionScope.class,Scope.class,ScopeType.class)
+				__inject__(MenuItemBuilder.class).setCommandableName("Gestion des privilèges").setCommandableIcon(Icon.QUESTION).addEntitiesList(Service.class)
+				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").setCommandableIcon(Icon.FILE).addEntitiesList(Profile.class,Function.class,FunctionCategory.class)
+				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des visibilité").setCommandableIcon(Icon.EYE).addEntitiesList(FunctionScope.class,Scope.class,ScopeType.class)
 				/*,__inject__(MenuItemBuilder.class).setCommandableName("Paramétrage").setCommandableIcon(Icon.GEARS).addChild(
 							__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").addEntitiesList(Profile.class,Function.class,FunctionScope.class,FunctionCategory.class
 									,Scope.class,ScopeType.class)
@@ -59,7 +59,7 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 				.addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PROFILES)
 				.addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_FUNCTION_SCOPES)
 				//.addEntitiesList(UserAccountInterim.class,UserAccountInterimModel.class)
-				,__inject__(MenuItemBuilder.class).setCommandableName("Retour au portail")
+				,__inject__(MenuItemBuilder.class).setCommandableName("Retour au portail").setCommandableIcon(Icon.FLASH)
 				);	
 		//}
 	}
