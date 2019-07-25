@@ -44,20 +44,58 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 	}
 	
 	@Test
-	public void create_roleCategories() throws Exception{
-		__inject__(TestControllerCreate.class).addObjects(__inject__(FunctionCategory.class).setCode(__getRandomCode__())
-				.setName(__getRandomName__())).execute();
+	public void create_functionCategory() throws Exception{
+		String functionCategoryCode = __getRandomCode__();
+		String functionCategoryName = __getRandomName__();
+		FunctionCategory functionCategory = __inject__(FunctionCategory.class).setCode(functionCategoryCode).setName(functionCategoryName);
+		__inject__(FunctionCategoryController.class).create(functionCategory);
+		String functionCategoryIdentifier = functionCategory.getIdentifier();
+		assertThat(functionCategoryIdentifier).isNotBlank();
+		functionCategory = __inject__(FunctionCategoryController.class).readBySystemIdentifier(functionCategoryIdentifier);
+		assertThat(functionCategory.getIdentifier()).isEqualTo(functionCategoryIdentifier);
+		assertThat(functionCategory.getCode()).isEqualTo(functionCategoryCode);
+		assertThat(functionCategory.getName()).isEqualTo(functionCategoryName);
+		functionCategory = __inject__(FunctionCategoryController.class).readByBusinessIdentifier(functionCategoryCode);
+		assertThat(functionCategory.getIdentifier()).isEqualTo(functionCategoryIdentifier);
+		assertThat(functionCategory.getCode()).isEqualTo(functionCategoryCode);
+		assertThat(functionCategory.getName()).isEqualTo(functionCategoryName);
 	}
 	
 	@Test
-	public void create_roleFunctions() throws Exception{
-		FunctionCategory category = __inject__(FunctionCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
-		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(category).addObjects(__inject__(Function.class).setCode(__getRandomCode__())
-				.setName(__getRandomName__()).setCategory(category)).execute();
+	public void create_function() throws Exception{
+		String functionCategoryCode = __getRandomCode__();
+		String functionCategoryName = __getRandomName__();
+		FunctionCategory functionCategory = __inject__(FunctionCategory.class).setCode(functionCategoryCode).setName(functionCategoryName);
+		__inject__(FunctionCategoryController.class).create(functionCategory);
+		String functionCategoryIdentifier = functionCategory.getIdentifier();
+		
+		String functionCode = __getRandomCode__();
+		String functionName = __getRandomName__();
+		Function function = __inject__(Function.class).setCode(functionCode).setName(functionName).setCategory(__inject__(FunctionCategory.class).setIdentifier(functionCategoryIdentifier));
+		__inject__(FunctionController.class).create(function);
+		String functionIdentifier = function.getIdentifier();
+		assertThat(functionIdentifier).isNotBlank();
+		function = __inject__(FunctionController.class).readBySystemIdentifier(functionIdentifier);
+		assertThat(function.getIdentifier()).isEqualTo(functionIdentifier);
+		assertThat(function.getCode()).isEqualTo(functionCode);
+		assertThat(function.getName()).isEqualTo(functionName);
+		assertThat(function.getCategory()).isNotNull();
+		assertThat(function.getCategory().getIdentifier()).isEqualTo(functionCategoryIdentifier);
+		assertThat(function.getCategory().getCode()).isEqualTo(functionCategoryCode);
+		assertThat(function.getCategory().getName()).isEqualTo(functionCategoryName);
+		
+		function = __inject__(FunctionController.class).readByBusinessIdentifier(functionCode);
+		assertThat(function.getIdentifier()).isEqualTo(functionIdentifier);
+		assertThat(function.getCode()).isEqualTo(functionCode);
+		assertThat(function.getName()).isEqualTo(functionName);
+		assertThat(function.getCategory()).isNotNull();
+		assertThat(function.getCategory().getIdentifier()).isEqualTo(functionCategoryIdentifier);
+		assertThat(function.getCategory().getCode()).isEqualTo(functionCategoryCode);
+		assertThat(function.getCategory().getName()).isEqualTo(functionCategoryName);
 	}
 
 	@Test
-	public void create_rolePostes() throws Exception{
+	public void create_scope() throws Exception{
 		ScopeType scopeType = __inject__(ScopeType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		Scope scope = __inject__(Scope.class).setIdentifier(__getRandomCode__()).setType(scopeType);
 		FunctionCategory category = __inject__(FunctionCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
@@ -88,15 +126,49 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f02").setName(__getRandomName__()).setCategory(__inject__(FunctionCategory.class).setCode("c01")));
 		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f03").setName(__getRandomName__()).setCategory(__inject__(FunctionCategory.class).setCode("c01")));
 		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(0l);
+		Profile profile = null;
 		__inject__(ProfileController.class).create(__inject__(Profile.class).setCode("p01").setName(__getRandomName__()).addFunctionsByCodes("f01","f03"));
 		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(2l);
+		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01");
+		assertThat(profile).isNotNull();
+		assertThat(profile.getFunctions()).isNull();
+		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01");
+		/*assertThat(profile.getFunctions()).isNotNull();
+		assertThat(profile.getFunctions().stream().map(Function::getCode)).containsOnly("f01","f03");
+		*/
 		__inject__(ProfileController.class).create(__inject__(Profile.class).setCode("p02").setName(__getRandomName__()).addFunctionsByCodes("f01","f02","f03"));
 		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(5l);
-		__inject__(ProfileController.class).update(__inject__(Profile.class).setCode("p02").setName(__getRandomName__()).addFunctionsByCodes("f02"),
+		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01");
+		assertThat(profile).isNotNull();
+		assertThat(profile.getFunctions()).isNull();
+		/*assertThat(profile.getFunctions()).isNotNull();
+		assertThat(profile.getFunctions().stream().map(Function::getCode)).containsOnly("f01","f03");
+		*/
+		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p02");
+		assertThat(profile).isNotNull();
+		assertThat(profile.getFunctions()).isNull();
+		/*assertThat(profile.getFunctions()).isNotNull();
+		assertThat(profile.getFunctions().stream().map(Function::getCode)).containsOnly("f01","f02","f03");
+		*/
+		__inject__(ProfileController.class).update(__inject__(Profile.class).setCode("p02").addFunctionsByCodes("f02"),
 				new Properties().setFields(Profile.PROPERTY_FUNCTIONS));
 		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(3l);
+		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p02");
+		assertThat(profile).isNotNull();
+		assertThat(profile.getFunctions()).isNull();
+		/*assertThat(profile.getFunctions()).isNotNull();
+		assertThat(profile.getFunctions().stream().map(Function::getCode)).containsOnly("f02");
+		*/
 		__inject__(ProfileController.class).delete(__inject__(Profile.class).setCode("p01"));
 		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(1l);
+		
+		__inject__(ProfileController.class).update(__inject__(Profile.class).setCode("p02"),new Properties().setFields(Profile.PROPERTY_FUNCTIONS));
+		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(0l);
+		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p02");
+		assertThat(profile).isNotNull();
+		assertThat(profile.getFunctions()).isNull();
+		/*assertThat(profile.getFunctions()).isNull();
+		*/
 	}
 	
 	@Test
@@ -115,11 +187,11 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(scopeType,scope,category,function,poste,profile).addObjects(userAccount).addTryEndRunnables(new Runnable() {
 			@Override
 			public void run() {
-				UserAccount userAccount01 = (UserAccount) __inject__(UserAccountController.class).readOne(userAccount.getIdentifier());
+				UserAccount userAccount01 = (UserAccount) __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier());
 				assertThat(userAccount01).as("user account is null").isNotNull();
 				assertThat(userAccount01.getFunctionScopes()).as("user account roles collection is not null").isNull();
 				
-				userAccount01 = (UserAccount) __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(),new Properties()
+				userAccount01 = (UserAccount) __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier(),new Properties()
 						.setFields(UserAccount.PROPERTY_FUNCTION_SCOPES+","+UserAccount.PROPERTY_PROFILES));
 				assertThat(userAccount01).as("user account is null").isNotNull();
 				assertThat(userAccount01.getFunctionScopes()).as("user account roles collection is null").isNotNull();
@@ -153,7 +225,7 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		__inject__(UserAccountController.class).create(userAccount);
 		
 		assertThat(__inject__(UserAccountFunctionScopeController.class).count()).isEqualTo(1l);
-		userAccount = __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
+		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
 		assertThat(userAccount).isNotNull();
 		assertThat(userAccount.getFunctionScopes()).isNotNull();
 		assertThat(userAccount.getFunctionScopes()).isNotEmpty();
@@ -170,7 +242,7 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
 		
 		assertThat(__inject__(UserAccountFunctionScopeController.class).count()).isEqualTo(2l);
-		userAccount = __inject__(UserAccountController.class).readOne(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
+		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
 		assertThat(userAccount).isNotNull();
 		assertThat(userAccount.getFunctionScopes()).isNotNull();
 		assertThat(userAccount.getFunctionScopes()).isNotEmpty();
