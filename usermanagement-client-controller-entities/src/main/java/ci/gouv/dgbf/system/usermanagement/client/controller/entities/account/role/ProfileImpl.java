@@ -10,30 +10,31 @@ import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceMany;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceManyCheckBox;
+import org.cyk.utility.client.controller.component.annotation.InputChoiceOne;
+import org.cyk.utility.client.controller.component.annotation.InputChoiceOneCombo;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringAndCodedAndNamedImpl;
 import org.cyk.utility.collection.CollectionHelper;
 
 public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedImpl implements Profile,Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
+	private ProfileType type;
+	
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
 	private List<Function> functions;
 	
 	@Override
-	public Profile setIdentifier(String identifier) {
-		return (Profile) super.setIdentifier(identifier);
+	public ProfileType getType() {
+		return type;
 	}
 	
 	@Override
-	public Profile setCode(String code) {
-		return (Profile) super.setCode(code);
+	public Profile setType(ProfileType type) {
+		this.type = type;
+		return this;
 	}
 	
-	@Override
-	public Profile setName(String name) {
-		return (Profile) super.setName(name);
-	}
-
 	@Override
 	public List<Function> getFunctions() {
 		return functions;
@@ -80,6 +81,21 @@ public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedI
 		if(Boolean.TRUE.equals(__inject__(ArrayHelper.class).isNotEmpty(codes)))
 			addFunctionsByCodes(__inject__(CollectionHelper.class).instanciate(codes));
 		return this;
+	}
+	
+	@Override
+	public Profile setIdentifier(String identifier) {
+		return (Profile) super.setIdentifier(identifier);
+	}
+	
+	@Override
+	public Profile setCode(String code) {
+		return (Profile) super.setCode(code);
+	}
+	
+	@Override
+	public Profile setName(String name) {
+		return (Profile) super.setName(name);
 	}
 	
 	/**/

@@ -16,7 +16,7 @@ import org.cyk.utility.client.controller.test.arquillian.AbstractControllerArqui
 import org.junit.Test;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.ApplicationScopeLifeCycleListener;
-import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.FunctionCategoryController;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.FunctionTypeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.FunctionController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.FunctionScopeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfileController;
@@ -26,7 +26,7 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.Sco
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccountInterim;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionCategory;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionType;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ProfileFunction;
@@ -44,34 +44,34 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 	}
 	
 	@Test
-	public void create_functionCategory() throws Exception{
-		String functionCategoryCode = __getRandomCode__();
-		String functionCategoryName = __getRandomName__();
-		FunctionCategory functionCategory = __inject__(FunctionCategory.class).setCode(functionCategoryCode).setName(functionCategoryName);
-		__inject__(FunctionCategoryController.class).create(functionCategory);
-		String functionCategoryIdentifier = functionCategory.getIdentifier();
-		assertThat(functionCategoryIdentifier).isNotBlank();
-		functionCategory = __inject__(FunctionCategoryController.class).readBySystemIdentifier(functionCategoryIdentifier);
-		assertThat(functionCategory.getIdentifier()).isEqualTo(functionCategoryIdentifier);
-		assertThat(functionCategory.getCode()).isEqualTo(functionCategoryCode);
-		assertThat(functionCategory.getName()).isEqualTo(functionCategoryName);
-		functionCategory = __inject__(FunctionCategoryController.class).readByBusinessIdentifier(functionCategoryCode);
-		assertThat(functionCategory.getIdentifier()).isEqualTo(functionCategoryIdentifier);
-		assertThat(functionCategory.getCode()).isEqualTo(functionCategoryCode);
-		assertThat(functionCategory.getName()).isEqualTo(functionCategoryName);
+	public void create_functionType() throws Exception{
+		String functionTypeCode = __getRandomCode__();
+		String functionTypeName = __getRandomName__();
+		FunctionType functionType = __inject__(FunctionType.class).setCode(functionTypeCode).setName(functionTypeName);
+		__inject__(FunctionTypeController.class).create(functionType);
+		String functionTypeIdentifier = functionType.getIdentifier();
+		assertThat(functionTypeIdentifier).isNotBlank();
+		functionType = __inject__(FunctionTypeController.class).readBySystemIdentifier(functionTypeIdentifier);
+		assertThat(functionType.getIdentifier()).isEqualTo(functionTypeIdentifier);
+		assertThat(functionType.getCode()).isEqualTo(functionTypeCode);
+		assertThat(functionType.getName()).isEqualTo(functionTypeName);
+		functionType = __inject__(FunctionTypeController.class).readByBusinessIdentifier(functionTypeCode);
+		assertThat(functionType.getIdentifier()).isEqualTo(functionTypeIdentifier);
+		assertThat(functionType.getCode()).isEqualTo(functionTypeCode);
+		assertThat(functionType.getName()).isEqualTo(functionTypeName);
 	}
 	
 	@Test
 	public void create_function() throws Exception{
-		String functionCategoryCode = __getRandomCode__();
-		String functionCategoryName = __getRandomName__();
-		FunctionCategory functionCategory = __inject__(FunctionCategory.class).setCode(functionCategoryCode).setName(functionCategoryName);
-		__inject__(FunctionCategoryController.class).create(functionCategory);
-		String functionCategoryIdentifier = functionCategory.getIdentifier();
+		String functionTypeCode = __getRandomCode__();
+		String functionTypeName = __getRandomName__();
+		FunctionType functionType = __inject__(FunctionType.class).setCode(functionTypeCode).setName(functionTypeName);
+		__inject__(FunctionTypeController.class).create(functionType);
+		String functionTypeIdentifier = functionType.getIdentifier();
 		
 		String functionCode = __getRandomCode__();
 		String functionName = __getRandomName__();
-		Function function = __inject__(Function.class).setCode(functionCode).setName(functionName).setCategory(__inject__(FunctionCategory.class).setIdentifier(functionCategoryIdentifier));
+		Function function = __inject__(Function.class).setCode(functionCode).setName(functionName).setType(__inject__(FunctionType.class).setIdentifier(functionTypeIdentifier));
 		__inject__(FunctionController.class).create(function);
 		String functionIdentifier = function.getIdentifier();
 		assertThat(functionIdentifier).isNotBlank();
@@ -79,28 +79,28 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		assertThat(function.getIdentifier()).isEqualTo(functionIdentifier);
 		assertThat(function.getCode()).isEqualTo(functionCode);
 		assertThat(function.getName()).isEqualTo(functionName);
-		assertThat(function.getCategory()).isNotNull();
-		assertThat(function.getCategory().getIdentifier()).isEqualTo(functionCategoryIdentifier);
-		assertThat(function.getCategory().getCode()).isEqualTo(functionCategoryCode);
-		assertThat(function.getCategory().getName()).isEqualTo(functionCategoryName);
+		assertThat(function.getType()).isNotNull();
+		assertThat(function.getType().getIdentifier()).isEqualTo(functionTypeIdentifier);
+		assertThat(function.getType().getCode()).isEqualTo(functionTypeCode);
+		assertThat(function.getType().getName()).isEqualTo(functionTypeName);
 		
 		function = __inject__(FunctionController.class).readByBusinessIdentifier(functionCode);
 		assertThat(function.getIdentifier()).isEqualTo(functionIdentifier);
 		assertThat(function.getCode()).isEqualTo(functionCode);
 		assertThat(function.getName()).isEqualTo(functionName);
-		assertThat(function.getCategory()).isNotNull();
-		assertThat(function.getCategory().getIdentifier()).isEqualTo(functionCategoryIdentifier);
-		assertThat(function.getCategory().getCode()).isEqualTo(functionCategoryCode);
-		assertThat(function.getCategory().getName()).isEqualTo(functionCategoryName);
+		assertThat(function.getType()).isNotNull();
+		assertThat(function.getType().getIdentifier()).isEqualTo(functionTypeIdentifier);
+		assertThat(function.getType().getCode()).isEqualTo(functionTypeCode);
+		assertThat(function.getType().getName()).isEqualTo(functionTypeName);
 	}
 
 	@Test
 	public void create_scope() throws Exception{
 		ScopeType scopeType = __inject__(ScopeType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		Scope scope = __inject__(Scope.class).setIdentifier(__getRandomCode__()).setType(scopeType);
-		FunctionCategory category = __inject__(FunctionCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
-		Function function = __inject__(Function.class).setCode(__getRandomCode__()).setName(__getRandomName__()).setCategory(category);
-		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(scopeType,scope,category,function).addObjects(__inject__(FunctionScope.class).setFunction(function).setScope(scope)).execute();
+		FunctionType functionType = __inject__(FunctionType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
+		Function function = __inject__(Function.class).setCode(__getRandomCode__()).setName(__getRandomName__()).setType(functionType);
+		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(scopeType,scope,functionType,function).addObjects(__inject__(FunctionScope.class).setFunction(function).setScope(scope)).execute();
 	}
 	
 	@Test
@@ -112,19 +112,19 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 	@Test
 	public void create_profileRoleFunction() throws Exception{
 		Profile profile = __inject__(Profile.class).setCode(__getRandomCode__()).setName(__getRandomName__());
-		FunctionCategory category = __inject__(FunctionCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
-		Function function = __inject__(Function.class).setCode(__getRandomCode__()).setName(__getRandomName__()).setCategory(category);
-		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(profile,category,function).addObjects(__inject__(ProfileFunction.class)
+		FunctionType functionType = __inject__(FunctionType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
+		Function function = __inject__(Function.class).setCode(__getRandomCode__()).setName(__getRandomName__()).setType(functionType);
+		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(profile,functionType,function).addObjects(__inject__(ProfileFunction.class)
 				.setProfile(profile).setFunction(function)).execute();
 	}
 	
 	@Test
 	public void create_profile_withFunctions() throws Exception {
-		FunctionCategory category = __inject__(FunctionCategory.class).setCode("c01").setName(__getRandomName__());
-		__inject__(FunctionCategoryController.class).create(category);
-		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f01").setName(__getRandomName__()).setCategory(__inject__(FunctionCategory.class).setCode("c01")));
-		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f02").setName(__getRandomName__()).setCategory(__inject__(FunctionCategory.class).setCode("c01")));
-		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f03").setName(__getRandomName__()).setCategory(__inject__(FunctionCategory.class).setCode("c01")));
+		FunctionType functionType = __inject__(FunctionType.class).setCode("c01").setName(__getRandomName__());
+		__inject__(FunctionTypeController.class).create(functionType);
+		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f01").setName(__getRandomName__()).setType(__inject__(FunctionType.class).setCode("c01")));
+		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f02").setName(__getRandomName__()).setType(__inject__(FunctionType.class).setCode("c01")));
+		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f03").setName(__getRandomName__()).setType(__inject__(FunctionType.class).setCode("c01")));
 		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(0l);
 		Profile profile = null;
 		__inject__(ProfileController.class).create(__inject__(Profile.class).setCode("p01").setName(__getRandomName__()).addFunctionsByCodes("f01","f03"));
@@ -175,8 +175,8 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 	public void create_userAccount() throws Exception{
 		ScopeType scopeType = __inject__(ScopeType.class).setCode("MINISTERE").setName("Ministère");
 		Scope scope = __inject__(Scope.class).setIdentifier("21").setType(scopeType);
-		FunctionCategory category = __inject__(FunctionCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
-		Function function = __inject__(Function.class).setCode("ASSISTANT_SAISIE").setName(__getRandomName__()).setCategory(category);
+		FunctionType functionType = __inject__(FunctionType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
+		Function function = __inject__(Function.class).setCode("ASSISTANT_SAISIE").setName(__getRandomName__()).setType(functionType);
 		FunctionScope poste = __inject__(FunctionScope.class).setFunction(function).setScope(scope);
 		Profile profile = __inject__(Profile.class).setCode("p001").setName(__getRandomName__());
 		
@@ -184,7 +184,7 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomElectronicMailAddress__());
 		userAccount.getAccount(Boolean.TRUE).setIdentifier(__getRandomCode__()).setPass("123");
 		userAccount.addFunctionScopes(__inject__(FunctionScope.class).setCode("ASSISTANT_SAISIE_MINISTERE_21")).addProfiles(__inject__(Profile.class).setCode("p001").setName(__getRandomName__()));
-		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(scopeType,scope,category,function,poste,profile).addObjects(userAccount).addTryEndRunnables(new Runnable() {
+		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(scopeType,scope,functionType,function,poste,profile).addObjects(userAccount).addTryEndRunnables(new Runnable() {
 			@Override
 			public void run() {
 				UserAccount userAccount01 = (UserAccount) __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier());
@@ -211,9 +211,9 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		__inject__(ScopeTypeController.class).create(scopeType);
 		Scope scope = __inject__(Scope.class).setIdentifier("21").setType(scopeType);
 		__inject__(ScopeController.class).create(scope);
-		FunctionCategory category = __inject__(FunctionCategory.class).setCode(__getRandomCode__()).setName(__getRandomName__());
-		__inject__(FunctionCategoryController.class).create(category);
-		Function function = __inject__(Function.class).setCode("CONTROLEUR_FINANCIER").setName(__getRandomName__()).setCategory(category);
+		FunctionType functionType = __inject__(FunctionType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
+		__inject__(FunctionTypeController.class).create(functionType);
+		Function function = __inject__(Function.class).setCode("CONTROLEUR_FINANCIER").setName(__getRandomName__()).setType(functionType);
 		__inject__(FunctionController.class).create(function);
 		FunctionScope functionScope = __inject__(FunctionScope.class).setFunction(function).setScope(scope);
 		__inject__(FunctionScopeController.class).create(functionScope);
@@ -231,7 +231,7 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		assertThat(userAccount.getFunctionScopes()).isNotEmpty();
 		assertThat(userAccount.getFunctionScopes().stream().map(FunctionScope::getCode).collect(Collectors.toList())).contains("CONTROLEUR_FINANCIER_MINISTERE_21");
 		
-		function = __inject__(Function.class).setCode("ASSISTANT_SAISIE").setName(__getRandomName__()).setCategory(category);
+		function = __inject__(Function.class).setCode("ASSISTANT_SAISIE").setName(__getRandomName__()).setType(functionType);
 		__inject__(FunctionController.class).create(function);
 		functionScope = __inject__(FunctionScope.class).setFunction(function).setScope(scope);
 		__inject__(FunctionScopeController.class).create(functionScope);

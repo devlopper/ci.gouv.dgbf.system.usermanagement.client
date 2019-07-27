@@ -10,12 +10,13 @@ import org.cyk.utility.client.controller.icon.Icon;
 import org.cyk.utility.system.action.SystemActionCreate;
 import org.cyk.utility.system.action.SystemActionList;
 
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Service;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionCategory;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionType;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Privilege;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PrivilegeType;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ProfileType;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
 import ci.gouv.dgbf.system.usermanagement.server.Constant;
@@ -41,15 +42,12 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 				);	*/
 		}//else {
 		sessionMenuBuilder.addItems(
-				__inject__(MenuItemBuilder.class).setCommandableName("Gestion des privilèges").setCommandableIcon(Icon.QUESTION).addEntitiesList(Service.class)
-				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").setCommandableIcon(Icon.FILE).addEntitiesList(Profile.class,Function.class,FunctionCategory.class)
-				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des visibilité").setCommandableIcon(Icon.EYE).addEntitiesList(FunctionScope.class,Scope.class,ScopeType.class)
-				/*,__inject__(MenuItemBuilder.class).setCommandableName("Paramétrage").setCommandableIcon(Icon.GEARS).addChild(
-							__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").addEntitiesList(Profile.class,Function.class,FunctionScope.class,FunctionCategory.class
-									,Scope.class,ScopeType.class)
-							,__inject__(MenuItemBuilder.class).setCommandableName("Service").addEntitiesList(Service.class)
-					)
-				*/
+				__inject__(MenuItemBuilder.class).setCommandableName("Gestion des privilèges").setCommandableIcon(Icon.QUESTION)
+					.addEntitiesList(Privilege.class,PrivilegeType.class)
+				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").setCommandableIcon(Icon.FILE)
+					.addEntitiesList(Profile.class,ProfileType.class,Function.class,FunctionType.class)
+				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des visibilités").setCommandableIcon(Icon.EYE)
+					.addEntitiesList(/*FunctionScope.class,*/Scope.class,ScopeType.class)
 				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des utilisateurs").setCommandableIcon(Icon.USERS).addChild(
 						__inject__(MenuItemBuilder.class).setCommandableName("Création").setCommandableIcon(Icon.PLUS)
 						.setCommandableNavigationIdentifierBuilderSystemAction(__inject__(SystemActionCreate.class).setEntityClass(UserAccount.class))

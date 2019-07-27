@@ -12,16 +12,16 @@ public class FunctionImpl extends AbstractDataIdentifiedByStringAndCodedAndNamed
 	private static final long serialVersionUID = 1L;
 
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneRadio
-	private FunctionCategory category;
+	private FunctionType type;
 	
 	@Override
-	public FunctionCategory getCategory() {
-		return category;
+	public FunctionType getType() {
+		return type;
 	}
 	
 	@Override
-	public Function setCategory(FunctionCategory category) {
-		this.category = category;
+	public Function setType(FunctionType type) {
+		this.type = type;
 		return this;
 	}
 	

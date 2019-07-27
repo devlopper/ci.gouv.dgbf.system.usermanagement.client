@@ -7,9 +7,8 @@ import org.cyk.utility.client.controller.data.DataIdentifiedByStringAndCodedAndN
 
 public interface Profile extends DataIdentifiedByStringAndCodedAndNamed {
 
-	@Override Profile setIdentifier(String identifier);
-	@Override Profile setCode(String code);
-	@Override Profile setName(String name);
+	ProfileType getType();
+	Profile setType(ProfileType type);
 	
 	List<Function> getFunctions();
 	List<Function> getFunctions(Boolean injectIfNull);
@@ -19,5 +18,10 @@ public interface Profile extends DataIdentifiedByStringAndCodedAndNamed {
 	Profile addFunctionsByCodes(Collection<String> codes);
 	Profile addFunctionsByCodes(String...codes);
 	
+	@Override Profile setIdentifier(String identifier);
+	@Override Profile setCode(String code);
+	@Override Profile setName(String name);
+	
+	String PROPERTY_TYPE = "type";
 	String PROPERTY_FUNCTIONS = "functions";
 }

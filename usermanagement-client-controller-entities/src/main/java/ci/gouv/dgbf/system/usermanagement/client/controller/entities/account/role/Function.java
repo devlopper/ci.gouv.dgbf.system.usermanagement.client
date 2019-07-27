@@ -4,8 +4,8 @@ import org.cyk.utility.client.controller.data.DataIdentifiedByStringAndCodedAndN
 
 public interface Function extends DataIdentifiedByStringAndCodedAndNamed {
 
-	FunctionCategory getCategory();
-	Function setCategory(FunctionCategory category);
+	FunctionType getType();
+	Function setType(FunctionType type);
 	
 	@Override Function setIdentifier(String identifier);
 	@Override Function setCode(String code);
@@ -13,5 +13,5 @@ public interface Function extends DataIdentifiedByStringAndCodedAndNamed {
 	
 	/**/
 	
-	String PROPERTY_CATEGORY = "category";
+	String PROPERTY_TYPE = "type";
 }
