@@ -32,9 +32,9 @@ public class UserAccountProcessWindowBuilderImpl extends AbstractWindowContainer
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	protected void __execute__(Form form,SystemAction systemAction, Data data, ViewBuilder viewBuilder) {
-		if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PROFILES.equals(systemAction.getIdentifier()) || Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_FUNCTION_SCOPES
+		if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PRIVILEGES.equals(systemAction.getIdentifier()) || Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_FUNCTION_SCOPES
 				.equals(systemAction.getIdentifier())) {
-			if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PROFILES.equals(systemAction.getIdentifier())) {
+			if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PRIVILEGES.equals(systemAction.getIdentifier())) {
 				viewBuilder.addInputBuilderByObjectByFieldNames(data, Boolean.FALSE, UserAccount.PROPERTY_ACCOUNT,User.PROPERTY_IDENTIFIER);
 				
 				viewBuilder.addInputBuilderByObjectByFieldNames(data, Boolean.FALSE, UserAccount.PROPERTY_USER,User.PROPERTY_FIRST_NAME);
@@ -44,7 +44,7 @@ public class UserAccountProcessWindowBuilderImpl extends AbstractWindowContainer
 				//InputBuilder<?, ?> inputBuilder = (InputBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data, Boolean.TRUE, UserAccount.PROPERTY_PROFILES);
 				//inputBuilder.setIsNullable(Boolean.FALSE);
 				
-				InputChoiceBuilder<?, ?> functions = (InputChoiceBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data, Boolean.TRUE, UserAccount.PROPERTY_FUNCTIONS);
+				InputChoiceBuilder<?, ?> functions = (InputChoiceBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data, Boolean.TRUE,UserAccount.PROPERTY_USER, User.PROPERTY_FUNCTIONS);
 				functions.setChoicesLayout(__inject__(ChoicesLayoutResponsive.class).setNumberOfColumns(5));
 				InputChoiceBuilder<?, ?> profiles = (InputChoiceBuilder<?, ?>) viewBuilder.addInputBuilderByObjectByFieldNames(data, Boolean.TRUE, UserAccount.PROPERTY_PROFILES);
 				profiles.setIsGetChoices(Boolean.FALSE);
@@ -92,7 +92,7 @@ public class UserAccountProcessWindowBuilderImpl extends AbstractWindowContainer
 	protected Object __readOne__(SystemAction systemAction,Class<?> klass, Object identifier, Properties properties) {
 		if(properties == null)
 			properties = new Properties();
-		if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PROFILES.equals(systemAction.getIdentifier())) {
+		if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PRIVILEGES.equals(systemAction.getIdentifier())) {
 			properties.setFields(UserAccount.PROPERTY_PROFILES);
 		}else if(Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_FUNCTION_SCOPES.equals(systemAction.getIdentifier())) {
 			properties.setFields(UserAccount.PROPERTY_FUNCTION_SCOPES);

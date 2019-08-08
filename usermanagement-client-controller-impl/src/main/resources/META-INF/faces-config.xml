@@ -9,14 +9,14 @@
 		<from-view-id>*</from-view-id>
 		
 		<navigation-case>
-			<from-outcome>userAccountAssignRolePostes</from-outcome>
-			<to-view-id>/private/useraccount/assignrolepostes.jsf</to-view-id>
+			<from-outcome>assignscopes</from-outcome>
+			<to-view-id>/private/useraccount/assignscopes.jsf</to-view-id>
 			<redirect />
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>userAccountAssignProfiles</from-outcome>
-			<to-view-id>/private/useraccount/assignprofiles.jsf</to-view-id>
+			<from-outcome>assignprivileges</from-outcome>
+			<to-view-id>/private/useraccount/assignprivileges.jsf</to-view-id>
 			<redirect />
 		</navigation-case>
 		

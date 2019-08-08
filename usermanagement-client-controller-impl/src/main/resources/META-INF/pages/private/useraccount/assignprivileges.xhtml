@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+	
+    <cyk:page value="#{userAccountAssignPrivilegesPage}" >
+    	<ui:define name="centerCenter">
+    		<h1>Assignation de privilèges</h1>
+    		<p:dataTable value="#{userAccountAssignPrivilegesPage.userAccounts}" var="userAccount" >
+    			<p:column headerText="Nom d'utilisateur"><h:outputText value="#{userAccount.account.identifier}" /></p:column>
+    			<p:column headerText="Nom et prénoms"><h:outputText value="#{userAccount.user.names}" /></p:column>
+    			<p:column headerText="Privilèges">
+    				
+    			</p:column>
+    			<p:column headerText="Actions">
+    				<p:commandButton value="Modifier" action="#{userAccountAssignPrivilegesPage.selectUserAccount(userAccount)}" update="form:dialog" oncomplete="PF('dialog').show();"/>
+    			</p:column>
+    		</p:dataTable>
+    		
+    		<p:dialog id="dialog" header="Assignation de privilèges à #{userAccountAssignPrivilegesPage.selectedUserAccount.user.names}" widgetVar="dialog" modal="true"
+    			width="90%" height="500px">
+			    <p:panelGrid columns="2">
+			    	<h:outputText value="Nom d'utilisateur" /><h:outputText value="#{userAccountAssignPrivilegesPage.selectedUserAccount.account.identifier}" />
+			    	<h:outputText value="Nom et prénoms" /><h:outputText value="#{userAccountAssignPrivilegesPage.selectedUserAccount.user.names}" />
+			    </p:panelGrid>
+			    
+			    <p:separator/>
+			    
+			    <p:panelGrid columns="2" columnClasses="column01,column02">
+			    	<h:outputText value="Profiles systèmes" />
+			    	<h:outputText value="Privileges" />
+			    	
+			    	<p:selectManyCheckbox value="#{userAccountAssignPrivilegesPage.selectedProfiles}" layout="responsive" columns="1">
+			    		<f:selectItems value="#{userAccountAssignPrivilegesPage.profiles}" var="profile" itemValue="#{profile}" itemLabel="#{profile.name}"/>
+			    	</p:selectManyCheckbox>
+			    	<!--
+			    	<p:selectManyCheckbox value="#{userAccountAssignPrivilegesPage.selectedPrivileges}" layout="responsive" columns="1">
+			    		<f:selectItems value="#{userAccountAssignPrivilegesPage.privileges}" var="privilege" itemValue="#{privilege}" itemLabel="#{privilege.name}"/>
+			    	</p:selectManyCheckbox>	
+			    	-->
+			    	<p:tree value="#{userAccountAssignPrivilegesPage.treeNodeRoot}" var="treeNode" selectionMode="checkbox" 
+			    		selection="#{userAccountAssignPrivilegesPage.selectedNodes}">
+				        <p:treeNode>
+				            <h:outputText value="#{treeNode.name}"/>
+				        </p:treeNode>				        
+				    </p:tree>
+			    </p:panelGrid>
+			</p:dialog>
+    		
+    		<style>
+    			.column01 {
+    				vertical-align: top;
+    			}
+    			.column02 {
+    				vertical-align: top;
+    			}
+    		</style>
+    		
+    	</ui:define>
+    </cyk:page>
+    
+</html>

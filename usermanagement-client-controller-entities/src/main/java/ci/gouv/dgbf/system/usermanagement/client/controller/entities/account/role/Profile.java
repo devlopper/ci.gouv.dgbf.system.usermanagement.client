@@ -18,10 +18,19 @@ public interface Profile extends DataIdentifiedByStringAndCodedAndNamed {
 	Profile addFunctionsByCodes(Collection<String> codes);
 	Profile addFunctionsByCodes(String...codes);
 	
+	List<Privilege> getPrivileges();
+	List<Privilege> getPrivileges(Boolean injectIfNull);
+	Profile setPrivileges(List<Privilege> privileges);
+	Profile addPrivileges(Collection<Privilege> privileges);
+	Profile addPrivileges(Privilege...privileges);
+	Profile addPrivilegesByCodes(Collection<String> codes);
+	Profile addPrivilegesByCodes(String...codes);
+	
 	@Override Profile setIdentifier(String identifier);
 	@Override Profile setCode(String code);
 	@Override Profile setName(String name);
 	
 	String PROPERTY_TYPE = "type";
 	String PROPERTY_FUNCTIONS = "functions";
+	String PROPERTY_PRIVILEGES = "privileges";
 }

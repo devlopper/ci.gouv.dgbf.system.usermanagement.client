@@ -3,6 +3,8 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.ro
 import java.io.Serializable;
 
 import org.cyk.utility.client.controller.component.annotation.Input;
+import org.cyk.utility.client.controller.component.annotation.InputBoolean;
+import org.cyk.utility.client.controller.component.annotation.InputBooleanButton;
 import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOne;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOneRadio;
@@ -14,6 +16,9 @@ public class FunctionImpl extends AbstractDataIdentifiedByStringAndCodedAndNamed
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneRadio
 	private FunctionType type;
 	
+	@Input @InputBoolean @InputBooleanButton
+	private Boolean isProfileCreatableOnCreate;
+	
 	@Override
 	public FunctionType getType() {
 		return type;
@@ -22,6 +27,17 @@ public class FunctionImpl extends AbstractDataIdentifiedByStringAndCodedAndNamed
 	@Override
 	public Function setType(FunctionType type) {
 		this.type = type;
+		return this;
+	}
+	
+	@Override
+	public Boolean getIsProfileCreatableOnCreate() {
+		return isProfileCreatableOnCreate;
+	}
+	
+	@Override
+	public Function setIsProfileCreatableOnCreate(Boolean isProfileCreatableOnCreate) {
+		this.isProfileCreatableOnCreate = isProfileCreatableOnCreate;
 		return this;
 	}
 	

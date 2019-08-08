@@ -13,6 +13,7 @@ import org.cyk.utility.client.controller.data.Form;
 import org.cyk.utility.system.action.SystemAction;
 import org.cyk.utility.system.action.SystemActionCreate;
 import org.cyk.utility.system.action.SystemActionRead;
+import org.cyk.utility.system.action.SystemActionUpdate;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Account;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.User;
@@ -42,8 +43,8 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 		
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_FIRST_NAME);
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_LAST_NAMES);
-		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_FUNCTIONS);
 		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_USER,User.PROPERTY_ELECTRONIC_MAIL_ADDRESS);
+		viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_FUNCTIONS);
 		
 		if(systemAction instanceof SystemActionRead) {
 			viewBuilder.addInputBuilderByObjectByFieldNames(data,systemAction, UserAccount.PROPERTY_PROFILES);
@@ -66,9 +67,12 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 		if(properties == null)
 			properties = new Properties();
 		if(systemAction instanceof SystemActionRead) {
-			properties.setFields(UserAccount.PROPERTY_PROFILES+","+UserAccount.PROPERTY_FUNCTION_SCOPES);
+			properties.setFields(UserAccount.PROPERTY_PROFILES+","+UserAccount.PROPERTY_FUNCTION_SCOPES+","+UserAccount.PROPERTY_FUNCTIONS);
+		}else if(systemAction instanceof SystemActionUpdate) {
+			properties.setFields(UserAccount.PROPERTY_FUNCTIONS);
 		}
-		return super.__readOne__(systemAction,klass, identifier, properties);
+		UserAccount userAccount = (UserAccount) super.__readOne__(systemAction,klass, identifier, properties);
+		return userAccount;
 	}
 	
 }

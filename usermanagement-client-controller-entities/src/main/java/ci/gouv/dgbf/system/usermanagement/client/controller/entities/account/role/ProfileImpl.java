@@ -24,6 +24,9 @@ public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedI
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
 	private List<Function> functions;
 	
+	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
+	private List<Privilege> privileges;
+	
 	@Override
 	public ProfileType getType() {
 		return type;
@@ -80,6 +83,54 @@ public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedI
 	public Profile addFunctionsByCodes(String... codes) {
 		if(Boolean.TRUE.equals(__inject__(ArrayHelper.class).isNotEmpty(codes)))
 			addFunctionsByCodes(__inject__(CollectionHelper.class).instanciate(codes));
+		return this;
+	}
+	
+	@Override
+	public List<Privilege> getPrivileges() {
+		return privileges;
+	}
+
+	@Override
+	public List<Privilege> getPrivileges(Boolean injectIfNull) {
+		if(privileges == null && Boolean.TRUE.equals(injectIfNull))
+			privileges = new ArrayList<>();
+		return privileges;
+	}
+
+	@Override
+	public Profile setPrivileges(List<Privilege> privileges) {
+		this.privileges = privileges;
+		return this;
+	}
+
+	@Override
+	public Profile addPrivileges(Collection<Privilege> privileges) {
+		if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(privileges)))
+			getPrivileges(Boolean.TRUE).addAll(privileges);
+		return this;
+	}
+
+	@Override
+	public Profile addPrivileges(Privilege... privileges) {
+		if(Boolean.TRUE.equals(__inject__(ArrayHelper.class).isNotEmpty(privileges)))
+			addPrivileges(__inject__(CollectionHelper.class).instanciate(privileges));
+		return this;
+	}
+	
+	@Override
+	public Profile addPrivilegesByCodes(Collection<String> codes) {
+		if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(codes))) {
+			for(String index : codes)
+				addPrivileges(__inject__(Privilege.class).setCode(index));
+		}
+		return this;
+	}
+	
+	@Override
+	public Profile addPrivilegesByCodes(String... codes) {
+		if(Boolean.TRUE.equals(__inject__(ArrayHelper.class).isNotEmpty(codes)))
+			addPrivilegesByCodes(__inject__(CollectionHelper.class).instanciate(codes));
 		return this;
 	}
 	

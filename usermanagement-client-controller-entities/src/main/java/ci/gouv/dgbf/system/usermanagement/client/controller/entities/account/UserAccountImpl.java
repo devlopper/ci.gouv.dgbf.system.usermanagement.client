@@ -13,9 +13,9 @@ import org.cyk.utility.client.controller.component.annotation.InputChoiceManyChe
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
 import org.cyk.utility.collection.CollectionHelper;
 
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 
 public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implements UserAccount,Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +23,7 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	private User user;
 	private Account account;
 	
-	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
+	@Input @InputChoice @InputChoiceMany @InputChoiceManyAutoComplete
 	private List<Function> functions;
 	
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
@@ -70,38 +70,6 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	}
 	
 	@Override
-	public List<FunctionScope> getFunctionScopes() {
-		return functionScopes;
-	}
-	
-	@Override
-	public UserAccount setFunctionScopes(List<FunctionScope> functionScopes) {
-		this.functionScopes = functionScopes;
-		return this;
-	}
-	
-	@Override
-	public List<FunctionScope> getFunctionScopes(Boolean injectIfNull) {
-		if(functionScopes == null && Boolean.TRUE.equals(injectIfNull))
-			functionScopes = new ArrayList<>();
-		return functionScopes;
-	}
-	
-	@Override
-	public UserAccount addFunctionScopes(Collection<FunctionScope> functionScopes) {
-		getFunctionScopes(Boolean.TRUE).addAll(functionScopes);
-		return this;
-	}
-	
-	@Override
-	public UserAccount addFunctionScopes(FunctionScope... functionScopes) {
-		addFunctionScopes(__inject__(CollectionHelper.class).instanciate(functionScopes));
-		return this;
-	}
-	
-	/**/
-	
-	@Override
 	public List<Function> getFunctions() {
 		return functions;
 	}
@@ -128,6 +96,36 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	@Override
 	public UserAccount addFunctions(Function... functions) {
 		addFunctions(__inject__(CollectionHelper.class).instanciate(functions));
+		return this;
+	}
+	
+	@Override
+	public List<FunctionScope> getFunctionScopes() {
+		return functionScopes;
+	}
+	
+	@Override
+	public UserAccount setFunctionScopes(List<FunctionScope> functionScopes) {
+		this.functionScopes = functionScopes;
+		return this;
+	}
+	
+	@Override
+	public List<FunctionScope> getFunctionScopes(Boolean injectIfNull) {
+		if(functionScopes == null && Boolean.TRUE.equals(injectIfNull))
+			functionScopes = new ArrayList<>();
+		return functionScopes;
+	}
+	
+	@Override
+	public UserAccount addFunctionScopes(Collection<FunctionScope> functionScopes) {
+		getFunctionScopes(Boolean.TRUE).addAll(functionScopes);
+		return this;
+	}
+	
+	@Override
+	public UserAccount addFunctionScopes(FunctionScope... functionScopes) {
+		addFunctionScopes(__inject__(CollectionHelper.class).instanciate(functionScopes));
 		return this;
 	}
 	

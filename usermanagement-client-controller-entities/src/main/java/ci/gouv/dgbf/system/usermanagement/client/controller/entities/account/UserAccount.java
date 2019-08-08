@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.cyk.utility.client.controller.data.DataIdentifiedByString;
 
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 
 public interface UserAccount extends DataIdentifiedByString {
 

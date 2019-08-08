@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+	
+    <cyk:page value="#{userAccountAssignScopesPage}" >
+    	<ui:define name="centerCenter">
+    		<h1>Affectation de domaine de visibilité</h1>
+    		<p:dataTable value="#{userAccountAssignScopesPage.userAccounts}" var="userAccount" >
+    			<p:column headerText="Nom d'utilisateur"><h:outputText value="#{userAccount.account.identifier}" /></p:column>
+    			<p:column headerText="Nom et prénoms"><h:outputText value="#{userAccount.user.names}" /></p:column>
+    			<p:column headerText="Domaine de visibilité">
+    				
+    			</p:column>
+    			<p:column headerText="Actions">
+    				<p:commandButton value="Modifier" action="#{userAccountAssignScopesPage.selectUserAccount(userAccount)}" update="form:dialog" oncomplete="PF('dialog').show();"/>
+    			</p:column>
+    		</p:dataTable>
+    		
+    		<p:dialog id="dialog" header="Affectation de domaine de visibilité à #{userAccountAssignScopesPage.selectedUserAccount.user.names}" widgetVar="dialog" modal="true"
+    			width="90%" height="500px">
+			    <p:panelGrid columns="2">
+			    	<h:outputText value="Nom d'utilisateur" /><h:outputText value="#{userAccountAssignScopesPage.selectedUserAccount.account.identifier}" />
+			    	<h:outputText value="Nom et prénoms" /><h:outputText value="#{userAccountAssignScopesPage.selectedUserAccount.user.names}" />
+			    </p:panelGrid>
+			    
+			    <p:tabView>
+			    	<p:tab title="Section">
+			    		<p:pickList value="#{userAccountAssignScopesPage.functionScopesSections}" var="functionScope" itemValue="#{functionScope}" 
+			    			itemLabel="#{functionScope.name}" showCheckbox="true" showSourceControls="true" showSourceFilter="true" showTargetControls="true" filterMatchMode="contains"/>
+			    	</p:tab>
+			    	<p:tab title="Unité de gestion de la performance">
+			    		<p:pickList value="#{userAccountAssignScopesPage.functionScopesUgps}" var="functionScope" itemValue="#{functionScope}" 
+			    			itemLabel="#{functionScope.name}" showCheckbox="true" showSourceControls="true" showSourceFilter="true" showTargetControls="true" filterMatchMode="contains"/>
+			    	</p:tab>
+			    	<p:tab title="Unité administrative">
+			    		<p:pickList value="#{userAccountAssignScopesPage.functionScopesUas}" var="functionScope" itemValue="#{functionScope}" 
+			    			itemLabel="#{functionScope.name}" showCheckbox="true" showSourceControls="true" showSourceFilter="true" showTargetControls="true" filterMatchMode="contains"/>
+			    	</p:tab>
+			    	<p:tab title="Acte budgétaire">
+			    		<p:pickList value="#{userAccountAssignScopesPage.functionScopesAbs}" var="functionScope" itemValue="#{functionScope}" 
+			    			itemLabel="#{functionScope.name}" showCheckbox="true" showSourceControls="true" showSourceFilter="true" showTargetControls="true" filterMatchMode="contains"/>
+			    	</p:tab>
+			    </p:tabView>
+			</p:dialog>
+    	</ui:define>
+    </cyk:page>
+    
+</html>
