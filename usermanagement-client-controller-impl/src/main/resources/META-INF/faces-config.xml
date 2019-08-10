@@ -9,13 +9,13 @@
 		<from-view-id>*</from-view-id>
 		
 		<navigation-case>
-			<from-outcome>assignscopes</from-outcome>
+			<from-outcome>userAccountAssignScopes</from-outcome>
 			<to-view-id>/private/useraccount/assignscopes.jsf</to-view-id>
 			<redirect />
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>assignprivileges</from-outcome>
+			<from-outcome>userAccountAssignPrivileges</from-outcome>
 			<to-view-id>/private/useraccount/assignprivileges.jsf</to-view-id>
 			<redirect />
 		</navigation-case>

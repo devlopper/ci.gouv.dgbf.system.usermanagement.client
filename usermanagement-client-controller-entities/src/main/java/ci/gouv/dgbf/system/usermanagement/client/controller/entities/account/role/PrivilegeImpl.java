@@ -7,8 +7,10 @@ import org.cyk.utility.client.controller.data.hierarchy.AbstractDataIdentifiedBy
 public class PrivilegeImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedImpl implements Privilege,Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private PrivilegeType type;
+	
 	@Override
-	public Privilege setIdentifier(Object identifier) {
+	public Privilege setIdentifier(String identifier) {
 		return (Privilege) super.setIdentifier(identifier);
 	}
 	
@@ -21,4 +23,16 @@ public class PrivilegeImpl extends AbstractDataIdentifiedByStringAndCodedAndName
 	public Privilege setName(String name) {
 		return (Privilege) super.setName(name);
 	}
+
+	@Override
+	public PrivilegeType getType() {
+		return type;
+	}
+
+	@Override
+	public Privilege setType(PrivilegeType type) {
+		this.type = type;
+		return this;
+	}
+
 }

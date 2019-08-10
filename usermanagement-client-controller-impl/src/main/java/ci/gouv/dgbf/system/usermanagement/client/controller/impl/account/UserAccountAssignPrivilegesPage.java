@@ -104,7 +104,7 @@ public class UserAccountAssignPrivilegesPage extends AbstractPageContainerManage
 					}
 				}
 				if(!hasParent) {
-					TreeNode node = new DefaultTreeNode(index, treeNodeRoot);
+					TreeNode node = new DefaultTreeNode(index.getType().getCode(),index, treeNodeRoot);
 					createTreeNode(index,node);
 				}
 			}
@@ -115,7 +115,7 @@ public class UserAccountAssignPrivilegesPage extends AbstractPageContainerManage
 		for(Privilege index : privileges) {
 			for(PrivilegeHierarchy privilegeHierarchy : privilegeHierarchies) {
 				if(privilegeHierarchy.getParent().getIdentifier().equals(privilege.getIdentifier()) && privilegeHierarchy.getChild().getIdentifier().equals(index.getIdentifier())) {
-					TreeNode node = new DefaultTreeNode(index, root);
+					TreeNode node = new DefaultTreeNode(index.getType().getCode(),index, root);
 					createTreeNode(index,node);
 					break;
 				}

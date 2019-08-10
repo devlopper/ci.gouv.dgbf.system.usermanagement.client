@@ -46,6 +46,18 @@
 			    	<p:tree value="#{userAccountAssignPrivilegesPage.treeNodeRoot}" var="treeNode" selectionMode="checkbox" 
 			    		selection="#{userAccountAssignPrivilegesPage.selectedNodes}">
 				        <p:treeNode>
+				            <h:outputText value="#{treeNode.name}(#{treeNode.type.name})"/>
+				        </p:treeNode>	
+				        <p:treeNode type="MODULE" icon="fa fa-folder">
+				            <h:outputText value="#{treeNode.name}"/>
+				        </p:treeNode>
+				        <p:treeNode type="SERVICE" icon="fa fa-server">
+				            <h:outputText value="#{treeNode.name}"/>
+				        </p:treeNode>
+				        <p:treeNode type="MENU" icon="fa fa-asterisk">
+				            <h:outputText value="#{treeNode.name}"/>
+				        </p:treeNode>
+				        <p:treeNode type="ACTION" icon="fa fa-file">
 				            <h:outputText value="#{treeNode.name}"/>
 				        </p:treeNode>				        
 				    </p:tree>

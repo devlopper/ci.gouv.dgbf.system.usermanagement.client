@@ -8,7 +8,6 @@ import org.cyk.utility.client.controller.component.menu.MenuBuilder;
 import org.cyk.utility.client.controller.component.menu.MenuItemBuilder;
 import org.cyk.utility.client.controller.icon.Icon;
 import org.cyk.utility.system.action.SystemActionCreate;
-import org.cyk.utility.system.action.SystemActionList;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
@@ -19,7 +18,6 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.rol
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ProfileType;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
-import ci.gouv.dgbf.system.usermanagement.server.Constant;
 
 @ci.gouv.dgbf.system.usermanagement.server.annotation.System
 public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl implements Serializable {
@@ -56,8 +54,8 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 				)
 				//.addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PRIVILEGES)
 				//.addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_FUNCTION_SCOPES)
-				.addChild(__inject__(MenuItemBuilder.class).setCommandableName("Assignations").setCommandableNavigationIdentifier("assignprivileges"))
-				.addChild(__inject__(MenuItemBuilder.class).setCommandableName("Affectations").setCommandableNavigationIdentifier("assignscopes"))
+				.addChild(__inject__(MenuItemBuilder.class).setCommandableName("Assignations").setCommandableNavigationIdentifier("userAccountAssignPrivileges"))
+				.addChild(__inject__(MenuItemBuilder.class).setCommandableName("Affectations").setCommandableNavigationIdentifier("userAccountAssignScopes"))
 						
 				//.addEntitiesList(UserAccountInterim.class,UserAccountInterimModel.class)
 				,__inject__(MenuItemBuilder.class).setCommandableName("Retour au portail").setCommandableIcon(Icon.FLASH)

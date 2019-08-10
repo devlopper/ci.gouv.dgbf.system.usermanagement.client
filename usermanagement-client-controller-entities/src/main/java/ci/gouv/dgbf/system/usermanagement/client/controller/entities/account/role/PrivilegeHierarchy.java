@@ -1,12 +1,7 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role;
 
-import org.cyk.utility.client.controller.data.DataIdentifiedByString;
+import org.cyk.utility.client.controller.data.hierarchy.Hierarchy;
 
-public interface PrivilegeHierarchy extends DataIdentifiedByString {
+public interface PrivilegeHierarchy extends Hierarchy<Privilege> {
 
-	Privilege getParent();
-	PrivilegeHierarchy setParent(Privilege privilege);
-	
-	Privilege getChild();
-	PrivilegeHierarchy setChild(Privilege child);
 }
