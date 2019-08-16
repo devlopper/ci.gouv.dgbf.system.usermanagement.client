@@ -8,29 +8,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
 	
-    <cyk:page value="#{userAccountAssignPrivilegesPage}" >
+    <cyk:page value="#{userAccountPrivilegeAssignListUserAccountPage}" >
     	<ui:define name="centerCenter">
-    		<h1>Assignation de privilèges</h1>
-    		<p:dataTable value="#{userAccountAssignPrivilegesPage.userAccounts}" var="userAccount" >
+    		<p:dataTable value="#{userAccountPrivilegeAssignListUserAccountPage.userAccounts}" var="userAccount" >
     			<p:column headerText="Nom d'utilisateur"><h:outputText value="#{userAccount.account.identifier}" /></p:column>
     			<p:column headerText="Nom et prénoms"><h:outputText value="#{userAccount.user.names}" /></p:column>
-    			<p:column headerText="Privilèges">
-    				
-    			</p:column>
-    			<p:column headerText="Actions">
-    				<p:commandButton value="Modifier" action="#{userAccountAssignPrivilegesPage.selectUserAccount(userAccount)}" update="form:dialog" oncomplete="PF('dialog').show();"/>
+    			<p:column headerText="Actions" width="100">
+    				<p:commandButton value="Assigner" action="#{userAccountPrivilegeAssignListUserAccountPage.selectUserAccount(userAccount)}"/>
     			</p:column>
     		</p:dataTable>
-    		
-    		<style>
-    			.column01 {
-    				vertical-align: top;
-    			}
-    			.column02 {
-    				vertical-align: top;
-    			}
-    		</style>
-    		
     	</ui:define>
     </cyk:page>
     

@@ -1,13 +1,17 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
+import org.primefaces.PrimeFaces;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
@@ -19,7 +23,6 @@ public class UserAccountPrivilegeAssignListUserAccountPage extends AbstractPageC
 	private static final long serialVersionUID = 1L;
 
 	private List<UserAccount> userAccounts;
-	private UserAccount selectedUserAccount;
 	
 	@Override
 	protected void __listenPostConstruct__() {
@@ -28,9 +31,21 @@ public class UserAccountPrivilegeAssignListUserAccountPage extends AbstractPageC
 	}
 	
 	public void selectUserAccount(UserAccount userAccount) {
-		Properties properties = new Properties();
-		properties.setFields("functions,profiles,privileges");
-		this.selectedUserAccount = __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier(), properties);
+		Map<String,Object> options = new HashMap<>();
+        options.put("modal", true);
+        options.put("width", 1000);
+        options.put("height", 580);
+        options.put("contentWidth", "100%");
+        options.put("contentHeight", "100%");
+        
+        Map<String,List<String>> parameters = new HashMap<>();
+        parameters.put("identifier", Arrays.asList(userAccount.getIdentifier()));
+         
+        PrimeFaces.current().dialog().openDynamic("processuseraccount", options, parameters);
 	}
 	
+	@Override
+	protected String __getWindowTitleValue__() {
+		return "Assignation de privilège";
+	}
 }

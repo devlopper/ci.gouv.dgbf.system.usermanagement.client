@@ -8,7 +8,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
 	
-	<cyk:page value="#{profileDetailsPage}" >
+    <cyk:page value="#{userAccountPrivilegeAssignProcessUserAccountPage}" >
     	<ui:define name="menuTop">
     		<style>
     			.layout-main-reduce{
@@ -28,25 +28,31 @@
     	<ui:define name="menuLeft"/>
     	<ui:define name="formContentTitle"/>
     	
-    	<ui:define name="centerCenter">    		
+    	<ui:define name="centerCenter">
     		<p:fieldset legend="Fonctions">
-	    		<p:pickList 
-			    	value="#{profileDetailsPage.functions}" 
-			    	var="function" 
-			    	itemValue="#{function}" 
-					itemLabel="#{function.name}"
+    			<ui:repeat var="function" value="#{userAccountPrivilegeAssignProcessUserAccountPage.userAccount.functions}">
+    				<h:outputText value="#{function}" />
+    			</ui:repeat>
+    		</p:fieldset>
+    		<br/>
+    		<p:fieldset legend="Profiles Systèmes">
+    			<p:pickList 
+			    	value="#{userAccountPrivilegeAssignProcessUserAccountPage.profiles}" 
+			    	var="profile" 
+			    	itemValue="#{profile}" 
+					itemLabel="#{profile.name}"
 					showCheckbox="true"
 					converter="#{objectConverter}"
 					>					
 				</p:pickList>
-    		</p:fieldset>    		
-    		<br/>    		
+    		</p:fieldset>
+    		<br/>
     		<p:fieldset legend="Privilèges">
     			<p:tree 
-					value="#{profileDetailsPage.privilegesNodeRoot}" 
+					value="#{userAccountPrivilegeAssignProcessUserAccountPage.privilegesNodeRoot}" 
 					var="treeNode" 
 					selectionMode="checkbox" 
-		    		selection="#{profileDetailsPage.privilegesNodesSelected}"
+		    		selection="#{userAccountPrivilegeAssignProcessUserAccountPage.privilegesNodesSelected}"
 		    		styleClass="privilege-select-tree"
 		    		>
 			        <p:treeNode>
@@ -65,9 +71,9 @@
 			            <h:outputText value="#{treeNode.name}"/>
 			        </p:treeNode>				        
 			    </p:tree>
-    		</p:fieldset>			
-			<br/>			
-			<cyk:commandable value="#{profileDetailsPage.saveCommandable}" />			
+    		</p:fieldset>
+    		<br/>
+    		<cyk:commandable value="#{userAccountPrivilegeAssignProcessUserAccountPage.saveCommandable}" />			
 			<style>
 				.privilege-select-tree {
 					width: 100%;
@@ -87,5 +93,5 @@
 			</style>
     	</ui:define>
     </cyk:page>
-	   
+    
 </html>
