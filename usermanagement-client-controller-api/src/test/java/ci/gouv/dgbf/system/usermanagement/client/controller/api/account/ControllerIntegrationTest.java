@@ -109,8 +109,34 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 	
 	@Test
 	public void create_profile() throws Exception{
-		Profile profile = __inject__(Profile.class).setCode(__getRandomCode__()).setName(__getRandomName__());
-		__inject__(TestControllerCreate.class).addObjects(profile).execute();
+		Profile profile = __inject__(Profile.class).setCode("p01").setName(__getRandomName__());
+		__inject__(ProfileController.class).create(profile);
+		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01",new Properties().setFields("functions,privileges"));
+		assertThat(profile).isNotNull();
+		assertThat(profile.getFunctions()).isNull();
+		assertThat(profile.getPrivileges()).isNull();
+		
+		FunctionType functionType = __inject__(FunctionType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
+		__inject__(FunctionTypeController.class).create(functionType);
+		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f01").setName(__getRandomName__()).setType(functionType));
+		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f02").setName(__getRandomName__()).setType(functionType));
+		__inject__(FunctionController.class).create(__inject__(Function.class).setCode("f03").setName(__getRandomName__()).setType(functionType));
+		
+		profile.addFunctionsByCodes("f02");
+		__inject__(ProfileController.class).update(profile,new Properties().setFields("functions,privileges"));
+		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01",new Properties().setFields("functions,privileges"));
+		assertThat(profile).isNotNull();
+		assertThat(profile.getFunctions()).isNotEmpty();
+		assertThat(profile.getFunctions().stream().map(x -> x.getCode()).collect(Collectors.toList())).containsOnly("f02");
+		assertThat(profile.getPrivileges()).isNull();
+		
+		profile.addFunctionsByCodes("f01");
+		__inject__(ProfileController.class).update(profile,new Properties().setFields("functions,privileges"));
+		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01",new Properties().setFields("functions,privileges"));
+		assertThat(profile).isNotNull();
+		assertThat(profile.getFunctions()).isNotEmpty();
+		assertThat(profile.getFunctions().stream().map(x -> x.getCode()).collect(Collectors.toList())).containsOnly("f02","f01");
+		assertThat(profile.getPrivileges()).isNull();
 	}
 	
 	@Test

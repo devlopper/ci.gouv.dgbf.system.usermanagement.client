@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+	
+    <cyk:page value="#{userAccountAssignPrivilegesPage}" >
+    	<ui:define name="centerCenter">
+    		<h1>Assignation de privilèges</h1>
+    		<p:dataTable value="#{userAccountAssignPrivilegesPage.userAccounts}" var="userAccount" >
+    			<p:column headerText="Nom d'utilisateur"><h:outputText value="#{userAccount.account.identifier}" /></p:column>
+    			<p:column headerText="Nom et prénoms"><h:outputText value="#{userAccount.user.names}" /></p:column>
+    			<p:column headerText="Privilèges">
+    				
+    			</p:column>
+    			<p:column headerText="Actions">
+    				<p:commandButton value="Modifier" action="#{userAccountAssignPrivilegesPage.selectUserAccount(userAccount)}" update="form:dialog" oncomplete="PF('dialog').show();"/>
+    			</p:column>
+    		</p:dataTable>
+    		
+    		<style>
+    			.column01 {
+    				vertical-align: top;
+    			}
+    			.column02 {
+    				vertical-align: top;
+    			}
+    		</style>
+    		
+    	</ui:define>
+    </cyk:page>
+    
+</html>

@@ -10,20 +10,10 @@
 	
     <cyk:page value="#{userAccountAssignPrivilegesPage}" >
     	<ui:define name="centerCenter">
-    		<h1>Assignation de privilèges</h1>
-    		<p:dataTable value="#{userAccountAssignPrivilegesPage.userAccounts}" var="userAccount" >
-    			<p:column headerText="Nom d'utilisateur"><h:outputText value="#{userAccount.account.identifier}" /></p:column>
-    			<p:column headerText="Nom et prénoms"><h:outputText value="#{userAccount.user.names}" /></p:column>
-    			<p:column headerText="Privilèges">
-    				
-    			</p:column>
-    			<p:column headerText="Actions">
-    				<p:commandButton value="Modifier" action="#{userAccountAssignPrivilegesPage.selectUserAccount(userAccount)}" update="form:dialog" oncomplete="PF('dialog').show();"/>
-    			</p:column>
-    		</p:dataTable>
-    		
+    		<!--
     		<p:dialog id="dialog" header="Assignation de privilèges à #{userAccountAssignPrivilegesPage.selectedUserAccount.user.names}" widgetVar="dialog" modal="true"
     			width="90%" height="500px">
+    			-->
 			    <p:panelGrid columns="2">
 			    	<h:outputText value="Nom d'utilisateur" /><h:outputText value="#{userAccountAssignPrivilegesPage.selectedUserAccount.account.identifier}" />
 			    	<h:outputText value="Nom et prénoms" /><h:outputText value="#{userAccountAssignPrivilegesPage.selectedUserAccount.user.names}" />
@@ -62,8 +52,7 @@
 				        </p:treeNode>				        
 				    </p:tree>
 			    </p:panelGrid>
-			</p:dialog>
-    		
+			
     		<style>
     			.column01 {
     				vertical-align: top;

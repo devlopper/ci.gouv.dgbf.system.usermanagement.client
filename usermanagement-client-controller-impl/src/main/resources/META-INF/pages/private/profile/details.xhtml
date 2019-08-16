@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+	
+	<cyk:page value="#{profileDetailsPage}" >
+    	<ui:define name="menuTop">
+    		<style>
+    			.layout-main-reduce{
+				    padding: 0px !important;
+				    margin: 0px !important;
+				}
+    			.layout-main-reduce{
+    				padding: 0px !important;
+				    margin: 0px !important;
+				}
+				.layout-wrapper .layout-main {
+					padding: 0px !important;
+				    margin: 0px !important;
+				}
+    		</style>
+    	</ui:define>
+    	<ui:define name="menuLeft">
+    		
+    	</ui:define>
+    	
+    	<ui:define name="formContentTitle">
+    	
+    	</ui:define>
+    	
+    	<ui:define name="centerCenter">
+    		
+    		<p:fieldset legend="Fonctions">
+	    		<p:pickList 
+			    	value="#{profileDetailsPage.functions}" 
+			    	var="function" 
+			    	itemValue="#{function}" 
+					itemLabel="#{function.name}"
+					showCheckbox="true"
+					converter="#{objectConverter}"
+					>
+					
+				</p:pickList>
+    		</p:fieldset>
+    		
+    		<br/>
+    		
+    		<p:fieldset legend="Privilèges">
+    			<p:tree 
+					value="#{profileDetailsPage.privilegesNodeRoot}" 
+					var="treeNode" 
+					selectionMode="checkbox" 
+		    		selection="#{profileDetailsPage.privilegesNodesSelected}"
+		    		styleClass="privilege-select-tree"
+		    		>
+			        <p:treeNode>
+			            <h:outputText value="#{treeNode.name}(#{treeNode.type.name})"/>
+			        </p:treeNode>	
+			        <p:treeNode type="MODULE" icon="fa fa-folder">
+			            <h:outputText value="#{treeNode.name}"/>
+			        </p:treeNode>
+			        <p:treeNode type="SERVICE" icon="fa fa-server">
+			            <h:outputText value="#{treeNode.name}"/>
+			        </p:treeNode>
+			        <p:treeNode type="MENU" icon="fa fa-asterisk">
+			            <h:outputText value="#{treeNode.name}"/>
+			        </p:treeNode>
+			        <p:treeNode type="ACTION" icon="fa fa-file">
+			            <h:outputText value="#{treeNode.name}"/>
+			        </p:treeNode>				        
+			    </p:tree>
+    		</p:fieldset>
+			
+			<br/>
+			
+			<cyk:commandable value="#{profileDetailsPage.saveCommandable}" />
+			
+			<style>
+				.privilege-select-tree {
+					width: 100%;
+				}
+				
+				.ui-picklist-list {
+					height: 120px;
+				}
+				
+				.ui-picklist .ui-picklist-buttons {
+				    height: 100px;
+				}
+				
+				.ui-picklist .ui-picklist-list {
+				    height: 130px;
+				}
+				
+			</style>
+    	</ui:define>
+    </cyk:page>
+	
+			
+    
+</html>

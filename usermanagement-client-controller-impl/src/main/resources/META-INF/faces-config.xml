@@ -9,6 +9,12 @@
 		<from-view-id>*</from-view-id>
 		
 		<navigation-case>
+			<from-outcome>profileListView</from-outcome>
+			<to-view-id>/private/profile/list.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
 			<from-outcome>userAccountAssignScopes</from-outcome>
 			<to-view-id>/private/useraccount/assignscopes.jsf</to-view-id>
 			<redirect />
@@ -16,7 +22,7 @@
 		
 		<navigation-case>
 			<from-outcome>userAccountAssignPrivileges</from-outcome>
-			<to-view-id>/private/useraccount/assignprivileges.jsf</to-view-id>
+			<to-view-id>/private/useraccount/privilege/assign/listuseraccount.jsf</to-view-id>
 			<redirect />
 		</navigation-case>
 		
