@@ -1,9 +1,10 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -12,22 +13,19 @@ import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.component.command.Commandable;
 import org.cyk.utility.client.controller.component.command.CommandableBuilder;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
-import org.cyk.utility.client.controller.web.jsf.primefaces.PrimefacesHelper;
+import org.cyk.utility.client.controller.web.jsf.primefaces.tag.InputTree;
 import org.cyk.utility.collection.CollectionHelper;
 import org.cyk.utility.server.persistence.query.filter.FilterDto;
 import org.cyk.utility.system.action.SystemActionCustom;
 import org.omnifaces.util.Faces;
-import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 import org.primefaces.model.TreeNode;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
-import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.PrivilegeController;
-import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.PrivilegeHierarchyController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfileController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Privilege;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PrivilegeHierarchy;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.ProfileType;
 import lombok.Getter;
@@ -38,31 +36,33 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 	private static final long serialVersionUID = 1L;
 
 	private UserAccount userAccount;
-	private List<Profile> selectedProfiles;
-	private DualListModel<Profile> profiles;
-	private List<Privilege> privileges;
-	private List<PrivilegeHierarchy> privilegeHierarchies;
-	private List<Privilege> selectedPrivileges;
-	private TreeNode privilegesNodeRoot;
-	private TreeNode[] privilegesNodesSelected;
+	/*
+	 * User profile derived from user account to be updated
+	 */
+	private Profile userProfile;
+	private DualListModel<Profile> systemProfiles;
+	private InputTree inputTreePrivilege;
 	
 	private Commandable saveCommandable;
-	private String __fields__ = "functions,profiles,privileges";
+	private String __fields__ = "functions,profiles";
 	
 	@Override
 	protected void __listenPostConstruct__() {
 		super.__listenPostConstruct__();
-		this.userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(Faces.getRequestParameter("identifier"),new Properties().setFields(__fields__));
-		Collection<Profile> __profiles__ = __inject__(ProfileController.class).read(new Properties()
+		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(Faces.getRequestParameter("identifier"),new Properties().setFields(__fields__));
+		if(__inject__(CollectionHelper.class).isEmpty(userAccount.getProfiles())) {
+			
+		}else {
+			userProfile = __inject__(ProfileController.class).readBySystemIdentifier(__inject__(CollectionHelper.class).getFirst(userAccount.getProfiles()).getIdentifier()
+					,new Properties().setFields("privileges"));
+		}
+		Collection<Profile> __systemProfiles__ = __inject__(ProfileController.class).read(new Properties()
 				.setFilters(new FilterDto().setKlass(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Profile.class)
 						.addField(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Profile.FIELD_TYPE, Arrays.asList(ProfileType.CODE_SYSTEM)))
 				.setIsPageable(Boolean.FALSE));
-		profiles = __inject__(PrimefacesHelper.class).buildDualList(__profiles__, userAccount.getProfiles());
+		systemProfiles = __injectPrimefacesHelper__().buildDualList(__systemProfiles__, userAccount.getProfiles());
 		
-		privileges = (List<Privilege>) __inject__(PrivilegeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
-		privilegeHierarchies = (List<PrivilegeHierarchy>) __inject__(PrivilegeHierarchyController.class).read(new Properties().setIsPageable(Boolean.FALSE));
-		createTreeNode();
-		privilegesNodeRoot.setExpanded(Boolean.TRUE);	
+		inputTreePrivilege = new InputTree(__injectPrimefacesHelper__().buildTreeNode(Privilege.class, userProfile));
 		
 		CommandableBuilder saveCommandableBuilder = __inject__(CommandableBuilder.class);
 		saveCommandableBuilder.setName("Enregistrer").setCommandFunctionActionClass(SystemActionCustom.class).addCommandFunctionTryRunRunnable(
@@ -125,57 +125,37 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 	protected String __getWindowTitleValue__() {
 		return "Compte utilisateur : "+userAccount.getAccount().getIdentifier()+" - "+userAccount.getUser().getNames();
 	}
+	
+	public void onTransfer(TransferEvent event) {
+		/*
+		Collection<Profile> profiles = __inject__(ProfileController.class).readBySystemIdentifiers(
+				event.getItems().stream().map(x -> ((Profile)x).getIdentifier()).collect(Collectors.toList()),new Properties()
+				.setFields("privileges").setIsPageable(Boolean.FALSE));
+		*/
+		
+		Collection<Profile> profiles = new ArrayList<>();
+		for(Object item : event.getItems()) {
+			profiles.add(__inject__(ProfileController.class).readBySystemIdentifier( ((Profile)item).getIdentifier() ,new Properties().setFields("privileges")));
+		}
+		
+		Collection<Privilege> privileges = new ArrayList<>();
+		for(Profile index : profiles)
+			if(__inject__(CollectionHelper.class).isNotEmpty(index.getPrivileges()))
+				privileges.addAll(index.getPrivileges());
+		
+		if(__inject__(CollectionHelper.class).isNotEmpty(privileges)) {
+			__injectPrimefacesHelper__().setTreeNodesSelected(inputTreePrivilege.getRoot(), privileges,event.isAdd());
+		}
+    }  
 
 	private void save() {
+		userProfile.getPrivileges(Boolean.TRUE).clear();
+		if(inputTreePrivilege.getSelected()!=null)
+			for(TreeNode index : inputTreePrivilege.getSelected()) {
+				userProfile.getPrivileges(Boolean.TRUE).add((Privilege) index.getData());
+			}
 		
+		__inject__(ProfileController.class).update(userProfile,new Properties().setFields("privileges"));
 	}
-	
-	private void createTreeNode() {
-		privilegesNodeRoot = new DefaultTreeNode();
-		privilegesNodeRoot.setExpanded(Boolean.TRUE);
-		if(__inject__(CollectionHelper.class).isNotEmpty(privileges))
-			for(Privilege index : privileges) {
-				Boolean hasParent = Boolean.FALSE;
-				for(PrivilegeHierarchy privilegeHierarchy : privilegeHierarchies) {
-					if(privilegeHierarchy.getChild().getIdentifier().equals(index.getIdentifier())) {
-						hasParent = Boolean.TRUE;
-						break;
-					}
-				}
-				if(!hasParent) {
-					TreeNode node = instantiateTreeNode(index, privilegesNodeRoot);
-					createTreeNode(index,node);
-				}
-			}
-	}
-	
-	private void createTreeNode(Privilege privilege,TreeNode root) {
-		//Find children
-		for(Privilege index : privileges) {
-			for(PrivilegeHierarchy privilegeHierarchy : privilegeHierarchies) {
-				if(privilegeHierarchy.getParent().getIdentifier().equals(privilege.getIdentifier()) && privilegeHierarchy.getChild().getIdentifier().equals(index.getIdentifier())) {
-					TreeNode node = instantiateTreeNode(index, root);		
-					createTreeNode(index,node);
-					break;
-				}
-			}
-		}
-	}
-	
-	private TreeNode instantiateTreeNode(Privilege privilege,TreeNode parent) {
-		TreeNode node = new DefaultTreeNode(privilege.getType().getCode(),privilege, parent);
-		//mark as selected if it belongs to profile
-		/*
-		if(__inject__(CollectionHelper.class).isNotEmpty(userAccount.getPrivileges())) {
-			node.setSelected(userAccount.getPrivileges().contains(privilege));
-			if(node.isSelected()) {
-				while(parent != null) {
-					parent.setExpanded(Boolean.TRUE);
-					parent = parent.getParent();
-				}
-			}
-		}
-		*/
-		return node;
-	}
+
 }

@@ -2,10 +2,7 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account.role;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -15,7 +12,6 @@ import org.cyk.utility.client.controller.component.command.Commandable;
 import org.cyk.utility.client.controller.component.command.CommandableBuilder;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
 import org.cyk.utility.system.action.SystemActionCustom;
-import org.primefaces.PrimeFaces;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfileController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
@@ -55,17 +51,7 @@ public class ProfileListPage extends AbstractPageContainerManagedImpl implements
 	}
 	
 	public void selectProfile(Profile profile) {
-		Map<String,Object> options = new HashMap<>();
-        options.put("modal", true);
-        options.put("width", 1000);
-        options.put("height", 580);
-        options.put("contentWidth", "100%");
-        options.put("contentHeight", "100%");
-        
-        Map<String,List<String>> parameters = new HashMap<>();
-        parameters.put("profile", Arrays.asList(profile.getIdentifier()));
-         
-        PrimeFaces.current().dialog().openDynamic("details", options, parameters);
+		__injectPrimefacesHelper__().openDialog("details", profile.getIdentifier());
 	}
 	
 }

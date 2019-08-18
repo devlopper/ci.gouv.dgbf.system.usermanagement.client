@@ -6,7 +6,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org"
+      xmlns:system="http://primefaces.jsf.web.usermanagement.system.gouv.ci">
 	
     <cyk:page value="#{userAccountPrivilegeAssignProcessUserAccountPage}" >
     	<ui:define name="menuTop">
@@ -37,48 +38,25 @@
     		<br/>
     		<p:fieldset legend="Profiles Systèmes">
     			<p:pickList 
-			    	value="#{userAccountPrivilegeAssignProcessUserAccountPage.profiles}" 
+			    	value="#{userAccountPrivilegeAssignProcessUserAccountPage.systemProfiles}" 
 			    	var="profile" 
 			    	itemValue="#{profile}" 
 					itemLabel="#{profile.name}"
 					showCheckbox="true"
 					converter="#{objectConverter}"
-					>					
+					>
+					
+					<p:ajax event="transfer" listener="#{userAccountPrivilegeAssignProcessUserAccountPage.onTransfer}" update="privileges" />
+										
 				</p:pickList>
     		</p:fieldset>
     		<br/>
-    		<p:fieldset legend="Privilèges">
-    			<p:tree 
-					value="#{userAccountPrivilegeAssignProcessUserAccountPage.privilegesNodeRoot}" 
-					var="treeNode" 
-					selectionMode="checkbox" 
-		    		selection="#{userAccountPrivilegeAssignProcessUserAccountPage.privilegesNodesSelected}"
-		    		styleClass="privilege-select-tree"
-		    		>
-			        <p:treeNode>
-			            <h:outputText value="#{treeNode.name}(#{treeNode.type.name})"/>
-			        </p:treeNode>	
-			        <p:treeNode type="MODULE" icon="fa fa-folder">
-			            <h:outputText value="#{treeNode.name}"/>
-			        </p:treeNode>
-			        <p:treeNode type="SERVICE" icon="fa fa-server">
-			            <h:outputText value="#{treeNode.name}"/>
-			        </p:treeNode>
-			        <p:treeNode type="MENU" icon="fa fa-asterisk">
-			            <h:outputText value="#{treeNode.name}"/>
-			        </p:treeNode>
-			        <p:treeNode type="ACTION" icon="fa fa-file">
-			            <h:outputText value="#{treeNode.name}"/>
-			        </p:treeNode>				        
-			    </p:tree>
+    		<p:fieldset id="privileges" legend="Privilèges">
+    			<system:inputTreePrivilege value="#{userAccountPrivilegeAssignProcessUserAccountPage.inputTreePrivilege}" />
     		</p:fieldset>
     		<br/>
     		<cyk:commandable value="#{userAccountPrivilegeAssignProcessUserAccountPage.saveCommandable}" />			
 			<style>
-				.privilege-select-tree {
-					width: 100%;
-				}
-				
 				.ui-picklist-list {
 					height: 120px;
 				}

@@ -6,7 +6,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org"
+      xmlns:system="http://primefaces.jsf.web.usermanagement.system.gouv.ci">
 	
 	<cyk:page value="#{profileDetailsPage}" >
     	<ui:define name="menuTop">
@@ -42,11 +43,34 @@
     		</p:fieldset>    		
     		<br/>    		
     		<p:fieldset legend="Privilèges">
+    			<system:inputTreePrivilege value="#{profileDetailsPage.inputTreePrivilege}" />
+    			<!--
+    			<cyk:inputTree value="#{profileDetailsPage.inputTree}" >
+    				<ui:define name="nodes">
+	    				<p:treeNode>
+				            <h:outputText value="#{node.name}(#{node.type.name})"/>
+				        </p:treeNode>	
+				        <p:treeNode type="MODULE" icon="fa fa-folder">
+				            <h:outputText value="#{node.name}"/>
+				        </p:treeNode>
+				        <p:treeNode type="SERVICE" icon="fa fa-server">
+				            <h:outputText value="#{node.name}"/>
+				        </p:treeNode>
+				        <p:treeNode type="MENU" icon="fa fa-asterisk">
+				            <h:outputText value="#{node.name}"/>
+				        </p:treeNode>
+				        <p:treeNode type="ACTION" icon="fa fa-file">
+				            <h:outputText value="#{node.name}"/>
+				        </p:treeNode>			
+    				</ui:define>
+    			</cyk:inputTree>
+    			-->
+    			<!--
     			<p:tree 
-					value="#{profileDetailsPage.privilegesNodeRoot}" 
+					value="#{profileDetailsPage.inputTree.root}" 
 					var="treeNode" 
 					selectionMode="checkbox" 
-		    		selection="#{profileDetailsPage.privilegesNodesSelected}"
+		    		selection="#{profileDetailsPage.inputTree.selected}"
 		    		styleClass="privilege-select-tree"
 		    		>
 			        <p:treeNode>
@@ -65,14 +89,11 @@
 			            <h:outputText value="#{treeNode.name}"/>
 			        </p:treeNode>				        
 			    </p:tree>
+			    -->
     		</p:fieldset>			
 			<br/>			
 			<cyk:commandable value="#{profileDetailsPage.saveCommandable}" />			
 			<style>
-				.privilege-select-tree {
-					width: 100%;
-				}
-				
 				.ui-picklist-list {
 					height: 120px;
 				}
