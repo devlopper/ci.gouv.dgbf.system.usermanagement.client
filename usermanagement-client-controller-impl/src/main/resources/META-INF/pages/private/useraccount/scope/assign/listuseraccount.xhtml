@@ -15,7 +15,7 @@
     			<p:column headerText="Nom d'utilisateur"><h:outputText value="#{userAccount.account.identifier}" /></p:column>
     			<p:column headerText="Nom et prénoms"><h:outputText value="#{userAccount.user.names}" /></p:column>
     			<p:column headerText="Actions" width="100">
-    				<p:commandButton value="Assigner" action="#{userAccountScopeAssignListUserAccountPage.selectUserAccount(userAccount)}"/>
+    				<p:commandButton value="Affecter" action="#{userAccountScopeAssignListUserAccountPage.selectUserAccount(userAccount)}"/>
     			</p:column>
     		</p:dataTable>
     	</ui:define>

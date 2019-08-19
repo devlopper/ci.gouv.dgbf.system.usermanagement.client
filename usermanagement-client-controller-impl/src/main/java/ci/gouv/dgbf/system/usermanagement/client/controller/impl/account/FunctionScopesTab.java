@@ -9,9 +9,8 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.rol
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
-@Getter @Setter @Accessors(chain=true)
+@Getter @Setter
 public class FunctionScopesTab implements Serializable {
 	private static final long serialVersionUID = 1L;
 
