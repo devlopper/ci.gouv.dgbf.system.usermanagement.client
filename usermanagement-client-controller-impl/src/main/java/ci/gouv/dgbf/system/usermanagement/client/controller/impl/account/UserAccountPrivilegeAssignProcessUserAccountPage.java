@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -24,9 +23,11 @@ import org.primefaces.model.TreeNode;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfileController;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfilePrivilegeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Privilege;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ProfilePrivilege;
 import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.ProfileType;
 import lombok.Getter;
 import lombok.Setter;
@@ -60,7 +61,24 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 				.setFilters(new FilterDto().setKlass(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Profile.class)
 						.addField(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Profile.FIELD_TYPE, Arrays.asList(ProfileType.CODE_SYSTEM)))
 				.setIsPageable(Boolean.FALSE));
-		systemProfiles = __injectPrimefacesHelper__().buildDualList(__systemProfiles__, userAccount.getProfiles());
+		
+		Collection<Profile> selectedSystemProfiles = new ArrayList<>();
+		if(__inject__(CollectionHelper.class).isNotEmpty(userProfile.getPrivileges())) {
+			//Find system profiles from user profile privileges
+			//FIXME we do it like that for now for presentation. do it better
+			Collection<ProfilePrivilege> profilePrivileges = __inject__(ProfilePrivilegeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
+			if(__inject__(CollectionHelper.class).isNotEmpty(profilePrivileges)) {
+				for(Privilege privilege : userProfile.getPrivileges()) {
+					for(ProfilePrivilege profilePrivilege : profilePrivileges) {
+						if(privilege.equals(profilePrivilege.getPrivilege()) && profilePrivilege.getProfile().getType().getCode().equals(ProfileType.CODE_SYSTEM)) {
+							selectedSystemProfiles.add(profilePrivilege.getProfile());
+						}
+					}	
+				}
+			}	
+		}
+		
+		systemProfiles = __injectPrimefacesHelper__().buildDualList(__systemProfiles__, selectedSystemProfiles);
 		
 		inputTreePrivilege = new InputTree(__injectPrimefacesHelper__().buildTreeNode(Privilege.class, userProfile));
 		
@@ -74,56 +92,11 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 			}
 		);
 		saveCommandable = saveCommandableBuilder.execute().getOutput();
-		/*
-		Properties properties = new Properties();
-		properties.setFields("functions,profiles,privileges");
-		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(Faces.getRequestParameter("useraccount"),properties);
-		privileges = (List<Privilege>) __inject__(PrivilegeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
-		privilegeHierarchies = (List<PrivilegeHierarchy>) __inject__(PrivilegeHierarchyController.class).read(new Properties().setIsPageable(Boolean.FALSE));
-		
-		profiles = new ArrayList<>();
-		for(Profile index : __inject__(ProfileController.class).read(new Properties().setIsPageable(Boolean.FALSE))) {
-			if(index.getType().getCode().equals(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.ProfileType.CODE_SYSTEM))
-				profiles.add(index);
-		}
-		
-		selectedProfiles = null;
-		selectedPrivileges = null;
-		if(userAccount != null) {
-			List<Privilege> userAccountPrivileges = new ArrayList<>();
-			
-			if(__inject__(CollectionHelper.class).isNotEmpty(profiles) && __inject__(CollectionHelper.class).isNotEmpty(userAccount.getProfiles())) {
-				selectedProfiles = new ArrayList<>();
-				for(Profile index : userAccount.getProfiles()) {
-					if(__inject__(CollectionHelper.class).isNotEmpty(index.getPrivileges()))
-						userAccountPrivileges.addAll(index.getPrivileges());
-					for(Profile profile : profiles)
-						if(profile.getIdentifier().equals(index.getIdentifier())) {
-							selectedProfiles.add(profile);
-							break;
-						}
-				}
-			}
-			
-			if(__inject__(CollectionHelper.class).isNotEmpty(privileges) && __inject__(CollectionHelper.class).isNotEmpty(userAccountPrivileges)) {
-				selectedPrivileges = new ArrayList<>();
-				for(Privilege index : userAccountPrivileges) {
-					for(Privilege privilege : privileges)
-						if(privilege.getIdentifier().equals(index.getIdentifier())) {
-							selectedPrivileges.add(privilege);
-							break;
-						}
-				}
-			}
-			
-			createTreeNode();
-		}
-		*/
 	}
 	
 	@Override
 	protected String __getWindowTitleValue__() {
-		return "Compte utilisateur : "+userAccount.getAccount().getIdentifier()+" - "+userAccount.getUser().getNames();
+		return "Assignation - Compte utilisateur : "+userAccount.getAccount().getIdentifier()+" - "+userAccount.getUser().getNames();
 	}
 	
 	public void onTransfer(TransferEvent event) {
@@ -144,7 +117,7 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 				privileges.addAll(index.getPrivileges());
 		
 		if(__inject__(CollectionHelper.class).isNotEmpty(privileges)) {
-			__injectPrimefacesHelper__().setTreeNodesSelected(inputTreePrivilege.getRoot(), privileges,event.isAdd());
+			inputTreePrivilege.__select__(privileges,event.isAdd());
 		}
     }  
 
@@ -154,7 +127,6 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 			for(TreeNode index : inputTreePrivilege.getSelected()) {
 				userProfile.getPrivileges(Boolean.TRUE).add((Privilege) index.getData());
 			}
-		
 		__inject__(ProfileController.class).update(userProfile,new Properties().setFields("privileges"));
 	}
 

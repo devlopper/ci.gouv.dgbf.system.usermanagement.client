@@ -10,7 +10,7 @@ import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.role.PrivilegeDtoCollection;
 
 @Mapper(uses= {MappingInstantiator.class})
-public abstract class PrivilegeMapper extends AbstractNodeMapperImpl<Privilege, PrivilegeDto, Collection, PrivilegeDtoCollection> {
+public abstract class PrivilegeMapper extends AbstractNodeMapperImpl<Privilege, PrivilegeDto, Collection<Object>, PrivilegeDtoCollection> {
 	private static final long serialVersionUID = 1L;
     
 	@Override

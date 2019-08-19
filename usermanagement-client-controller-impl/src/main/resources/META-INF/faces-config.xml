@@ -16,7 +16,7 @@
 		
 		<navigation-case>
 			<from-outcome>userAccountAssignScopes</from-outcome>
-			<to-view-id>/private/useraccount/assignscopes.jsf</to-view-id>
+			<to-view-id>/private/useraccount/scope/assign/listuseraccount.jsf</to-view-id>
 			<redirect />
 		</navigation-case>
 		

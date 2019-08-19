@@ -9,7 +9,7 @@
       xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org"
       xmlns:system="http://primefaces.jsf.web.usermanagement.system.gouv.ci">
 	
-	<cyk:page value="#{profileDetailsPage}" >
+    <cyk:page value="#{userAccountScopeAssignProcessUserAccountPage}" >
     	<ui:define name="menuTop">
     		<style>
     			.layout-main-reduce{
@@ -29,24 +29,35 @@
     	<ui:define name="menuLeft"/>
     	<ui:define name="formContentTitle"/>
     	
-    	<ui:define name="centerCenter">    		
+    	<ui:define name="centerCenter">
     		<p:fieldset legend="Fonctions">
-	    		<p:pickList 
-			    	value="#{profileDetailsPage.functions}" 
-			    	var="function" 
-			    	itemValue="#{function}" 
-					itemLabel="#{function.name}"
-					showCheckbox="true"
-					converter="#{objectConverter}"
-					>					
-				</p:pickList>
-    		</p:fieldset>    		
-    		<br/>    		
-    		<p:fieldset legend="Privilèges">
-    			<system:inputTreePrivilege value="#{profileDetailsPage.inputTreePrivilege}" />
-    		</p:fieldset>			
-			<br/>			
-			<cyk:commandable value="#{profileDetailsPage.saveCommandable}" />			
+    			<ui:repeat var="function" value="#{userAccountScopeAssignProcessUserAccountPage.userAccount.functions}">
+    				<h:outputText value="#{function}" />
+    			</ui:repeat>
+    		</p:fieldset>
+    		<br/>
+    		<p:fieldset legend="Domaines de visibilité">
+    			<p:tabView id="functionScopesTabs" value="#{userAccountScopeAssignProcessUserAccountPage.functionScopesTabs}" var="functionScopesTab">
+    				<p:tab title="#{functionScopesTab.type.name}">
+    					<p:pickList 
+					    	value="#{functionScopesTab.functionScopes}" 
+					    	var="functionScope" 
+					    	itemValue="#{functionScope}" 
+							itemLabel="#{functionScope.name}"
+							showCheckbox="true"
+							showSourceFilter="true"
+							filterMatchMode="contains"
+							converter="#{objectConverter}"
+							>
+							
+							<p:ajax event="transfer" listener="#{functionScopeTab.listenTransfer}" update="functionScopesTabs" />
+												
+						</p:pickList>
+    				</p:tab>
+    			</p:tabView>		    			
+    		</p:fieldset>
+    		<br/>
+    		<cyk:commandable value="#{userAccountScopeAssignProcessUserAccountPage.saveCommandable}" />			
 			<style>
 				.ui-picklist-list {
 					height: 120px;
@@ -62,5 +73,5 @@
 			</style>
     	</ui:define>
     </cyk:page>
-	   
+    
 </html>

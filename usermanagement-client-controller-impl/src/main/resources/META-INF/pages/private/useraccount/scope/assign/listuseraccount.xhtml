@@ -8,14 +8,14 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
 	
-    <cyk:page value="#{userAccountPrivilegeAssignListUserAccountPage}" >
+    <cyk:page value="#{userAccountScopeAssignListUserAccountPage}" >
     	<ui:define name="centerCenter">
     		.
-    		<p:dataTable value="#{userAccountPrivilegeAssignListUserAccountPage.userAccounts}" var="userAccount" >
+    		<p:dataTable value="#{userAccountScopeAssignListUserAccountPage.userAccounts}" var="userAccount" >
     			<p:column headerText="Nom d'utilisateur"><h:outputText value="#{userAccount.account.identifier}" /></p:column>
     			<p:column headerText="Nom et prénoms"><h:outputText value="#{userAccount.user.names}" /></p:column>
     			<p:column headerText="Actions" width="100">
-    				<p:commandButton value="Assigner" action="#{userAccountPrivilegeAssignListUserAccountPage.selectUserAccount(userAccount)}"/>
+    				<p:commandButton value="Assigner" action="#{userAccountScopeAssignListUserAccountPage.selectUserAccount(userAccount)}"/>
     			</p:column>
     		</p:dataTable>
     	</ui:define>
