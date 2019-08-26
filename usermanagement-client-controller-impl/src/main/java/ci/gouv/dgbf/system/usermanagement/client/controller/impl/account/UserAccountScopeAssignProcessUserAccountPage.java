@@ -33,7 +33,7 @@ public class UserAccountScopeAssignProcessUserAccountPage extends AbstractPageCo
 	private UserAccount userAccount;
 	private List<FunctionScopesTab> functionScopesTabs = new ArrayList<>();
 	private Commandable saveCommandable;
-	private String __fields__ = "functions,functionScopes";
+	private String __fields__ = "user,account,functions,functionScopes";
 	
 	@Override
 	protected void __listenPostConstruct__() {

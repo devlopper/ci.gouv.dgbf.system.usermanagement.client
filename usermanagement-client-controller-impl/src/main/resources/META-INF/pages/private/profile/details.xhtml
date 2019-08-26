@@ -42,9 +42,7 @@
 				</p:pickList>
     		</p:fieldset>    		
     		<br/>    		
-    		<p:fieldset legend="Privilèges">
-    			<system:inputTreePrivilege value="#{profileDetailsPage.inputTreePrivilege}" />
-    		</p:fieldset>			
+    		<cyk:tree value="#{profileDetailsPage.privilegeTree}" />
 			<br/>			
 			<cyk:commandable value="#{profileDetailsPage.saveCommandable}" />			
 			<style>

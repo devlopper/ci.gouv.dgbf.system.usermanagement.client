@@ -51,10 +51,10 @@
 				</p:pickList>
     		</p:fieldset>
     		<br/>
-    		<p:fieldset id="privileges" legend="Privilèges">
-    			<system:inputTreePrivilege value="#{userAccountPrivilegeAssignProcessUserAccountPage.inputTreePrivilege}" />
-    		</p:fieldset>
-    		<br/>
+    		<p:outputPanel id="privileges">
+    			<cyk:tree value="#{userAccountPrivilegeAssignProcessUserAccountPage.privilegeTree}" />
+    		</p:outputPanel>
+	    	<br/>
     		<cyk:commandable value="#{userAccountPrivilegeAssignProcessUserAccountPage.saveCommandable}" />			
 			<style>
 				.ui-picklist-list {
@@ -67,7 +67,7 @@
 				
 				.ui-picklist .ui-picklist-list {
 				    height: 130px;
-				}				
+				}		
 			</style>
     	</ui:define>
     </cyk:page>

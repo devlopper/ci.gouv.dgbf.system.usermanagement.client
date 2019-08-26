@@ -13,6 +13,8 @@ import org.cyk.utility.client.controller.component.command.Commandable;
 import org.cyk.utility.client.controller.component.command.CommandableBuilder;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.InputTree;
+import org.cyk.utility.client.controller.web.jsf.primefaces.tag.Tree;
+import org.cyk.utility.client.controller.web.jsf.primefaces.tag.TreeSelectionMode;
 import org.cyk.utility.collection.CollectionHelper;
 import org.cyk.utility.server.persistence.query.filter.FilterDto;
 import org.cyk.utility.system.action.SystemActionCustom;
@@ -22,6 +24,7 @@ import org.primefaces.model.DualListModel;
 import org.primefaces.model.TreeNode;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.PrivilegeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfileController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfilePrivilegeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
@@ -45,7 +48,9 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 	private InputTree inputTreePrivilege;
 	
 	private Commandable saveCommandable;
-	private String __fields__ = "functions,profiles";
+	private String __fields__ = "identifier,user,account,functions,profiles";
+	
+	private Tree<Privilege> privilegeTree;
 	
 	@Override
 	protected void __listenPostConstruct__() {
@@ -66,6 +71,7 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 		if(__inject__(CollectionHelper.class).isNotEmpty(userProfile.getPrivileges())) {
 			//Find system profiles from user profile privileges
 			//FIXME we do it like that for now for presentation. do it better
+			/*
 			Collection<ProfilePrivilege> profilePrivileges = __inject__(ProfilePrivilegeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
 			if(__inject__(CollectionHelper.class).isNotEmpty(profilePrivileges)) {
 				for(Privilege privilege : userProfile.getPrivileges()) {
@@ -75,12 +81,20 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 						}
 					}	
 				}
-			}	
+			}
+			*/
 		}
 		
 		systemProfiles = __injectPrimefacesHelper__().buildDualList(__systemProfiles__, selectedSystemProfiles);
 		
-		inputTreePrivilege = new InputTree(__injectPrimefacesHelper__().buildTreeNode(Privilege.class, userProfile));
+		//inputTreePrivilege = new InputTree(__injectPrimefacesHelper__().buildTreeNode(Privilege.class, userProfile));
+		
+		privilegeTree = new Tree<Privilege>(__inject__(PrivilegeController.class));
+		privilegeTree.setRootLabel("Privilèges disponibles");
+		privilegeTree.setSelectionLabel("Privilèges accordés");
+		privilegeTree.setSelectable(Boolean.TRUE);
+		privilegeTree.setSelectionMode(TreeSelectionMode.REMOVE_ADD);
+		privilegeTree.initialise();
 		
 		CommandableBuilder saveCommandableBuilder = __inject__(CommandableBuilder.class);
 		saveCommandableBuilder.setName("Enregistrer").setCommandFunctionActionClass(SystemActionCustom.class).addCommandFunctionTryRunRunnable(

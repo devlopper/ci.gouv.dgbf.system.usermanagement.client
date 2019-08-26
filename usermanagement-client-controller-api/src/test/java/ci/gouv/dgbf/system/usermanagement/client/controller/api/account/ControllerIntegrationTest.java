@@ -2,15 +2,10 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.api.account;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
-import org.cyk.utility.__kernel__.function.AbstractFunctionRunnableImpl;
-import org.cyk.utility.__kernel__.function.FunctionRunnableMap;
 import org.cyk.utility.__kernel__.properties.Properties;
-import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifierStringProvider;
-import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifierStringProviderImpl;
 import org.cyk.utility.client.controller.test.TestControllerCreate;
 import org.cyk.utility.client.controller.test.arquillian.AbstractControllerArquillianIntegrationTestWithDefaultDeployment;
 import org.junit.Test;
@@ -40,7 +35,6 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 	
 	@Override
 	protected void __listenBefore__() {
-		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,10000,Boolean.TRUE);
 		__inject__(ApplicationScopeLifeCycleListener.class).initialize(null);	
 		super.__listenBefore__();
 		__inject__(ProfileTypeController.class).create(__inject__(ProfileType.class).setCode(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.ProfileType.CODE_SYSTEM).setName("Système"));
@@ -111,7 +105,7 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 	public void create_profile() throws Exception{
 		Profile profile = __inject__(Profile.class).setCode("p01").setName(__getRandomName__());
 		__inject__(ProfileController.class).create(profile);
-		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01",new Properties().setFields("functions,privileges"));
+		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01",new Properties().setFields("functions,privileges,identifier"));
 		assertThat(profile).isNotNull();
 		assertThat(profile.getFunctions()).isNull();
 		assertThat(profile.getPrivileges()).isNull();
@@ -124,14 +118,14 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		
 		profile.addFunctionsByCodes("f02");
 		__inject__(ProfileController.class).update(profile,new Properties().setFields("functions,privileges"));
-		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01",new Properties().setFields("functions,privileges"));
+		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01",new Properties().setFields("functions,privileges,identifier"));
 		assertThat(profile).isNotNull();
 		assertThat(profile.getFunctions()).isNotEmpty();
 		assertThat(profile.getFunctions().stream().map(x -> x.getCode()).collect(Collectors.toList())).containsOnly("f02");
 		assertThat(profile.getPrivileges()).isNull();
 		
 		profile.addFunctionsByCodes("f01");
-		__inject__(ProfileController.class).update(profile,new Properties().setFields("functions,privileges"));
+		__inject__(ProfileController.class).update(profile,new Properties().setFields("functions,privileges,identifier"));
 		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01",new Properties().setFields("functions,privileges"));
 		assertThat(profile).isNotNull();
 		assertThat(profile.getFunctions()).isNotEmpty();
@@ -234,7 +228,7 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		assertThat(userAccount.getFunctions()).as("user functions collection is not null").isNull();
 		
 		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier(),new Properties()
-				.setFields(UserAccount.PROPERTY_FUNCTION_SCOPES+","+UserAccount.PROPERTY_PROFILES+",functions"));
+				.setFields(UserAccount.PROPERTY_FUNCTION_SCOPES+","+UserAccount.PROPERTY_PROFILES+",functions,identifier"));
 		assertThat(userAccount).as("user account is null").isNotNull();
 		assertThat(userAccount.getFunctionScopes()).as("user account roles collection is null").isNotNull();
 		assertThat(userAccount.getFunctionScopes()).as("user account roles collection is empty").isNotEmpty();
@@ -284,7 +278,7 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		__inject__(UserAccountController.class).create(userAccount);
 		
 		assertThat(__inject__(UserAccountFunctionScopeController.class).count()).isEqualTo(1l);
-		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
+		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES+",identifier"));
 		assertThat(userAccount).isNotNull();
 		assertThat(userAccount.getFunctionScopes()).isNotNull();
 		assertThat(userAccount.getFunctionScopes()).isNotEmpty();
@@ -309,7 +303,7 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 				,"ASSISTANT_SAISIE_MINISTERE_21");
 	}
 	
-	@Test
+	//@Test
 	public void create_userAccountInterim() throws Exception{
 		UserAccount userAccount = __inject__(UserAccount.class);
 		userAccount.getUser(Boolean.TRUE).setFirstName("Zadi").setLastNames("Paul-François").setElectronicMailAddress(__getRandomElectronicMailAddress__());
@@ -327,20 +321,4 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		__inject__(TestControllerCreate.class).setName("Create UserAccountInterim").addObjectsToBeCreatedArray(userAccount,interim).addObjects(userAccountInterim).execute();
 	}
 	
-	/**/
-	
-	public static class ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl extends AbstractFunctionRunnableImpl<ProxyClassUniformResourceIdentifierStringProvider> implements Serializable {
-		private static final long serialVersionUID = 1L;
-		
-		public ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl() {
-			setRunnable(new Runnable() {
-				@Override
-				public void run() {
-					setOutput("http://localhost:8080/usermanagement/server/");
-				}
-			});
-		}
-		
-	}
-
 }

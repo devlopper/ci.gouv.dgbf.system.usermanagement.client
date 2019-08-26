@@ -2,7 +2,7 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.ro
 
 import org.cyk.utility.client.controller.data.hierarchy.DataIdentifiedByStringAndCodedAndNamed;
 
-public interface Privilege extends DataIdentifiedByStringAndCodedAndNamed {
+public interface Privilege extends DataIdentifiedByStringAndCodedAndNamed<Privilege> {
 
 	PrivilegeType getType();
 	Privilege setType(PrivilegeType type);

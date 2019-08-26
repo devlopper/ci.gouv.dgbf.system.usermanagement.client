@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.cyk.utility.client.controller.data.hierarchy.AbstractDataIdentifiedByStringAndCodedAndNamedImpl;
 
-public class PrivilegeImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedImpl implements Privilege,Serializable {
+public class PrivilegeImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedImpl<Privilege> implements Privilege,Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private PrivilegeType type;
