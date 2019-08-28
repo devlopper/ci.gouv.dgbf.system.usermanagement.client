@@ -23,7 +23,7 @@ public class PrivilegeListPage extends AbstractPageContainerManagedImpl implemen
 	@Override
 	protected void __listenPostConstruct__() {
 		super.__listenPostConstruct__();
-		tree = new Tree<Privilege>(__inject__(PrivilegeController.class));
+		//tree = new Tree<Privilege>(__inject__(PrivilegeController.class));
 		/*tree.setRootLabel("Privilèges");
 		tree.setSelectionLabel("Privilèges accordés");
 		tree.setSelectable(Boolean.TRUE);

@@ -1,6 +1,8 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account.role;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -19,7 +21,6 @@ import org.primefaces.model.DualListModel;
 import org.primefaces.model.TreeNode;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.FunctionController;
-import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.PrivilegeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfileController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Privilege;
@@ -46,11 +47,11 @@ public class ProfileDetailsPage extends AbstractPageContainerManagedImpl impleme
 		functions = __injectPrimefacesHelper__().buildDualList(__inject__(FunctionController.class).read(new Properties().setIsPageable(Boolean.FALSE))
 				, profile.getFunctions());
 
-		//inputTreePrivilege = new InputTree(__injectPrimefacesHelper__().buildTreeNode(Privilege.class, profile));
-		
-		privilegeTree = new Tree<Privilege>(__inject__(PrivilegeController.class));
+		privilegeTree = new Tree<Privilege>();
+		privilegeTree.setNodeClass(Privilege.class);
 		privilegeTree.setRootLabel("Privilèges disponibles");
 		privilegeTree.setSelectionLabel("Privilèges accordés");
+		privilegeTree.setSelectedNodes(profile.getPrivileges());
 		privilegeTree.setSelectable(Boolean.TRUE);
 		privilegeTree.setSelectionMode(TreeSelectionMode.REMOVE_ADD);
 		privilegeTree.initialise();
@@ -85,10 +86,13 @@ public class ProfileDetailsPage extends AbstractPageContainerManagedImpl impleme
 		}
 		
 		profile.getPrivileges(Boolean.TRUE).clear();
+		/*
 		if(inputTreePrivilege.getSelected()!=null)
 			for(TreeNode index : inputTreePrivilege.getSelected()) {
 				profile.getPrivileges(Boolean.TRUE).add((Privilege) index.getData());
 			}
+		*/
+		profile.setPrivileges((List<Privilege>) privilegeTree.getSelectedNodes());
 		
 		__inject__(ProfileController.class).update(profile,new Properties().setFields(__fields__));
 	}

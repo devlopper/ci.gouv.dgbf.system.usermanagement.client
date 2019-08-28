@@ -89,7 +89,8 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 		
 		//inputTreePrivilege = new InputTree(__injectPrimefacesHelper__().buildTreeNode(Privilege.class, userProfile));
 		
-		privilegeTree = new Tree<Privilege>(__inject__(PrivilegeController.class));
+		privilegeTree = new Tree<Privilege>();
+		privilegeTree.setNodeClass(Privilege.class);
 		privilegeTree.setRootLabel("Privilèges disponibles");
 		privilegeTree.setSelectionLabel("Privilèges accordés");
 		privilegeTree.setSelectable(Boolean.TRUE);
