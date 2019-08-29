@@ -13,6 +13,7 @@ public class AccountImpl extends AbstractDataIdentifiedByStringAndCodedImpl impl
 	private static final long serialVersionUID = 1L;
 
 	@Input @InputString @InputStringLineOne @NotNull private String pass;
+	@Input @InputString @InputStringLineOne @NotNull private String passConfirmation;
 	
 	@Override
 	public Account setIdentifier(String identifier) {
@@ -27,6 +28,17 @@ public class AccountImpl extends AbstractDataIdentifiedByStringAndCodedImpl impl
 	@Override
 	public Account setPass(String pass) {
 		this.pass = pass;
+		return this;
+	}
+	
+	@Override
+	public String getPassConfirmation() {
+		return passConfirmation;
+	}
+
+	@Override
+	public Account setPassConfirmation(String passConfirmation) {
+		this.passConfirmation = passConfirmation;
 		return this;
 	}
 	

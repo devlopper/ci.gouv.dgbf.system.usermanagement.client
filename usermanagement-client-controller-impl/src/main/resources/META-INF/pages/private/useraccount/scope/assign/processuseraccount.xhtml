@@ -37,20 +37,20 @@
     		</p:fieldset>
     		<br/>
     		<p:fieldset legend="Domaines de visibilité">
-    			<p:tabView id="functionScopesTabs" value="#{userAccountScopeAssignProcessUserAccountPage.functionScopesTabs}" var="functionScopesTab">
-    				<p:tab title="#{functionScopesTab.type.name}">
+    			<p:tabView id="scopesTabs" value="#{userAccountScopeAssignProcessUserAccountPage.scopesTabs}" var="scopesTab">
+    				<p:tab title="#{scopesTab.type.name}">
     					<p:pickList 
-					    	value="#{functionScopesTab.functionScopes}" 
-					    	var="functionScope" 
-					    	itemValue="#{functionScope}" 
-							itemLabel="#{functionScope.name}"
+					    	value="#{scopesTab.scopes}" 
+					    	var="scope" 
+					    	itemValue="#{scope}" 
+							itemLabel="#{scope.identifier}"
 							showCheckbox="true"
 							showSourceFilter="true"
 							filterMatchMode="contains"
 							converter="#{objectConverter}"
 							>
 							
-							<p:ajax event="transfer" listener="#{functionScopeTab.listenTransfer}" update="functionScopesTabs" />
+							<!-- <p:ajax event="transfer" listener="#{scopesTab.listener.listenTransfer}" update="scopesTabs" /> -->
 												
 						</p:pickList>
     				</p:tab>

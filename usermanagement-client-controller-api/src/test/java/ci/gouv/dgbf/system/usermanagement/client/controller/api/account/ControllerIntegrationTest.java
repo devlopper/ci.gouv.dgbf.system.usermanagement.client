@@ -295,12 +295,21 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
 		
 		assertThat(__inject__(UserAccountFunctionScopeController.class).count()).isEqualTo(2l);
-		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier(), new Properties().setFields(UserAccount.PROPERTY_FUNCTION_SCOPES));
+		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier(), new Properties().setFields("identifier,"+UserAccount.PROPERTY_FUNCTION_SCOPES));
 		assertThat(userAccount).isNotNull();
 		assertThat(userAccount.getFunctionScopes()).isNotNull();
 		assertThat(userAccount.getFunctionScopes()).isNotEmpty();
 		assertThat(userAccount.getFunctionScopes().stream().map(FunctionScope::getCode).collect(Collectors.toList())).contains("CONTROLEUR_FINANCIER_MINISTERE_21"
 				,"ASSISTANT_SAISIE_MINISTERE_21");
+		
+		assertThat(__inject__(UserAccountScopeController.class).count()).isEqualTo(0l);
+		assertThat(userAccount.getScopes()).isNull();
+		userAccount.addScopes(__inject__(Scope.class).setIdentifier("21"));
+		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields("scopes"));
+		assertThat(__inject__(UserAccountScopeController.class).count()).isEqualTo(1l);
+		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier(), new Properties().setFields("identifier,scopes"));
+		assertThat(userAccount.getScopes()).isNotNull();
+		assertThat(userAccount.getScopes().stream().map(Scope::getIdentifier).collect(Collectors.toList())).contains("21");
 	}
 	
 	//@Test

@@ -48,7 +48,7 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 					.addEntitiesList(/*FunctionScope.class,*/Scope.class,ScopeType.class)
 				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des utilisateurs").setCommandableIcon(Icon.USERS).addChild(
 						__inject__(MenuItemBuilder.class).setCommandableName("Création").setCommandableIcon(Icon.PLUS)
-						.setCommandableNavigationIdentifierBuilderSystemAction(__inject__(SystemActionCreate.class).setEntityClass(UserAccount.class))
+						.setCommandableNavigationIdentifier("userAccountCreateListUserView")
 						//,__inject__(MenuItemBuilder.class).setCommandableName("Liste des utilisateurs")
 						//.setCommandableNavigationIdentifierBuilderSystemAction(__inject__(SystemActionList.class).setEntityClass(UserAccount.class))
 				)

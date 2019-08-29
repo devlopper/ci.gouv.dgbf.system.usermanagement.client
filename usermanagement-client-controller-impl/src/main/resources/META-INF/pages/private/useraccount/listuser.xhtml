@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+	
+    <cyk:page value="#{userAccountCreateListUserPage}" >
+    	<ui:define name="centerCenter">
+    		<p:dataTable value="#{userAccountCreateListUserPage.users}" var="user" >
+    			<f:facet name="header">
+    				<p:button value="Identifier et créer un compte utilisateur" outcome="userAccountCreateView"/>
+    			</f:facet>
+    			<p:column headerText="Nom"><h:outputText value="#{profile.code}" /></p:column>
+    			<p:column headerText="Prénoms"><h:outputText value="#{profile.name}" /></p:column>
+    			<p:column headerText="Actions" width="100">
+    				<p:button value="Créer" outcome="userAccountCreateView">
+    					<f:param name="user" value="#{user.identifier}" />
+    				</p:button>
+    			</p:column>
+    		</p:dataTable>
+    	</ui:define>
+    </cyk:page>
+    
+</html>

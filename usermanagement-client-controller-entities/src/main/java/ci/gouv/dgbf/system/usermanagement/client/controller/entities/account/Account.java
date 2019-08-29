@@ -9,8 +9,12 @@ public interface Account extends DataIdentifiedByString {
 	String getPass();
 	Account setPass(String pass);
 	
+	String getPassConfirmation();
+	Account setPassConfirmation(String passConfirmation);
+	
 	/**/
 	
 	String PROPERTY_PASS = "pass";
+	String PROPERTY_PASS_CONFIRMATION = "passConfirmation";
 	
 }

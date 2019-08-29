@@ -1,7 +1,6 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account.role;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -12,13 +11,11 @@ import org.cyk.utility.client.controller.component.command.Commandable;
 import org.cyk.utility.client.controller.component.command.CommandableBuilder;
 import org.cyk.utility.client.controller.component.window.WindowBuilder;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
-import org.cyk.utility.client.controller.web.jsf.primefaces.tag.InputTree;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.Tree;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.TreeSelectionMode;
 import org.cyk.utility.system.action.SystemActionCustom;
 import org.omnifaces.util.Faces;
 import org.primefaces.model.DualListModel;
-import org.primefaces.model.TreeNode;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.FunctionController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfileController;
@@ -34,10 +31,9 @@ public class ProfileDetailsPage extends AbstractPageContainerManagedImpl impleme
 
 	private Profile profile;
 	private DualListModel<Function> functions;
-	private InputTree inputTreePrivilege;
-
+	
 	private Commandable saveCommandable;
-	private String __fields__ = "identifier,functions,privileges";
+	private String __fields__ = "identifier,code,name,functions,privileges";
 	private Tree<Privilege> privilegeTree;
 	
 	@Override
@@ -51,7 +47,7 @@ public class ProfileDetailsPage extends AbstractPageContainerManagedImpl impleme
 		privilegeTree.setNodeClass(Privilege.class);
 		privilegeTree.setRootLabel("Privilèges disponibles");
 		privilegeTree.setSelectionLabel("Privilèges accordés");
-		privilegeTree.setSelectedNodes(profile.getPrivileges());
+		privilegeTree.setInitialSelectedNodes(profile.getPrivileges());
 		privilegeTree.setSelectable(Boolean.TRUE);
 		privilegeTree.setSelectionMode(TreeSelectionMode.REMOVE_ADD);
 		privilegeTree.initialise();
@@ -85,13 +81,6 @@ public class ProfileDetailsPage extends AbstractPageContainerManagedImpl impleme
 				profile.getFunctions(Boolean.TRUE).add(index);
 		}
 		
-		profile.getPrivileges(Boolean.TRUE).clear();
-		/*
-		if(inputTreePrivilege.getSelected()!=null)
-			for(TreeNode index : inputTreePrivilege.getSelected()) {
-				profile.getPrivileges(Boolean.TRUE).add((Privilege) index.getData());
-			}
-		*/
 		profile.setPrivileges((List<Privilege>) privilegeTree.getSelectedNodes());
 		
 		__inject__(ProfileController.class).update(profile,new Properties().setFields(__fields__));

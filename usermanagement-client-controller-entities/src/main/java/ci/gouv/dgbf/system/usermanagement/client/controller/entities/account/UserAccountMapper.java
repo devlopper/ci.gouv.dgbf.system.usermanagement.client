@@ -8,10 +8,11 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.rol
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionsMapper;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PrivilegesMapper;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ProfilesMapper;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopesMapper;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.UserAccountDto;
 
-@Mapper(uses= {MappingInstantiator.class,FunctionsMapper.class,FunctionScopesMapper.class,ProfilesMapper.class,PrivilegesMapper.class})
+@Mapper(uses= {MappingInstantiator.class,FunctionsMapper.class,FunctionScopesMapper.class,ScopesMapper.class,ProfilesMapper.class,PrivilegesMapper.class})
 public abstract class UserAccountMapper extends AbstractMapperSourceDestinationImpl<UserAccount, UserAccountDto> {
 	private static final long serialVersionUID = 1L;
-    
+
 }

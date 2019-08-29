@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -11,8 +12,8 @@ import javax.inject.Named;
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.component.command.Commandable;
 import org.cyk.utility.client.controller.component.command.CommandableBuilder;
+import org.cyk.utility.client.controller.component.window.WindowBuilder;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
-import org.cyk.utility.client.controller.web.jsf.primefaces.tag.InputTree;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.Tree;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.TreeSelectionMode;
 import org.cyk.utility.collection.CollectionHelper;
@@ -21,10 +22,8 @@ import org.cyk.utility.system.action.SystemActionCustom;
 import org.omnifaces.util.Faces;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
-import org.primefaces.model.TreeNode;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
-import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.PrivilegeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfileController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfilePrivilegeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
@@ -45,7 +44,6 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 	 */
 	private Profile userProfile;
 	private DualListModel<Profile> systemProfiles;
-	private InputTree inputTreePrivilege;
 	
 	private Commandable saveCommandable;
 	private String __fields__ = "identifier,user,account,functions,profiles";
@@ -60,7 +58,7 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 			
 		}else {
 			userProfile = __inject__(ProfileController.class).readBySystemIdentifier(__inject__(CollectionHelper.class).getFirst(userAccount.getProfiles()).getIdentifier()
-					,new Properties().setFields("privileges"));
+					,new Properties().setFields("identifier,privileges"));
 		}
 		Collection<Profile> __systemProfiles__ = __inject__(ProfileController.class).read(new Properties()
 				.setFilters(new FilterDto().setKlass(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Profile.class)
@@ -71,7 +69,7 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 		if(__inject__(CollectionHelper.class).isNotEmpty(userProfile.getPrivileges())) {
 			//Find system profiles from user profile privileges
 			//FIXME we do it like that for now for presentation. do it better
-			/*
+			
 			Collection<ProfilePrivilege> profilePrivileges = __inject__(ProfilePrivilegeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
 			if(__inject__(CollectionHelper.class).isNotEmpty(profilePrivileges)) {
 				for(Privilege privilege : userProfile.getPrivileges()) {
@@ -82,16 +80,15 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 					}	
 				}
 			}
-			*/
+			
 		}
 		
 		systemProfiles = __injectPrimefacesHelper__().buildDualList(__systemProfiles__, selectedSystemProfiles);
 		
-		//inputTreePrivilege = new InputTree(__injectPrimefacesHelper__().buildTreeNode(Privilege.class, userProfile));
-		
 		privilegeTree = new Tree<Privilege>();
 		privilegeTree.setNodeClass(Privilege.class);
 		privilegeTree.setRootLabel("Privilèges disponibles");
+		privilegeTree.setInitialSelectedNodes(userProfile.getPrivileges());
 		privilegeTree.setSelectionLabel("Privilèges accordés");
 		privilegeTree.setSelectable(Boolean.TRUE);
 		privilegeTree.setSelectionMode(TreeSelectionMode.REMOVE_ADD);
@@ -114,6 +111,11 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 		return "Assignation - Compte utilisateur : "+userAccount.getAccount().getIdentifier()+" - "+userAccount.getUser().getNames();
 	}
 	
+	@Override
+	protected String __processWindowDialogOkCommandableGetUrl__(WindowBuilder window, CommandableBuilder commandable) {
+		return null;
+	}
+	
 	public void onTransfer(TransferEvent event) {
 		/*
 		Collection<Profile> profiles = __inject__(ProfileController.class).readBySystemIdentifiers(
@@ -132,16 +134,15 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 				privileges.addAll(index.getPrivileges());
 		
 		if(__inject__(CollectionHelper.class).isNotEmpty(privileges)) {
-			inputTreePrivilege.__select__(privileges,event.isAdd());
+			if(event.isAdd())
+				privilegeTree.select(privileges);
+			else
+				privilegeTree.deselect(privileges);
 		}
     }  
 
 	private void save() {
-		userProfile.getPrivileges(Boolean.TRUE).clear();
-		if(inputTreePrivilege.getSelected()!=null)
-			for(TreeNode index : inputTreePrivilege.getSelected()) {
-				userProfile.getPrivileges(Boolean.TRUE).add((Privilege) index.getData());
-			}
+		userProfile.setPrivileges((List<Privilege>) privilegeTree.getSelectedNodes());
 		__inject__(ProfileController.class).update(userProfile,new Properties().setFields("privileges"));
 	}
 

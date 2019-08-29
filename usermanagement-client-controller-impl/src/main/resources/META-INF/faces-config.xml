@@ -9,6 +9,18 @@
 		<from-view-id>*</from-view-id>
 		
 		<navigation-case>
+			<from-outcome>userAccountCreateListUserView</from-outcome>
+			<to-view-id>/private/useraccount/listuser.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>userAccountCreateView</from-outcome>
+			<to-view-id>/private/useraccount/create.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
 			<from-outcome>profileListView</from-outcome>
 			<to-view-id>/private/profile/list.jsf</to-view-id>
 			<redirect />
