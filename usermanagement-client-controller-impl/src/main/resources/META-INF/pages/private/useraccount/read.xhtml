@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+	
+    <cyk:page value="#{userAccountReadPage}" >
+    	<ui:define name="centerCenter">
+    		<p:panelGrid columns="2" columnClasses="column-1,column-2" style="width:100%;">
+    			<p:outputPanel>
+    				<p:fieldset legend="Compte">
+		    			<p:panelGrid columns="2" layout="grid">
+		    				<h:outputText value="Nom d'utilisateur" />
+		    				<h:outputText value="#{userAccountReadPage.userAccount.account.identifier}" />
+		    				
+		    				<h:outputText value="Mot de passe" />
+		    				<p:outputPanel>
+		    					<h:outputText value="****" />
+		    					<p:commandButton icon="fa fa-pencil" action="#{userAccountReadPage.editPassword}"/>
+		    				</p:outputPanel>
+		    				
+		    			</p:panelGrid>	
+		    		</p:fieldset>
+		    		<br/>
+		    		<p:fieldset legend="Identité">
+		    			<p:panelGrid columns="2">
+		    				<h:outputText value="Nom" /><h:outputText value="#{userAccountReadPage.userAccount.user.firstName}" />
+		    				<h:outputText value="Prénoms" /><h:outputText value="#{userAccountReadPage.userAccount.user.lastNames}" />
+		    				<h:outputText value="Adresse de courrier électronique" /><h:outputText value="#{userAccountReadPage.userAccount.user.electronicMailAddress}" />
+		    				<h:outputText value="Fonctions" />
+		    				<p:outputPanel>
+		    					<p:repeat value="#{userAccountReadPage.userAccount.user.functions}" var="function">
+				    				<h:outputText value="#{function.name}" /><br/>
+				    			</p:repeat>
+		    				</p:outputPanel>
+		    			</p:panelGrid>
+		    			<p:separator/><br/>
+				    	<p:commandButton icon="fa fa-pencil" action="#{userAccountReadPage.editIdentity}"/>
+		    		</p:fieldset>
+    			</p:outputPanel>
+    			<p:outputPanel>
+    				<p:fieldset legend="Domaines de visibilité" toggleable="true">
+		    			<p:repeat value="#{userAccountReadPage.userAccount.scopes}" var="scope">
+				    		<h:outputText value="#{empty scope.name ? scope.type.name += ' ' += scope.identifier : scope.name}" /><br/>
+				    	</p:repeat>
+				    	<p:separator/><br/>
+				    	<p:commandButton icon="fa fa-pencil" action="#{userAccountReadPage.editScopes}"/>
+		    		</p:fieldset>
+    				<p:fieldset legend="Privilèges" toggleable="true">
+		    			<p:repeat value="#{userAccountReadPage.userAccount.getProfiles().iterator().next().privileges}" var="privilege">
+				    		<h:outputText value="#{privilege.name}" /><br/>
+				    	</p:repeat><br/>
+				    	<p:commandButton icon="fa fa-pencil" action="#{userAccountReadPage.editPrivileges}"/>
+		    		</p:fieldset>		    		
+    			</p:outputPanel>
+    		</p:panelGrid>
+    		 		
+		    <style>
+		    	.column-1{
+		    		vertical-align: top;
+		    	}
+		    	
+		    	.column-2{
+		    		vertical-align: top;
+		    	}
+		    </style>		
+    	</ui:define>
+    </cyk:page>    
+</html>

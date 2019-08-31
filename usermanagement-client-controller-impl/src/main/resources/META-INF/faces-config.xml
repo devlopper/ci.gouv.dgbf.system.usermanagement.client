@@ -9,8 +9,8 @@
 		<from-view-id>*</from-view-id>
 		
 		<navigation-case>
-			<from-outcome>userAccountCreateListUserView</from-outcome>
-			<to-view-id>/private/useraccount/listuser.jsf</to-view-id>
+			<from-outcome>userAccountListView</from-outcome>
+			<to-view-id>/private/useraccount/list.jsf</to-view-id>
 			<redirect />
 		</navigation-case>
 		
@@ -20,6 +20,18 @@
 			<redirect />
 		</navigation-case>
 		
+		<navigation-case>
+			<from-outcome>userAccountReadView</from-outcome>
+			<to-view-id>/private/useraccount/read.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>userAccountCreateListUserView</from-outcome>
+			<to-view-id>/private/useraccount/listuser.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+			
 		<navigation-case>
 			<from-outcome>profileListView</from-outcome>
 			<to-view-id>/private/profile/list.jsf</to-view-id>
@@ -33,14 +45,26 @@
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>userAccountAssignScopes</from-outcome>
+			<from-outcome>userAccountAssignScopesListUserAccountView</from-outcome>
 			<to-view-id>/private/useraccount/scope/assign/listuseraccount.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+				
+		<navigation-case>
+			<from-outcome>userAccountAssignScopesProcessUserAccountView</from-outcome>
+			<to-view-id>/private/useraccount/scope/assign/processuseraccount.jsf</to-view-id>
 			<redirect />
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>userAccountAssignPrivileges</from-outcome>
+			<from-outcome>userAccountAssignPrivilegesListUserAccountView</from-outcome>
 			<to-view-id>/private/useraccount/privilege/assign/listuseraccount.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>userAccountAssignPrivilegesProcessUserAccountView</from-outcome>
+			<to-view-id>/private/useraccount/privilege/assign/processuseraccount.jsf</to-view-id>
 			<redirect />
 		</navigation-case>
 		

@@ -6,9 +6,9 @@ import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOne;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOneCombo;
-import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
+import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringAndLinkedByStringAndNamedImpl;
 
-public class ScopeImpl extends AbstractDataIdentifiedByStringImpl implements Scope,Serializable {
+public class ScopeImpl extends AbstractDataIdentifiedByStringAndLinkedByStringAndNamedImpl implements Scope,Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo

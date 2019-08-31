@@ -1,4 +1,4 @@
-package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account;
+package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account.role;
 
 import java.io.Serializable;
 

@@ -11,6 +11,7 @@ import javax.inject.Named;
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.component.command.Commandable;
 import org.cyk.utility.client.controller.component.command.CommandableBuilder;
+import org.cyk.utility.client.controller.component.window.WindowBuilder;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
 import org.cyk.utility.collection.CollectionHelper;
 import org.cyk.utility.system.action.SystemActionCustom;
@@ -87,6 +88,11 @@ public class UserAccountScopeAssignProcessUserAccountPage extends AbstractPageCo
 	@Override
 	protected String __getWindowTitleValue__() {
 		return "Affectation - Compte utilisateur : "+userAccount.getAccount().getIdentifier()+" - "+userAccount.getUser().getNames();
+	}
+	
+	@Override
+	protected String __processWindowDialogOkCommandableGetUrl__(WindowBuilder window, CommandableBuilder commandable) {
+		return null;
 	}
 	
 	private void save() {

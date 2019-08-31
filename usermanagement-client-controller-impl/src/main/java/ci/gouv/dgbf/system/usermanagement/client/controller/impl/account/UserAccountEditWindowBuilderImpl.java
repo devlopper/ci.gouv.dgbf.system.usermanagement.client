@@ -32,7 +32,7 @@ public class UserAccountEditWindowBuilderImpl extends AbstractWindowContainerMan
 			inputBuilder = (InputBuilder<?, ?>) componentBuilder;
 			inputBuilder.getLabel(Boolean.TRUE).setValue("Nom d'utilisateur");
 		}else if(componentBuilder instanceof OutputStringTextBuilder) {
-			OutputStringTextBuilder outputStringTextBuilder = (OutputStringTextBuilder) componentBuilder;
+			//OutputStringTextBuilder outputStringTextBuilder = (OutputStringTextBuilder) componentBuilder;
 			//outputStringTextBuilder.getl
 		}
 		
