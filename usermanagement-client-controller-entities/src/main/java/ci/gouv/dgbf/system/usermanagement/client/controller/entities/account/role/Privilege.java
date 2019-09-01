@@ -10,4 +10,6 @@ public interface Privilege extends DataIdentifiedByStringAndCodedAndNamed<Privil
 	@Override Privilege setIdentifier(String identifier);
 	@Override Privilege setCode(String code);
 	@Override Privilege setName(String name);
+	
+	String PROPERTY_PROFILES = "profiles";
 }

@@ -7,9 +7,7 @@ import org.cyk.utility.client.controller.component.menu.AbstractMenuBuilderMapGe
 import org.cyk.utility.client.controller.component.menu.MenuBuilder;
 import org.cyk.utility.client.controller.component.menu.MenuItemBuilder;
 import org.cyk.utility.client.controller.icon.Icon;
-import org.cyk.utility.system.action.SystemActionCreate;
 
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionType;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Privilege;
@@ -41,16 +39,14 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 		}//else {
 		sessionMenuBuilder.addItems(
 				__inject__(MenuItemBuilder.class).setCommandableName("Gestion des privilèges").setCommandableIcon(Icon.QUESTION)
-					.addEntitiesList(Privilege.class,PrivilegeType.class)
+					.listOrTree(Privilege.class,PrivilegeType.class)
 				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").setCommandableIcon(Icon.FILE)
-					.addEntitiesList(Profile.class,ProfileType.class,Function.class,FunctionType.class)
+					.listOrTree(Profile.class,ProfileType.class,Function.class,FunctionType.class)
 				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des visibilités").setCommandableIcon(Icon.EYE)
-					.addEntitiesList(/*FunctionScope.class,*/Scope.class,ScopeType.class)
+					.listOrTree(Scope.class,ScopeType.class)
 				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des utilisateurs").setCommandableIcon(Icon.USERS).addChild(
 						__inject__(MenuItemBuilder.class).setCommandableName("Création").setCommandableIcon(Icon.PLUS)
 						.setCommandableNavigationIdentifier("userAccountCreateListUserView")
-						//,__inject__(MenuItemBuilder.class).setCommandableName("Liste des utilisateurs")
-						//.setCommandableNavigationIdentifierBuilderSystemAction(__inject__(SystemActionList.class).setEntityClass(UserAccount.class))
 				)
 				//.addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_PRIVILEGES)
 				//.addEntitySelect(UserAccount.class, Constant.SYSTEM_ACTION_IDENTIFIER_ASSIGN_FUNCTION_SCOPES)

@@ -40,11 +40,12 @@
 	    			<p:message for="nomutilisateur" />
 	    			
 	    			<p:outputLabel for="motdepasse" value="Mot de passe" />
-	    			<p:password id="motdepasse" value="#{userAccountCreatePage.pass}" styleClass="cyk_input"/>
+	    			<p:password id="motdepasse" value="#{userAccountCreatePage.pass}" feedback="true" weakLabel="Faible" goodLabel="Bon" strongLabel="Fort" inline="true"
+	    				 promptLabel="Veuillez saisir votre mot de passe" styleClass="cyk_input"/>
 	    			<p:message for="motdepasse" />
 	    			
 	    			<p:outputLabel for="confirmationmotdepasse" value="Confirmation du mot de passe" />
-	    			<p:password id="confirmationmotdepasse" value="#{userAccountCreatePage.passConfirmation}" styleClass="cyk_input"/>
+	    			<p:password id="confirmationmotdepasse" value="#{userAccountCreatePage.passConfirmation}" match="motdepasse" styleClass="cyk_input"/>
 	    			<p:message for="confirmationmotdepasse" />
 	    		</p:panelGrid>
     		</p:fieldset>

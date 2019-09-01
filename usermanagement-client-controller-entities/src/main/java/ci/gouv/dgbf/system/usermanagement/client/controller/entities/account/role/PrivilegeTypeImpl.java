@@ -2,9 +2,9 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.ro
 
 import java.io.Serializable;
 
-import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringAndCodedAndNamedImpl;
+import org.cyk.utility.client.controller.data.hierarchy.AbstractDataIdentifiedByStringAndCodedAndNamedImpl;
 
-public class PrivilegeTypeImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedImpl implements PrivilegeType,Serializable {
+public class PrivilegeTypeImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedImpl<PrivilegeType> implements PrivilegeType,Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Override

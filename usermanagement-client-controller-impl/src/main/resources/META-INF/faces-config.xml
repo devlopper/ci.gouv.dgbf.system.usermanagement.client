@@ -39,12 +39,6 @@
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>privilegeListView</from-outcome>
-			<to-view-id>/private/privilege/list.jsf</to-view-id>
-			<redirect />
-		</navigation-case>
-		
-		<navigation-case>
 			<from-outcome>userAccountAssignScopesListUserAccountView</from-outcome>
 			<to-view-id>/private/useraccount/scope/assign/listuseraccount.jsf</to-view-id>
 			<redirect />

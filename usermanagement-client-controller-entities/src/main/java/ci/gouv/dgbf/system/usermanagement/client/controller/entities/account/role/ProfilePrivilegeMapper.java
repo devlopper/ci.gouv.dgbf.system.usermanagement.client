@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.role.ProfilePrivilegeDto;
 
-@Mapper(uses= {MappingInstantiator.class,FunctionsMapper.class,PrivilegesMapper.class})
+@Mapper(uses= {MappingInstantiator.class,FunctionsMapper.class,PrivilegesMapper.class,PrivilegeTypesMapper.class})
 public abstract class ProfilePrivilegeMapper extends AbstractMapperSourceDestinationImpl<ProfilePrivilege, ProfilePrivilegeDto> {
 	private static final long serialVersionUID = 1L;
     

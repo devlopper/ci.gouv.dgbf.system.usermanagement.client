@@ -31,7 +31,10 @@
     	
     	<ui:define name="centerCenter">    		
     		<p:fieldset legend="Fonctions">
+	    		<cyk:pickList value="#{profileDetailsPage.functionPickList}" />
+	    		<!--
 	    		<p:pickList 
+	    			id="functions"
 			    	value="#{profileDetailsPage.functions}" 
 			    	var="function" 
 			    	itemValue="#{function}" 
@@ -40,9 +43,10 @@
 					converter="#{objectConverter}"
 					>					
 				</p:pickList>
+				-->
     		</p:fieldset>    		
     		<br/>    		
-    		<cyk:tree value="#{profileDetailsPage.privilegeTree}" />
+    		<cyk:tree value="#{profileDetailsPage.privilegeTree}" />    		
 			<br/>			
 			<cyk:commandable value="#{profileDetailsPage.saveCommandable}" />			
 			<style>

@@ -48,7 +48,7 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 	private Commandable saveCommandable;
 	private String __fields__ = "identifier,user,account,functions,profiles";
 	
-	private Tree<Privilege> privilegeTree;
+	private Tree privilegeTree;
 	
 	@Override
 	protected void __listenPostConstruct__() {
@@ -85,14 +85,13 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 		
 		systemProfiles = __injectPrimefacesHelper__().buildDualList(__systemProfiles__, selectedSystemProfiles);
 		
-		privilegeTree = new Tree<Privilege>();
+		privilegeTree = new Tree();
 		privilegeTree.setNodeClass(Privilege.class);
 		privilegeTree.setRootLabel("Privilèges disponibles");
 		privilegeTree.setInitialSelectedNodes(userProfile.getPrivileges());
 		privilegeTree.setSelectionLabel("Privilèges accordés");
 		privilegeTree.setSelectable(Boolean.TRUE);
 		privilegeTree.setSelectionMode(TreeSelectionMode.REMOVE_ADD);
-		privilegeTree.initialise();
 		
 		CommandableBuilder saveCommandableBuilder = __inject__(CommandableBuilder.class);
 		saveCommandableBuilder.setName("Enregistrer").setCommandFunctionActionClass(SystemActionCustom.class).addCommandFunctionTryRunRunnable(
@@ -141,6 +140,7 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 		}
     }  
 
+	@SuppressWarnings("unchecked")
 	private void save() {
 		userProfile.setPrivileges((List<Privilege>) privilegeTree.getSelectedNodes());
 		__inject__(ProfileController.class).update(userProfile,new Properties().setFields("privileges"));
