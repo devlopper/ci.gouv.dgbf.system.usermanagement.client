@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>ci.gouv.dgbf.system.usermanagement.client</groupId>
 		<artifactId>usermanagement-client-_pom</artifactId>
-		<version>0.0.1</version>
+		<version>0.1.0</version>
 	</parent>
 
 	<name>Deployment</name>
@@ -22,13 +22,13 @@
 		<dependency>
 			<groupId>ci.gouv.dgbf.system.usermanagement.client.controller.impl</groupId>
 			<artifactId>usermanagement-client-controller-impl</artifactId>
-			<version>0.0.1</version>
+			<version>0.1.0</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.cyk.jee.utility.client.deployment</groupId>
 			<artifactId>jee-utility-client-deployment</artifactId>
-			<version>0.0.1</version>
+			<version>0.1.0</version>
 		</dependency>
 	</dependencies>		
 	
