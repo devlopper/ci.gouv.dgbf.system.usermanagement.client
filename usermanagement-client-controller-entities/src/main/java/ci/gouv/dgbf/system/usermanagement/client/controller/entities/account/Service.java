@@ -4,6 +4,6 @@ import org.cyk.utility.client.controller.data.DataIdentifiedByString;
 
 public interface Service extends DataIdentifiedByString {
 
-	@Override Service setIdentifier(Object identifier);
+	@Override Service setIdentifier(String identifier);
 	
 }

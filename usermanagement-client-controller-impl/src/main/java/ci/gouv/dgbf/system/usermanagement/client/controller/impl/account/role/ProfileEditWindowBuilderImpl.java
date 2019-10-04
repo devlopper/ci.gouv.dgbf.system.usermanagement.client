@@ -3,6 +3,7 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account.role;
 import java.io.Serializable;
 
 import org.cyk.utility.__kernel__.properties.Properties;
+import org.cyk.utility.__kernel__.system.action.SystemAction;
 import org.cyk.utility.client.controller.component.ComponentBuilder;
 import org.cyk.utility.client.controller.component.input.choice.ChoicesLayoutResponsive;
 import org.cyk.utility.client.controller.component.input.choice.InputChoiceBuilder;
@@ -10,7 +11,6 @@ import org.cyk.utility.client.controller.component.view.ViewBuilder;
 import org.cyk.utility.client.controller.component.window.AbstractWindowContainerManagedWindowBuilderEditDataImpl;
 import org.cyk.utility.client.controller.data.Data;
 import org.cyk.utility.client.controller.data.Form;
-import org.cyk.utility.system.action.SystemAction;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ProfileEditWindowBuilder;

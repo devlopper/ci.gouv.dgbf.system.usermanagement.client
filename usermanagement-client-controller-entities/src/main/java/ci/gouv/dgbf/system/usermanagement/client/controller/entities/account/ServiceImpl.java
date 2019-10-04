@@ -8,7 +8,7 @@ public class ServiceImpl extends AbstractDataIdentifiedByStringImpl implements S
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public Service setIdentifier(Object identifier) {
+	public Service setIdentifier(String identifier) {
 		return (Service) super.setIdentifier(identifier);
 	}
 	

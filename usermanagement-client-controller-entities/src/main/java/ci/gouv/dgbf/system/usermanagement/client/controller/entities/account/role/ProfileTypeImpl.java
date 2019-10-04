@@ -8,7 +8,7 @@ public class ProfileTypeImpl extends AbstractDataIdentifiedByStringAndCodedAndNa
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public ProfileType setIdentifier(Object identifier) {
+	public ProfileType setIdentifier(String identifier) {
 		return (ProfileType) super.setIdentifier(identifier);
 	}
 	

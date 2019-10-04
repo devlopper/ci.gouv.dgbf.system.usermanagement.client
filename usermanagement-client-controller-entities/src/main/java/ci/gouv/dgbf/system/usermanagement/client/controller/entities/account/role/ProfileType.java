@@ -4,7 +4,7 @@ import org.cyk.utility.client.controller.data.DataIdentifiedByStringAndCodedAndN
 
 public interface ProfileType extends DataIdentifiedByStringAndCodedAndNamed {
 
-	@Override ProfileType setIdentifier(Object identifier);
+	@Override ProfileType setIdentifier(String identifier);
 	@Override ProfileType setCode(String code);
 	@Override ProfileType setName(String name);
 }

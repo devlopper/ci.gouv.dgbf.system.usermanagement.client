@@ -8,7 +8,7 @@ public class PrivilegeTypeImpl extends AbstractDataIdentifiedByStringAndCodedAnd
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public PrivilegeType setIdentifier(Object identifier) {
+	public PrivilegeType setIdentifier(String identifier) {
 		return (PrivilegeType) super.setIdentifier(identifier);
 	}
 	

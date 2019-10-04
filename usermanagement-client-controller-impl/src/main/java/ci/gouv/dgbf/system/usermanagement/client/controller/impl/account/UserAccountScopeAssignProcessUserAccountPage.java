@@ -8,13 +8,13 @@ import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
 import org.cyk.utility.__kernel__.properties.Properties;
+import org.cyk.utility.__kernel__.system.action.SystemActionCustom;
 import org.cyk.utility.client.controller.component.command.Commandable;
 import org.cyk.utility.client.controller.component.command.CommandableBuilder;
 import org.cyk.utility.client.controller.component.window.WindowBuilder;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
-import org.cyk.utility.collection.CollectionHelper;
-import org.cyk.utility.system.action.SystemActionCustom;
 import org.omnifaces.util.Faces;
 import org.primefaces.event.TransferEvent;
 
@@ -43,8 +43,8 @@ public class UserAccountScopeAssignProcessUserAccountPage extends AbstractPageCo
 		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(Faces.getRequestParameter("identifier"),new Properties().setFields(__fields__));
 		Collection<ScopeType> scopeTypes = __inject__(ScopeTypeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
 		Collection<Scope> scopes = __inject__(ScopeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
-		if(__inject__(CollectionHelper.class).isNotEmpty(scopes)) {
-			if(__inject__(CollectionHelper.class).isNotEmpty(scopeTypes)) {
+		if(CollectionHelper.isNotEmpty(scopes)) {
+			if(CollectionHelper.isNotEmpty(scopeTypes)) {
 				for(ScopeType index : scopeTypes) {
 					ScopesTab scopesTab = new ScopesTab();
 					scopesTab.setType(index);
@@ -54,7 +54,7 @@ public class UserAccountScopeAssignProcessUserAccountPage extends AbstractPageCo
 							availableScopes.add(indexScope);
 					
 					Collection<Scope> selectedScopes = null;
-					if(__inject__(CollectionHelper.class).isNotEmpty(userAccount.getScopes())) {
+					if(CollectionHelper.isNotEmpty(userAccount.getScopes())) {
 						selectedScopes = new ArrayList<>();
 						for(Scope indexScope : userAccount.getScopes())
 							if(indexScope.getType().equals(index))

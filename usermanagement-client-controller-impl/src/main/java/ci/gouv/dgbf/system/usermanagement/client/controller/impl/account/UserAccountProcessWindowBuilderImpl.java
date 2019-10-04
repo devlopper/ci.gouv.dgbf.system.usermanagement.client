@@ -5,7 +5,9 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
 import org.cyk.utility.__kernel__.properties.Properties;
+import org.cyk.utility.__kernel__.system.action.SystemAction;
 import org.cyk.utility.client.controller.component.input.InputBuilder;
 import org.cyk.utility.client.controller.component.input.choice.ChoicesLayoutResponsive;
 import org.cyk.utility.client.controller.component.input.choice.InputChoiceBuilder;
@@ -14,8 +16,6 @@ import org.cyk.utility.client.controller.component.window.AbstractWindowContaine
 import org.cyk.utility.client.controller.data.Data;
 import org.cyk.utility.client.controller.data.Form;
 import org.cyk.utility.client.controller.event.EventName;
-import org.cyk.utility.collection.CollectionHelper;
-import org.cyk.utility.system.action.SystemAction;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ProfileFunctionController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.User;
@@ -54,14 +54,14 @@ public class UserAccountProcessWindowBuilderImpl extends AbstractWindowContainer
 					public void run() {
 						Collection<Function> selectedFunctions = (Collection<Function>) functions.getComponent().getValue();
 						Map<String,Object> map = null;
-						if(Boolean.TRUE.equals(__injectCollectionHelper__().isNotEmpty(selectedFunctions))) {
+						if(Boolean.TRUE.equals(CollectionHelper.isNotEmpty(selectedFunctions))) {
 							map = __injectMapHelper__().instanciateKeyAsStringValueAsObject(ProfileFunction.PROPERTY_FUNCTION
 									,selectedFunctions.stream().map(Function::getCode).collect(Collectors.toList()));
 						}
 						Collection<ProfileFunction> profileFunctions = __inject__(ProfileFunctionController.class).read(new Properties().setIsPageable(Boolean.FALSE)
 								.setFilters(map));
 						Collection<Profile> selectableProfiles = null;
-						if(Boolean.TRUE.equals(__injectCollectionHelper__().isNotEmpty(profileFunctions))) {
+						if(Boolean.TRUE.equals(CollectionHelper.isNotEmpty(profileFunctions))) {
 							selectableProfiles = profileFunctions.stream().map(ProfileFunction::getProfile).collect(Collectors.toSet());
 						}
 						
@@ -69,9 +69,9 @@ public class UserAccountProcessWindowBuilderImpl extends AbstractWindowContainer
 							profiles.getComponent().getChoices().removeAll();
 						((UserAccount)data).setProfiles(null);
 						
-						if(Boolean.TRUE.equals(__injectCollectionHelper__().isNotEmpty(selectableProfiles))) {
+						if(Boolean.TRUE.equals(CollectionHelper.isNotEmpty(selectableProfiles))) {
 							((UserAccount)data).addProfiles(selectableProfiles);
-							profiles.getComponent().addChoices(__inject__(CollectionHelper.class).cast(Object.class, selectableProfiles));	
+							profiles.getComponent().addChoices(CollectionHelper.cast(Object.class, selectableProfiles));	
 						}
 					}
 				},profiles);

@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
-import org.cyk.utility.collection.CollectionHelper;
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -64,10 +64,10 @@ public class UserAccountAssignPrivilegesPage extends AbstractPageContainerManage
 		if(selectedUserAccount != null) {
 			List<Privilege> userAccountPrivileges = new ArrayList<>();
 			
-			if(__inject__(CollectionHelper.class).isNotEmpty(profiles) && __inject__(CollectionHelper.class).isNotEmpty(selectedUserAccount.getProfiles())) {
+			if(CollectionHelper.isNotEmpty(profiles) && CollectionHelper.isNotEmpty(selectedUserAccount.getProfiles())) {
 				selectedProfiles = new ArrayList<>();
 				for(Profile index : selectedUserAccount.getProfiles()) {
-					if(__inject__(CollectionHelper.class).isNotEmpty(index.getPrivileges()))
+					if(CollectionHelper.isNotEmpty(index.getPrivileges()))
 						userAccountPrivileges.addAll(index.getPrivileges());
 					for(Profile profile : profiles)
 						if(profile.getIdentifier().equals(index.getIdentifier())) {
@@ -77,7 +77,7 @@ public class UserAccountAssignPrivilegesPage extends AbstractPageContainerManage
 				}
 			}
 			
-			if(__inject__(CollectionHelper.class).isNotEmpty(privileges) && __inject__(CollectionHelper.class).isNotEmpty(userAccountPrivileges)) {
+			if(CollectionHelper.isNotEmpty(privileges) && CollectionHelper.isNotEmpty(userAccountPrivileges)) {
 				selectedPrivileges = new ArrayList<>();
 				for(Privilege index : userAccountPrivileges) {
 					for(Privilege privilege : privileges)
@@ -94,7 +94,7 @@ public class UserAccountAssignPrivilegesPage extends AbstractPageContainerManage
 	
 	private void createTreeNode() {
 		treeNodeRoot = new DefaultTreeNode();
-		if(__inject__(CollectionHelper.class).isNotEmpty(privileges))
+		if(CollectionHelper.isNotEmpty(privileges))
 			for(Privilege index : privileges) {
 				Boolean hasParent = Boolean.FALSE;
 				for(PrivilegeHierarchy privilegeHierarchy : privilegeHierarchies) {

@@ -11,7 +11,7 @@ import org.cyk.utility.client.controller.component.annotation.InputChoiceMany;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceManyAutoComplete;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceManyCheckBox;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
-import org.cyk.utility.collection.CollectionHelper;
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
@@ -99,7 +99,7 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	
 	@Override
 	public UserAccount addFunctions(Function... functions) {
-		addFunctions(__inject__(CollectionHelper.class).instanciate(functions));
+		addFunctions(CollectionHelper.listOf(functions));
 		return this;
 	}
 	
@@ -129,7 +129,7 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	
 	@Override
 	public UserAccount addScopes(Scope... scopes) {
-		addScopes(__inject__(CollectionHelper.class).instanciate(scopes));
+		addScopes(CollectionHelper.listOf(scopes));
 		return this;
 	}
 	
@@ -159,7 +159,7 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	
 	@Override
 	public UserAccount addFunctionScopes(FunctionScope... functionScopes) {
-		addFunctionScopes(__inject__(CollectionHelper.class).instanciate(functionScopes));
+		addFunctionScopes(CollectionHelper.listOf(functionScopes));
 		return this;
 	}
 	
@@ -191,7 +191,7 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	
 	@Override
 	public UserAccount addProfiles(Profile... profiles) {
-		addProfiles(__inject__(CollectionHelper.class).instanciate(profiles));
+		addProfiles(CollectionHelper.listOf(profiles));
 		return this;
 	}
 		

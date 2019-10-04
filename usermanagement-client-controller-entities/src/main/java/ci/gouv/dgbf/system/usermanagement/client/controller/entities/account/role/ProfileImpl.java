@@ -13,7 +13,7 @@ import org.cyk.utility.client.controller.component.annotation.InputChoiceManyChe
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOne;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOneCombo;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringAndCodedAndNamedImpl;
-import org.cyk.utility.collection.CollectionHelper;
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
 
 public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedImpl implements Profile,Serializable {
 	private static final long serialVersionUID = 1L;
@@ -58,7 +58,7 @@ public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedI
 
 	@Override
 	public Profile addFunctions(Collection<Function> functions) {
-		if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(functions)))
+		if(CollectionHelper.isNotEmpty(functions))
 			getFunctions(Boolean.TRUE).addAll(functions);
 		return this;
 	}
@@ -66,13 +66,13 @@ public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedI
 	@Override
 	public Profile addFunctions(Function... functions) {
 		if(Boolean.TRUE.equals(__inject__(ArrayHelper.class).isNotEmpty(functions)))
-			addFunctions(__inject__(CollectionHelper.class).instanciate(functions));
+			addFunctions(CollectionHelper.listOf(functions));
 		return this;
 	}
 	
 	@Override
 	public Profile addFunctionsByCodes(Collection<String> codes) {
-		if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(codes))) {
+		if(CollectionHelper.isNotEmpty(codes)) {
 			for(String index : codes)
 				addFunctions(__inject__(Function.class).setCode(index));
 		}
@@ -82,7 +82,7 @@ public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedI
 	@Override
 	public Profile addFunctionsByCodes(String... codes) {
 		if(Boolean.TRUE.equals(__inject__(ArrayHelper.class).isNotEmpty(codes)))
-			addFunctionsByCodes(__inject__(CollectionHelper.class).instanciate(codes));
+			addFunctionsByCodes(CollectionHelper.listOf(codes));
 		return this;
 	}
 	
@@ -106,7 +106,7 @@ public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedI
 
 	@Override
 	public Profile addPrivileges(Collection<Privilege> privileges) {
-		if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(privileges)))
+		if(CollectionHelper.isNotEmpty(privileges))
 			getPrivileges(Boolean.TRUE).addAll(privileges);
 		return this;
 	}
@@ -114,13 +114,13 @@ public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedI
 	@Override
 	public Profile addPrivileges(Privilege... privileges) {
 		if(Boolean.TRUE.equals(__inject__(ArrayHelper.class).isNotEmpty(privileges)))
-			addPrivileges(__inject__(CollectionHelper.class).instanciate(privileges));
+			addPrivileges(CollectionHelper.listOf(privileges));
 		return this;
 	}
 	
 	@Override
 	public Profile addPrivilegesByCodes(Collection<String> codes) {
-		if(Boolean.TRUE.equals(__inject__(CollectionHelper.class).isNotEmpty(codes))) {
+		if(CollectionHelper.isNotEmpty(codes)) {
 			for(String index : codes)
 				addPrivileges(__inject__(Privilege.class).setCode(index));
 		}
@@ -130,7 +130,7 @@ public class ProfileImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedI
 	@Override
 	public Profile addPrivilegesByCodes(String... codes) {
 		if(Boolean.TRUE.equals(__inject__(ArrayHelper.class).isNotEmpty(codes)))
-			addPrivilegesByCodes(__inject__(CollectionHelper.class).instanciate(codes));
+			addPrivilegesByCodes(CollectionHelper.listOf(codes));
 		return this;
 	}
 	

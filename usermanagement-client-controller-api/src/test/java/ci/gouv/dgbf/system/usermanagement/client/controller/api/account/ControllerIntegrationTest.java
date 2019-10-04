@@ -154,7 +154,12 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 				.setIsProfileCreatableOnCreate(Boolean.FALSE));
 		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(0l);
 		Profile profile = null;
-		__inject__(ProfileController.class).create(__inject__(Profile.class).setCode("p01").setName(__getRandomName__()).addFunctionsByCodes("f01","f03"));
+		try {
+			__inject__(ProfileController.class).create(__inject__(Profile.class).setCode("p01").setName(__getRandomName__()).addFunctionsByCodes("f01","f03"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertThat(__inject__(ProfileFunctionController.class).count(null)).isEqualTo(2l);
 		profile = __inject__(ProfileController.class).readByBusinessIdentifier("p01");
 		assertThat(profile).isNotNull();

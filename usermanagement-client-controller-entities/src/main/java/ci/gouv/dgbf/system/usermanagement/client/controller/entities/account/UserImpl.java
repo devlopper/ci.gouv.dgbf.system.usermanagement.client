@@ -14,8 +14,8 @@ import org.cyk.utility.client.controller.component.annotation.InputChoiceManyAut
 import org.cyk.utility.client.controller.component.annotation.InputString;
 import org.cyk.utility.client.controller.component.annotation.InputStringLineOne;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
-import org.cyk.utility.collection.CollectionHelper;
-import org.cyk.utility.string.StringHelper;
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
+import org.cyk.utility.__kernel__.string.StringHelper;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 
@@ -61,7 +61,7 @@ public class UserImpl extends AbstractDataIdentifiedByStringImpl implements User
 	public String getNames() {
 		if(names == null) {
 			names = firstName;
-			if(Boolean.TRUE.equals(__inject__(StringHelper.class).isNotBlank(lastNames)))
+			if(Boolean.TRUE.equals(StringHelper.isNotBlank(lastNames)))
 				names += " " + lastNames; 
 		}
 		return names;
@@ -110,7 +110,7 @@ public class UserImpl extends AbstractDataIdentifiedByStringImpl implements User
 	
 	@Override
 	public User addFunctions(Function... functions) {
-		addFunctions(__inject__(CollectionHelper.class).instanciate(functions));
+		addFunctions(CollectionHelper.listOf(functions));
 		return this;
 	}
 }

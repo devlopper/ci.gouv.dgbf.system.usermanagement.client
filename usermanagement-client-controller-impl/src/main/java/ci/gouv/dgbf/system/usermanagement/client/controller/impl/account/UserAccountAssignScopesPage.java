@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
-import org.cyk.utility.collection.CollectionHelper;
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
 import org.primefaces.model.DualListModel;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
@@ -46,7 +46,7 @@ public class UserAccountAssignScopesPage extends AbstractPageContainerManagedImp
 		selectedFunctionScopes = null;
 		if(selectedUserAccount != null) {
 			
-			if(__inject__(CollectionHelper.class).isNotEmpty(functionScopes)) {
+			if(CollectionHelper.isNotEmpty(functionScopes)) {
 				functionScopesSections = createDualList("SECTION");
 				functionScopesUgps = createDualList("UGP");
 				functionScopesUas = createDualList("UA");
@@ -62,7 +62,7 @@ public class UserAccountAssignScopesPage extends AbstractPageContainerManagedImp
 				source.add(index);
 		}
 		List<FunctionScope> destination = new ArrayList<>();
-		if(__inject__(CollectionHelper.class).isNotEmpty(selectedUserAccount.getFunctionScopes()))
+		if(CollectionHelper.isNotEmpty(selectedUserAccount.getFunctionScopes()))
 			for(FunctionScope index : selectedUserAccount.getFunctionScopes()) {
 				if(index.getScope().getType().getCode().equals(code))
 					destination.add(index);

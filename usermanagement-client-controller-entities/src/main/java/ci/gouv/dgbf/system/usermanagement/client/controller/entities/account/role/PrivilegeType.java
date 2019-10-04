@@ -4,7 +4,7 @@ import org.cyk.utility.client.controller.data.hierarchy.DataIdentifiedByStringAn
 
 public interface PrivilegeType extends DataIdentifiedByStringAndCodedAndNamed<PrivilegeType> {
 
-	@Override PrivilegeType setIdentifier(Object identifier);
+	@Override PrivilegeType setIdentifier(String identifier);
 	@Override PrivilegeType setCode(String code);
 	@Override PrivilegeType setName(String name);
 }

@@ -5,9 +5,9 @@ import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.cyk.utility.__kernel__.properties.Properties;
+import org.cyk.utility.__kernel__.system.action.SystemAction;
 import org.cyk.utility.client.controller.AbstractControllerEntityImpl;
 import org.cyk.utility.client.controller.ControllerServiceProvider;
-import org.cyk.utility.system.action.SystemAction;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.server.Constant;

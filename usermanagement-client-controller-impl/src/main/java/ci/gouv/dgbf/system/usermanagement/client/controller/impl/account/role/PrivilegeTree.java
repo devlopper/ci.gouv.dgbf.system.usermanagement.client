@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.Tree;
-import org.cyk.utility.collection.CollectionHelper;
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
 import org.cyk.utility.server.persistence.query.filter.FilterDto;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.PrivilegeController;
@@ -31,13 +31,13 @@ public class PrivilegeTree extends Tree implements Serializable {
 		 * Derived initial selected privileges from profiles
 		 */
 		Collection<Privilege> initialSelectedPrivileges = null;
-		if(__inject__(CollectionHelper.class).isNotEmpty(initialSelectedProfiles)) {
+		if(CollectionHelper.isNotEmpty(initialSelectedProfiles)) {
 			FilterDto filter = new FilterDto();
 			filter.addField(Privilege.PROPERTY_PROFILES, initialSelectedProfiles.stream().map(Profile::getIdentifier).collect(Collectors.toList()));
 			initialSelectedPrivileges = __inject__(PrivilegeController.class).read(new Properties().setFilters(filter).setIsPageable(Boolean.FALSE));
 		}
 		//System.out.println("PrivilegeTree.__initialise__() ::: "+initialSelectedPrivileges);
-		if(__inject__(CollectionHelper.class).isNotEmpty(initialSelectedPrivileges))
+		if(CollectionHelper.isNotEmpty(initialSelectedPrivileges))
 			setInitialSelectedNodes(initialSelectedPrivileges);
 		super.__initialise__();
 	}

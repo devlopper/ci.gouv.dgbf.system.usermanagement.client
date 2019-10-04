@@ -9,16 +9,16 @@ import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
 import org.cyk.utility.__kernel__.properties.Properties;
+import org.cyk.utility.__kernel__.system.action.SystemActionCustom;
 import org.cyk.utility.client.controller.component.command.Commandable;
 import org.cyk.utility.client.controller.component.command.CommandableBuilder;
 import org.cyk.utility.client.controller.component.window.WindowBuilder;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.Tree;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.TreeSelectionMode;
-import org.cyk.utility.collection.CollectionHelper;
 import org.cyk.utility.server.persistence.query.filter.FilterDto;
-import org.cyk.utility.system.action.SystemActionCustom;
 import org.omnifaces.util.Faces;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
@@ -54,24 +54,24 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 	protected void __listenPostConstruct__() {
 		super.__listenPostConstruct__();
 		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(Faces.getRequestParameter("identifier"),new Properties().setFields(__fields__));
-		if(__inject__(CollectionHelper.class).isEmpty(userAccount.getProfiles())) {
+		if(CollectionHelper.isEmpty(userAccount.getProfiles())) {
 			
 		}else {
-			userProfile = __inject__(ProfileController.class).readBySystemIdentifier(__inject__(CollectionHelper.class).getFirst(userAccount.getProfiles()).getIdentifier()
+			userProfile = __inject__(ProfileController.class).readBySystemIdentifier(CollectionHelper.getFirst(userAccount.getProfiles()).getIdentifier()
 					,new Properties().setFields("identifier,privileges"));
 		}
 		Collection<Profile> __systemProfiles__ = __inject__(ProfileController.class).read(new Properties()
-				.setFilters(new FilterDto().setKlass(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Profile.class)
+				.setFilters(new FilterDto().useKlass(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Profile.class)
 						.addField(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Profile.FIELD_TYPE, Arrays.asList(ProfileType.CODE_SYSTEM)))
 				.setIsPageable(Boolean.FALSE));
 		
 		Collection<Profile> selectedSystemProfiles = new ArrayList<>();
-		if(__inject__(CollectionHelper.class).isNotEmpty(userProfile.getPrivileges())) {
+		if(CollectionHelper.isNotEmpty(userProfile.getPrivileges())) {
 			//Find system profiles from user profile privileges
 			//FIXME we do it like that for now for presentation. do it better
 			
 			Collection<ProfilePrivilege> profilePrivileges = __inject__(ProfilePrivilegeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
-			if(__inject__(CollectionHelper.class).isNotEmpty(profilePrivileges)) {
+			if(CollectionHelper.isNotEmpty(profilePrivileges)) {
 				for(Privilege privilege : userProfile.getPrivileges()) {
 					for(ProfilePrivilege profilePrivilege : profilePrivileges) {
 						if(privilege.equals(profilePrivilege.getPrivilege()) && profilePrivilege.getProfile().getType().getCode().equals(ProfileType.CODE_SYSTEM)) {
@@ -129,10 +129,10 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 		
 		Collection<Privilege> privileges = new ArrayList<>();
 		for(Profile index : profiles)
-			if(__inject__(CollectionHelper.class).isNotEmpty(index.getPrivileges()))
+			if(CollectionHelper.isNotEmpty(index.getPrivileges()))
 				privileges.addAll(index.getPrivileges());
 		
-		if(__inject__(CollectionHelper.class).isNotEmpty(privileges)) {
+		if(CollectionHelper.isNotEmpty(privileges)) {
 			if(event.isAdd())
 				privilegeTree.select(privileges);
 			else

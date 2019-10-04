@@ -18,14 +18,14 @@ public class PrivilegeTreeNodeListener extends AbstractObject implements TreeNod
 
 	@Override
 	public List<Privilege> getChildren(Privilege privilege) {
-		FilterDto filter = new FilterDto().setKlass(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Privilege.class)
+		FilterDto filter = new FilterDto().useKlass(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Privilege.class)
 				.addField(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Privilege.FIELD_PARENTS, Arrays.asList(privilege.getIdentifier()));
 		return (List<Privilege>) __inject__(PrivilegeController.class).read(new Properties().setFilters(filter));
 	}
 
 	@Override
 	public Integer getNumberOfChildren(Privilege privilege) {
-		FilterDto filter = new FilterDto().setKlass(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Privilege.class)
+		FilterDto filter = new FilterDto().useKlass(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Privilege.class)
 				.addField(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Privilege.FIELD_PARENTS, Arrays.asList(privilege.getIdentifier()));
 		Long value = __inject__(PrivilegeController.class).count(new Properties().setFilters(filter));
 		return value == null ? null : value.intValue();
