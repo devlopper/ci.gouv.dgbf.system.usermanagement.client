@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+	
+    <cyk:page value="#{accountEditMyPassPage}" >
+    	<ui:define name="centerCenter">
+    		<h:outputText value="Vous êtes connecté en tant que #{accountEditMyPassPage.userAccount.account.identifier}" />
+    		<p:separator/>
+    		<p:panelGrid columns="3">
+    			<p:outputLabel for="motdepasseactuel" value="Mot de passe actuel" />
+    			<p:password id="motdepasseactuel" value="#{accountEditMyPassPage.actualPass}" promptLabel="Veuillez saisir votre mot de passe actuel" styleClass="cyk_input"/>
+    			<p:message for="motdepasseactuel" />
+    			
+    			<p:outputLabel for="nouveaumotdepasse" value="Nouveau mot de passe" />
+    			<p:password id="nouveaumotdepasse" value="#{accountEditMyPassPage.newPass}" feedback="true" weakLabel="Faible" goodLabel="Bon" strongLabel="Fort" inline="true"
+    				 promptLabel="Veuillez saisir votre mot de passe" match="confirmationnouveaumotdepasse" styleClass="cyk_input"/>
+    			<p:message for="nouveaumotdepasse" />
+    			
+    			<p:outputLabel for="confirmationnouveaumotdepasse" value="Confirmation du nouveau mot de passe" />
+    			<p:password id="confirmationnouveaumotdepasse" value="#{accountEditMyPassPage.newPassConfirmation}" styleClass="cyk_input"/>
+    			<p:message for="confirmationnouveaumotdepasse" />
+    		</p:panelGrid>
+    	</ui:define>
+    </cyk:page>
+    
+</html>

@@ -9,6 +9,18 @@
 		<from-view-id>*</from-view-id>
 		
 		<navigation-case>
+			<from-outcome>accountEditMyPassView</from-outcome>
+			<to-view-id>/private/account/editmypass.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>accountScopeListView</from-outcome>
+			<to-view-id>/private/useraccount/scope/list.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
 			<from-outcome>userAccountListView</from-outcome>
 			<to-view-id>/private/useraccount/list.jsf</to-view-id>
 			<redirect />

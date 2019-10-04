@@ -1,6 +1,7 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account.role;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
@@ -17,6 +18,7 @@ public class ScopesTab implements Serializable {
 	private ScopeType type;
 	private DualListModel<Scope> scopes;
 	private Listener listener;
+	private Collection<Scope> collection;
 	
 	/**/
 	

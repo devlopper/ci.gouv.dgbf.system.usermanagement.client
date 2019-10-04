@@ -48,7 +48,9 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	
 	@Override
 	public User getUser(Boolean injectIfNull) {
-		return (User) __getInjectIfNull__(PROPERTY_USER, injectIfNull);
+		if(user == null && Boolean.TRUE.equals(injectIfNull))
+			user = __inject__(User.class);
+		return user;
 	}
 
 	@Override
@@ -64,7 +66,9 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	
 	@Override
 	public Account getAccount(Boolean injectIfNull) {
-		return (Account) __getInjectIfNull__(PROPERTY_ACCOUNT, injectIfNull);
+		if(account == null && Boolean.TRUE.equals(injectIfNull))
+			account = __inject__(Account.class);
+		return account;
 	}
 
 	@Override

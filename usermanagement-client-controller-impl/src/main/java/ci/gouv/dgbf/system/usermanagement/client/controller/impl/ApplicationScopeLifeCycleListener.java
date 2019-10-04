@@ -17,8 +17,4 @@ public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeL
 	
 	@Override
 	public void __destroy__(Object object) {}
-	
-	/**/
-	
-	public static final Integer LEVEL = new Integer(ci.gouv.dgbf.system.usermanagement.client.controller.api.ApplicationScopeLifeCycleListener.LEVEL+1);
 }
