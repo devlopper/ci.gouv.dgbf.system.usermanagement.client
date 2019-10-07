@@ -10,14 +10,12 @@ import javax.inject.Named;
 
 import org.cyk.utility.__kernel__.collection.CollectionHelper;
 import org.cyk.utility.__kernel__.properties.Properties;
-import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
-import org.omnifaces.util.Faces;
 
-import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ScopeTypeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
+import ci.gouv.dgbf.system.usermanagement.client.controller.impl.AbstractPageContainerManagedImpl;
 import ci.gouv.dgbf.system.usermanagement.client.controller.impl.account.role.ScopesTab;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +30,7 @@ public class UserAccountScopeListPage extends AbstractPageContainerManagedImpl i
 	@Override
 	protected void __listenPostConstruct__() {
 		super.__listenPostConstruct__();
-		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(Faces.getRequestParameter("identifier"),new Properties().setFields("identifier,user,account,scopes"));
+		userAccount = readLoggedIn(new Properties().setFields("identifier,user,account,scopes"));
 		if(userAccount == null) {
 			
 		}else {

@@ -6,9 +6,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 
-import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
-
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
+import ci.gouv.dgbf.system.usermanagement.client.controller.impl.AbstractPageContainerManagedImpl;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +18,12 @@ public class AccountEditMyPassPage extends AbstractPageContainerManagedImpl impl
 	private UserAccount userAccount;
 	@NotNull
 	private String actualPass,newPass,newPassConfirmation;
+	
+	@Override
+	protected void __listenPostConstruct__() {
+		super.__listenPostConstruct__();
+		userAccount = readLoggedIn();
+	}
 	
 	@Override
 	protected String __getWindowTitleValue__() {
