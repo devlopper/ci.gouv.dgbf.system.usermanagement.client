@@ -25,21 +25,7 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void ____executePrincipalIsNotNull____(MenuBuilder sessionMenuBuilder, Object request, Principal principal) throws Exception {
-		
-	}
-
-	@Override
-	protected void ____executePrincipalIsNull____(MenuBuilder sessionMenuBuilder, Object request) throws Exception {
-		if(sessionMenuBuilder == null) {
-			/*menuBuilder.addItems(
-					__inject__(MenuItemBuilder.class).setCommandableName("Compte utilisateur").setCommandableIcon(Icon.USER).addChild(
-							__inject__(MenuItemBuilder.class).setCommandableName("Se connecter").setCommandableNavigationIdentifier("loginView")
-							,__inject__(MenuItemBuilder.class).setCommandableName("Déverouiller mon compte")
-							,__inject__(MenuItemBuilder.class).setCommandableName("Reinitialiser mon mot de passe")
-					)
-				);	*/
-		}//else {
+	protected void ____execute____(MenuBuilder sessionMenuBuilder, Object request, Principal principal) throws Exception {
 		sessionMenuBuilder.addItems(
 				__inject__(MenuItemBuilder.class).setCommandableName("Gestion des privilèges").setCommandableIcon(Icon.QUESTION)
 					.listOrTree(Privilege.class,PrivilegeType.class)
@@ -60,13 +46,35 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 				//.addEntitiesList(UserAccountInterim.class,UserAccountInterimModel.class)
 				,__inject__(MenuItemBuilder.class).setCommandableName("Retour au portail").setCommandableIcon(Icon.FLASH)
 				);	
+	}
+	
+	@Override
+	protected void ____executePrincipalIsNotNull____(MenuBuilder sessionMenuBuilder, Object request, Principal principal) throws Exception {
+		
+	}
+
+	@Override
+	protected void ____executePrincipalIsNull____(MenuBuilder sessionMenuBuilder, Object request) throws Exception {
+		if(sessionMenuBuilder == null) {
+			/*menuBuilder.addItems(
+					__inject__(MenuItemBuilder.class).setCommandableName("Compte utilisateur").setCommandableIcon(Icon.USER).addChild(
+							__inject__(MenuItemBuilder.class).setCommandableName("Se connecter").setCommandableNavigationIdentifier("loginView")
+							,__inject__(MenuItemBuilder.class).setCommandableName("Déverouiller mon compte")
+							,__inject__(MenuItemBuilder.class).setCommandableName("Reinitialiser mon mot de passe")
+					)
+				);	*/
+		}//else {
+		
 		//}
 	}
 
 	static {
-		DesktopDefaultImpl.USER_MENU_UL_LIS.clear();
-		DesktopDefaultImpl.addUserMenuUlLi("Me déconnecter", null,"fa fa-sign-out");
 		UniformResourceIdentifierAsFunctionParameter parameter;
+		DesktopDefaultImpl.USER_MENU_UL_LIS.clear();
+		
+		parameter = new UniformResourceIdentifierAsFunctionParameter();
+		parameter.getPath(Boolean.TRUE).setIdentifier("logoutView");		
+		DesktopDefaultImpl.addUserMenuUlLi("Me déconnecter", UniformResourceIdentifierHelper.build(parameter),"fa fa-sign-out");
 		
 		parameter = new UniformResourceIdentifierAsFunctionParameter();
 		parameter.getPath(Boolean.TRUE).setIdentifier("accountEditMyPassView");
