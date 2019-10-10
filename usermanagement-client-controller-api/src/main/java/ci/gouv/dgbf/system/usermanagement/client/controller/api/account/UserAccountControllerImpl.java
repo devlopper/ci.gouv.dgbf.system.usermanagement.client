@@ -1,9 +1,11 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.api.account;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.__kernel__.session.Session;
 import org.cyk.utility.__kernel__.session.SessionHelper;
@@ -11,6 +13,7 @@ import org.cyk.utility.__kernel__.string.StringHelper;
 import org.cyk.utility.__kernel__.system.action.SystemAction;
 import org.cyk.utility.client.controller.AbstractControllerEntityImpl;
 import org.cyk.utility.client.controller.ControllerServiceProvider;
+import org.cyk.utility.server.persistence.query.filter.FilterDto;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.server.Constant;
@@ -23,10 +26,17 @@ public class UserAccountControllerImpl extends AbstractControllerEntityImpl<User
 	public UserAccount readLoggedIn(Session session,Properties properties) {
 		if(session == null)
 			return null;
-		String identifier = (String) session.getUserAttributeIdentifier();
-		if(StringHelper.isBlank(identifier))
+		String username = session.getUserName();
+		if(StringHelper.isBlank(username))
 			return null;
-		return readBySystemIdentifier(identifier,properties);
+		if(properties == null)
+			properties = new Properties();
+		FilterDto filterDto = (FilterDto) properties.getFilters();
+		if(filterDto == null) {
+			properties.setFilters(new FilterDto().addField("account.identifier", username));	
+		}
+		Collection<UserAccount> userAccounts = read(properties);		
+		return CollectionHelper.getFirst(userAccounts);
 	}
 	
 	@Override
