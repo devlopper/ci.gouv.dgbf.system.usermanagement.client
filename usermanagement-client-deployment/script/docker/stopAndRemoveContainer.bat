@@ -1,1 +1,1 @@
-docker rm $(docker stop $(docker ps -a -q --filter ancestor=usermanagement-client))
+docker stop mic-utilisateur-gestion-client

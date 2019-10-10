@@ -1,1 +1,1 @@
-docker run -p 8082:8082 mic-utilisateur-gestion-client:latest
+docker run --rm --name mic-utilisateur-gestion-client -p 8082:8082 -e keycloak.auth-server-url=http://192.168.99.100:8080/auth -e keycloak.realm=SIIBC -e keycloak.secret=c3e6de41-33f9-4db0-8e28-206dc8715f96 mic-utilisateur-gestion-client:latest
