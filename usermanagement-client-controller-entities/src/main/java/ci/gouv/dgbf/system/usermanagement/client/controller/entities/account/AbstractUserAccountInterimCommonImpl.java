@@ -31,7 +31,9 @@ public abstract class AbstractUserAccountInterimCommonImpl extends AbstractDataI
 	
 	@Override
 	public UserAccount getUserAccount(Boolean injectIfNull) {
-		return (UserAccount) __getInjectIfNull__(PROPERTY_USER_ACCOUNT, injectIfNull);
+		if(userAccount == null && Boolean.TRUE.equals(injectIfNull))
+			userAccount = __inject__(UserAccount.class);
+		return userAccount;
 	}
 
 	@Override
@@ -47,7 +49,9 @@ public abstract class AbstractUserAccountInterimCommonImpl extends AbstractDataI
 	
 	@Override
 	public UserAccount getInterim(Boolean injectIfNull) {
-		return (UserAccount) __getInjectIfNull__(PROPERTY_INTERIM, injectIfNull);
+		if(interim == null && Boolean.TRUE.equals(injectIfNull))
+			interim = __inject__(UserAccount.class);
+		return interim;
 	}
 
 	@Override

@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.security.Principal;
 
 import org.cyk.user.interface_.theme.web.jsf.primefaces.atlantis.DesktopDefaultImpl;
+import org.cyk.utility.__kernel__.icon.Icon;
 import org.cyk.utility.__kernel__.identifier.resource.UniformResourceIdentifierAsFunctionParameter;
 import org.cyk.utility.__kernel__.identifier.resource.UniformResourceIdentifierHelper;
 import org.cyk.utility.client.controller.component.menu.AbstractMenuBuilderMapGetterImpl;
 import org.cyk.utility.client.controller.component.menu.MenuBuilder;
 import org.cyk.utility.client.controller.component.menu.MenuItemBuilder;
-import org.cyk.utility.client.controller.icon.Icon;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionType;

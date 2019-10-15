@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.role.ProfileDto;
 
-@Mapper(uses= {MappingInstantiator.class,FunctionsMapper.class,PrivilegesMapper.class})
+@Mapper(uses= {MappingInstantiator.class})
 public abstract class ProfileMapper extends AbstractMapperSourceDestinationImpl<Profile, ProfileDto> {
 	private static final long serialVersionUID = 1L;
     	
