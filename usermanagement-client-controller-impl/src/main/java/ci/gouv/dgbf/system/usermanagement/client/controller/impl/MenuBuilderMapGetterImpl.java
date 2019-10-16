@@ -27,7 +27,7 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 	@Override
 	protected void ____execute____(MenuBuilder sessionMenuBuilder, Object request, Principal principal) throws Exception {
 		sessionMenuBuilder.addItems(
-				__inject__(MenuItemBuilder.class).setCommandableName("Gestion des privilèges").setCommandableIcon(Icon.QUESTION)
+				__inject__(MenuItemBuilder.class).setCommandableName("Gestion des privilèges").setCommandableIcon(Icon.SUITCASE)
 					.listOrTree(Privilege.class,PrivilegeType.class)
 				,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").setCommandableIcon(Icon.FILE)
 					.listOrTree(Profile.class,ProfileType.class,Function.class,FunctionType.class)
@@ -80,8 +80,17 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 		parameter.getPath(Boolean.TRUE).setIdentifier("accountEditMyPassView");
 		DesktopDefaultImpl.addUserMenuUlLi("Modifier mon mot de passe", UniformResourceIdentifierHelper.build(parameter),"fa fa-key");
 		
-		DesktopDefaultImpl.addUserMenuUlLi("Modifier mon profile", null,"fa fa-user");
-		DesktopDefaultImpl.addUserMenuUlLi("Mes préférences", null,"fa fa-cog");
+		parameter = new UniformResourceIdentifierAsFunctionParameter();
+		parameter.getPath(Boolean.TRUE).setIdentifier("userAccountEditMyProfile");
+		DesktopDefaultImpl.addUserMenuUlLi("Modifier mon profile", UniformResourceIdentifierHelper.build(parameter),"fa fa-user");
+		
+		parameter = new UniformResourceIdentifierAsFunctionParameter();
+		parameter.getPath(Boolean.TRUE).setIdentifier("userAccountEditMyPreferences");
+		DesktopDefaultImpl.addUserMenuUlLi("Mes préférences", UniformResourceIdentifierHelper.build(parameter),"fa fa-cog");
+		
+		parameter = new UniformResourceIdentifierAsFunctionParameter();
+		parameter.getPath(Boolean.TRUE).setIdentifier("userAccountEditMyNotation");
+		DesktopDefaultImpl.addUserMenuUlLi("Noter le SIIBC", UniformResourceIdentifierHelper.build(parameter),"fa fa-pencil");
 		
 		parameter = new UniformResourceIdentifierAsFunctionParameter();
 		parameter.getPath(Boolean.TRUE).setIdentifier("accountScopeListView");

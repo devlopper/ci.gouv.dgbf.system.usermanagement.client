@@ -5,24 +5,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
 import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceMany;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceManyAutoComplete;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceManyCheckBox;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl;
-import org.cyk.utility.__kernel__.collection.CollectionHelper;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implements UserAccount,Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private User user;
 	private Account account;
+	@Getter @Setter @Accessors(chain=true) private Byte notation;
 	/*TODO : must be removed to user the one in User*/
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyAutoComplete
 	private List<Function> functions;

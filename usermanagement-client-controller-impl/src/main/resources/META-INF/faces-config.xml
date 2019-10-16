@@ -39,6 +39,24 @@
 		</navigation-case>
 		
 		<navigation-case>
+			<from-outcome>userAccountEditMyProfile</from-outcome>
+			<to-view-id>/private/useraccount/editmyprofile.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>userAccountEditMyNotation</from-outcome>
+			<to-view-id>/private/useraccount/editmynotation.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>userAccountEditMyPreferences</from-outcome>
+			<to-view-id>/private/useraccount/editmypreferences.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
 			<from-outcome>userAccountCreateListUserView</from-outcome>
 			<to-view-id>/private/useraccount/listuser.jsf</to-view-id>
 			<redirect />

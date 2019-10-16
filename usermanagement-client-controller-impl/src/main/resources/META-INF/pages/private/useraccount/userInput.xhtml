@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+	
+	<p:panelGrid columns="3" layout="grid">
+		<p:outputLabel for="nom" value="Nom" />
+		<p:inputText id="nom" value="#{user.firstName}" styleClass="cyk_input"/>
+		<p:message for="nom" />
+			
+		<p:outputLabel for="prenoms" value="Prénoms" />
+		<p:inputText id="prenoms" value="#{user.lastNames}" styleClass="cyk_input"/>
+		<p:message for="prenoms" />
+			
+		<p:outputLabel for="email" value="Adresse de courrier électronique" />
+		<p:inputText id="email" value="#{user.electronicMailAddress}" styleClass="cyk_input"/>
+		<p:message for="email" />
+		<!--
+		<p:outputLabel for="fonctions" value="Fonctions" />
+		
+		<p:pickList id="fonctions" value="#{user.functions}" var="fonction" converter="#{objectConverter}" itemValue="#{fonction}" itemLabel="#{fonction.name}" required="true">
+			
+		</p:pickList>
+		
+		<p:message for="fonctions" />
+		-->
+	</p:panelGrid>
+		
+</ui:composition>

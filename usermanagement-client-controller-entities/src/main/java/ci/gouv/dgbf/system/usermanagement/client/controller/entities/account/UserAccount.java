@@ -22,6 +22,9 @@ public interface UserAccount extends DataIdentifiedByString {
 	Account getAccount(Boolean injectIfNull);
 	UserAccount setAccount(Account account);
 	
+	Byte getNotation();
+	UserAccount setNotation(Byte notation);
+	
 	List<Scope> getScopes();
 	List<Scope> getScopes(Boolean injectIfNull);
 	UserAccount setScopes(List<Scope> scopes);
