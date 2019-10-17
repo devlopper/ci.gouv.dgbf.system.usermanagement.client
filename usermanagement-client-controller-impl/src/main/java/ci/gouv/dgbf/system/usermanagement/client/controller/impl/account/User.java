@@ -9,9 +9,8 @@ import org.primefaces.model.DualListModel;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
-@Getter @Setter @Accessors(chain=true)
+@Getter @Setter
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 

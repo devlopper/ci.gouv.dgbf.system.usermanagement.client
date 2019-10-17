@@ -1,13 +1,20 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.impl.account;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import org.primefaces.model.DualListModel;
+import org.cyk.utility.__kernel__.properties.Properties;
+import org.cyk.utility.__kernel__.system.action.SystemActionCustom;
+import org.cyk.utility.client.controller.component.command.Commandable;
+import org.cyk.utility.client.controller.component.command.CommandableBuilder;
 
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
+import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.FunctionController;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.impl.AbstractUserAccountBasedPageContainerManagedImpl;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +24,7 @@ public class UserAccountEditMyProfilePage extends AbstractUserAccountBasedPageCo
 	private static final long serialVersionUID = 1L;
 
 	private User user = new User();
+	private Commandable saveCommandable;
 	
 	@Override
 	protected void __listenPostConstruct__() {
@@ -24,8 +32,20 @@ public class UserAccountEditMyProfilePage extends AbstractUserAccountBasedPageCo
 		user.setFirstName(userAccount.getUser().getFirstName());
 		user.setLastNames(userAccount.getUser().getLastNames());
 		user.setElectronicMailAddress(userAccount.getUser().getElectronicMailAddress());
+		user.setFunctions(__injectPrimefacesHelper__().buildDualList(__inject__(FunctionController.class).read(new Properties().setIsPageable(Boolean.FALSE))
+				, userAccount.getFunctions()));
 		
-		user.setFunctions(new DualListModel<Function>());
+		CommandableBuilder saveCommandableBuilder = __inject__(CommandableBuilder.class);
+		saveCommandableBuilder.setName("Enregistrer").setCommandFunctionActionClass(SystemActionCustom.class).addCommandFunctionTryRunRunnable(
+			new Runnable() {
+				@Override
+				public void run() {
+					save();
+				}
+			}
+		);
+		saveCommandableBuilder.addUpdatables("outputPanel");
+		saveCommandable = saveCommandableBuilder.execute().getOutput();
 	}
 	
 	@Override
@@ -33,4 +53,13 @@ public class UserAccountEditMyProfilePage extends AbstractUserAccountBasedPageCo
 		return "Modifier mon profile";
 	}
 	
+	@Override
+	protected Collection<String> __getReadLoggedInPropertiesFields__() {
+		return List.of(UserAccount.PROPERTY_IDENTIFIER,UserAccount.PROPERTY_USER,UserAccount.PROPERTY_FUNCTIONS);
+	}
+	
+	private void save() {
+		userAccount.getUser().setFunctions(user.getFunctions().getTarget());
+		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields(UserAccount.PROPERTY_USER+","+UserAccount.PROPERTY_FUNCTIONS));
+	}
 }

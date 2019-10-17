@@ -10,13 +10,14 @@
 	
     <cyk:page value="#{userAccountEditMyPreferencesPage}" >
     	<ui:define name="centerCenter">
-    		<p:panelGrid columns="3">
+    		<p:panelGrid id="panelGrid" columns="3">
     			<p:outputLabel for="color" value="Couleur" />
     			<p:selectOneButton id="color" value="#{userAccountEditMyPreferencesPage.color}" required="true">
     				<f:selectItems value="#{userAccountEditMyPreferencesPage.colors}" />
     			</p:selectOneButton>
     			<p:message for="color" />
     		</p:panelGrid>
+    		<cyk:commandable value="#{userAccountEditMyPreferencesPage.saveCommandable}" />
     	</ui:define>
     </cyk:page>
     

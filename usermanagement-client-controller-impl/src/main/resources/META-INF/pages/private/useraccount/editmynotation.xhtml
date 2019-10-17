@@ -12,7 +12,8 @@
     	<ui:define name="centerCenter">
     		<p:panelGrid id="panelGrid" columns="3">
     			<p:outputLabel for="notation" value="Notation" />
-    			<p:rating id="notation" value="#{userAccountEditMyNotationPage.notation}" requiredMessage="valeur obligatoire" validatorMessage="valeur obligatoire"/>
+    			<p:rating id="notation" value="#{userAccountEditMyNotationPage.notation}" requiredMessage="valeur obligatoire" validatorMessage="valeur non valide" 
+    				cancel="false" />
     			<p:message for="notation" />
     		</p:panelGrid>
     		<cyk:commandable value="#{userAccountEditMyNotationPage.saveCommandable}" />	

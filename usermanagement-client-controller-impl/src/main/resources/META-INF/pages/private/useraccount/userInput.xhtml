@@ -20,15 +20,13 @@
 		<p:outputLabel for="email" value="Adresse de courrier électronique" />
 		<p:inputText id="email" value="#{user.electronicMailAddress}" styleClass="cyk_input"/>
 		<p:message for="email" />
-		<!--
-		<p:outputLabel for="fonctions" value="Fonctions" />
 		
+		<p:outputLabel for="fonctions" value="Fonctions" />		
 		<p:pickList id="fonctions" value="#{user.functions}" var="fonction" converter="#{objectConverter}" itemValue="#{fonction}" itemLabel="#{fonction.name}" required="true">
 			
-		</p:pickList>
-		
+		</p:pickList>		
 		<p:message for="fonctions" />
-		-->
+		
 	</p:panelGrid>
 		
 </ui:composition>
