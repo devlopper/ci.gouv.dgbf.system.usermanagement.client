@@ -27,6 +27,8 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	private User user;
 	private Account account;
 	@Getter @Setter @Accessors(chain=true) private Byte notation;
+	@Getter @Setter @Accessors(chain=true) private String color;
+	
 	/*TODO : must be removed to user the one in User*/
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyAutoComplete
 	private List<Function> functions;

@@ -59,7 +59,15 @@ public class UserAccountEditMyProfilePage extends AbstractUserAccountBasedPageCo
 	}
 	
 	private void save() {
+		userAccount.getUser().setFirstName(user.getFirstName());
+		userAccount.getUser().setLastNames(user.getLastNames());
+		userAccount.getUser().setElectronicMailAddress(user.getElectronicMailAddress());
 		userAccount.getUser().setFunctions(user.getFunctions().getTarget());
-		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields(UserAccount.PROPERTY_USER+","+UserAccount.PROPERTY_FUNCTIONS));
+		__inject__(UserAccountController.class).update(userAccount,new Properties()
+				.setFields(
+						UserAccount.PROPERTY_USER+"."+ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.User.PROPERTY_FIRST_NAME
+						+","+UserAccount.PROPERTY_USER+"."+ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.User.PROPERTY_LAST_NAMES
+						+","+UserAccount.PROPERTY_USER+"."+ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.User.PROPERTY_ELECTRONIC_MAIL_ADDRESS
+						+","+UserAccount.PROPERTY_USER+"."+ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.User.PROPERTY_FUNCTIONS));
 	}
 }

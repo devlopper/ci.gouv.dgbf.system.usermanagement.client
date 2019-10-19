@@ -44,8 +44,13 @@ public class MenuBuilderMapGetterImpl extends AbstractMenuBuilderMapGetterImpl i
 				.addChild(__inject__(MenuItemBuilder.class).setCommandableName("Affectations").setCommandableNavigationIdentifier("userAccountAssignScopesListUserAccountView"))
 						
 				//.addEntitiesList(UserAccountInterim.class,UserAccountInterimModel.class)
-				,__inject__(MenuItemBuilder.class).setCommandableName("Retour au portail").setCommandableIcon(Icon.FLASH)
+				,__inject__(MenuItemBuilder.class).setCommandableName("Retour au portail").setCommandableIcon(Icon.FLASH).addChild(
+						__inject__(MenuItemBuilder.class).setCommandableName("Retour")
+						.setCommandableNavigationValue("http://10.3.4.20:30300/sib/portail/")
+						)
 				);	
+		
+		//http://10.3.4.20:30300/sib/portail/
 	}
 	
 	@Override

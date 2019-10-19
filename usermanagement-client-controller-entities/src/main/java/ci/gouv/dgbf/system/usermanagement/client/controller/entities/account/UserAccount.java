@@ -25,6 +25,9 @@ public interface UserAccount extends DataIdentifiedByString {
 	Byte getNotation();
 	UserAccount setNotation(Byte notation);
 	
+	String getColor();
+	UserAccount setColor(String color);
+	
 	List<Scope> getScopes();
 	List<Scope> getScopes(Boolean injectIfNull);
 	UserAccount setScopes(List<Scope> scopes);
@@ -57,4 +60,6 @@ public interface UserAccount extends DataIdentifiedByString {
 	String PROPERTY_SCOPES = "scopes";
 	String PROPERTY_FUNCTION_SCOPES = "functionScopes";
 	String PROPERTY_PROFILES = "profiles";
+	String PROPERTY_COLOR = "color";
+	String PROPERTY_NOTATION = "notation";
 }
