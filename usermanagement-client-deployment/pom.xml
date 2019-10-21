@@ -46,7 +46,7 @@
 		<profile>
 			<id>deployment.wildfly.local</id>
 			<properties>
-				<cyk.parameter.proxy.uniform.resource.identifier>http://localhost:8080/usermanagement/server</cyk.parameter.proxy.uniform.resource.identifier>
+				<cyk.parameter.proxy.uniform.resource.identifier>http://localhost:8080/usermanagement/server/api</cyk.parameter.proxy.uniform.resource.identifier>
 			</properties>
 		</profile>
 		
