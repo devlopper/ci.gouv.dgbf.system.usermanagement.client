@@ -36,17 +36,17 @@
 		<profile>
 			<id>deployment.common</id>
 			<properties>
-				<cyk.parameter.system.name>Gestion des acteurs</cyk.parameter.system.name>
-				<cyk.context.parameter.theme.primefaces>atlantis-blue</cyk.context.parameter.theme.primefaces>
-				<cyk.context.parameter.theme.logo.file.name.prefix>ivorycoastLogo</cyk.context.parameter.theme.logo.file.name.prefix>
-				<cyk.context.parameter.theme.favicon.file.name.prefix>ivorycoast</cyk.context.parameter.theme.favicon.file.name.prefix>
+				<cyk.variable.system.name>Gestion des acteurs</cyk.variable.system.name>
+				<cyk.variable.user.interface.theme.primefaces>atlantis-blue</cyk.variable.user.interface.theme.primefaces>
+				<cyk.variable.user.interface.theme.logo.file.name.prefix>ivorycoastLogo</cyk.variable.user.interface.theme.logo.file.name.prefix>
+				<cyk.variable.user.interface.theme.favicon.file.name.prefix>ivorycoast</cyk.variable.user.interface.theme.favicon.file.name.prefix>
 			</properties>
 		</profile>
 		
 		<profile>
 			<id>deployment.wildfly.local</id>
 			<properties>
-				<cyk.parameter.proxy.uniform.resource.identifier>http://localhost:8080/usermanagement/server/api</cyk.parameter.proxy.uniform.resource.identifier>
+				<cyk.variable.system.proxy.uniform.resource.identifier>http://localhost:8080/usermanagement/server/api</cyk.variable.system.proxy.uniform.resource.identifier>
 			</properties>
 		</profile>
 		
