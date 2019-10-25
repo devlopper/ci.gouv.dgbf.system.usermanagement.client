@@ -2,28 +2,32 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.ro
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputChoice;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOne;
 import org.cyk.utility.client.controller.component.annotation.InputChoiceOneCombo;
+import org.cyk.utility.client.controller.component.annotation.InputString;
+import org.cyk.utility.client.controller.component.annotation.InputStringLineOne;
 import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringAndLinkedByStringAndNamedImpl;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 public class ScopeImpl extends AbstractDataIdentifiedByStringAndLinkedByStringAndNamedImpl implements Scope,Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Getter @Setter @Accessors(chain=true)
+	@NotNull
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
 	private ScopeType type;
 	
-	@Override
-	public ScopeType getType() {
-		return type;
-	}
-	
-	@Override
-	public Scope setType(ScopeType type) {
-		this.type = type;
-		return this;
-	}
+	@Getter @Setter @Accessors(chain=true) 
+	@NotNull
+	@Input @InputString @InputStringLineOne	
+	private String code;
 	
 	@Override
 	public Scope setIdentifier(String identifier) {
