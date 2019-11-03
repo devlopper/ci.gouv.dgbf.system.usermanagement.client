@@ -15,12 +15,12 @@ import org.cyk.utility.client.controller.component.command.CommandableBuilder;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
-import ci.gouv.dgbf.system.usermanagement.client.controller.impl.AbstractUserAccountBasedPageContainerManagedImpl;
+import ci.gouv.dgbf.system.usermanagement.client.controller.impl.AbstractUserAccountBasedPageContainerManagedImplMonCompte;
 import lombok.Getter;
 import lombok.Setter;
 
 @Named @ViewScoped @Getter @Setter
-public class UserAccountEditMyPreferencesPage extends AbstractUserAccountBasedPageContainerManagedImpl implements Serializable {
+public class UserAccountEditMyPreferencesPage extends AbstractUserAccountBasedPageContainerManagedImplMonCompte implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private List<SelectItem> colors;

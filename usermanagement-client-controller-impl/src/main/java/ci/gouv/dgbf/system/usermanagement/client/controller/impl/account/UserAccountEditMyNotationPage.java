@@ -12,12 +12,12 @@ import org.cyk.utility.client.controller.component.command.Commandable;
 import org.cyk.utility.client.controller.component.command.CommandableBuilder;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
-import ci.gouv.dgbf.system.usermanagement.client.controller.impl.AbstractUserAccountBasedPageContainerManagedImpl;
+import ci.gouv.dgbf.system.usermanagement.client.controller.impl.AbstractUserAccountBasedPageContainerManagedImplMonCompte;
 import lombok.Getter;
 import lombok.Setter;
 
 @Named @ViewScoped @Getter @Setter
-public class UserAccountEditMyNotationPage extends AbstractUserAccountBasedPageContainerManagedImpl implements Serializable {
+public class UserAccountEditMyNotationPage extends AbstractUserAccountBasedPageContainerManagedImplMonCompte implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@NotNull private Byte notation;

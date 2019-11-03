@@ -36,7 +36,7 @@
 		<profile>
 			<id>deployment.common</id>
 			<properties>
-				<cyk.variable.system.name>Gestion des acteurs</cyk.variable.system.name>
+				<cyk.variable.system.name>SIIBC > Gestion des acteurs</cyk.variable.system.name>
 				<cyk.variable.user.interface.theme.primefaces>atlantis-blue</cyk.variable.user.interface.theme.primefaces>
 				<cyk.variable.user.interface.theme.logo.file.name.prefix>ivorycoastLogo</cyk.variable.user.interface.theme.logo.file.name.prefix>
 				<cyk.variable.user.interface.theme.favicon.file.name.prefix>ivorycoast</cyk.variable.user.interface.theme.favicon.file.name.prefix>

@@ -6,24 +6,16 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
-import ci.gouv.dgbf.system.usermanagement.client.controller.impl.AbstractPageContainerManagedImpl;
+import ci.gouv.dgbf.system.usermanagement.client.controller.impl.AbstractUserAccountBasedPageContainerManagedImplMonCompte;
 import lombok.Getter;
 import lombok.Setter;
 
 @Named @ViewScoped @Getter @Setter
-public class AccountEditMyPassPage extends AbstractPageContainerManagedImpl implements Serializable {
+public class AccountEditMyPassPage extends AbstractUserAccountBasedPageContainerManagedImplMonCompte implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private UserAccount userAccount;
 	@NotNull
 	private String actualPass,newPass,newPassConfirmation;
-	
-	@Override
-	protected void __listenPostConstruct__() {
-		super.__listenPostConstruct__();
-		userAccount = readLoggedIn();
-	}
 	
 	@Override
 	protected String __getWindowTitleValue__() {
