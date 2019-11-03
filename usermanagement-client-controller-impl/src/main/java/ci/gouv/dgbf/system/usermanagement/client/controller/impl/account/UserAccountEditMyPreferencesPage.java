@@ -32,10 +32,10 @@ public class UserAccountEditMyPreferencesPage extends AbstractUserAccountBasedPa
 		super.__listenPostConstruct__();
 		color = userAccount.getColor();
 		colors = new ArrayList<>();
-		colors.add(new SelectItem("atlantis-orange", "Orange"));
-		colors.add(new SelectItem("atlantis-blue", "Bleu"));
-		colors.add(new SelectItem("atlantis-light-blue", "Bleu ciel"));
-		colors.add(new SelectItem("atlantis-green", "Vert"));
+		colors.add(new SelectItem("orange", "Orange"));
+		colors.add(new SelectItem("blue", "Bleu"));
+		colors.add(new SelectItem("light-blue", "Bleu ciel"));
+		colors.add(new SelectItem("green", "Vert"));
 		
 		CommandableBuilder saveCommandableBuilder = __inject__(CommandableBuilder.class);
 		saveCommandableBuilder.setName("Enregistrer").setCommandFunctionActionClass(SystemActionCustom.class).addCommandFunctionTryRunRunnable(
@@ -58,6 +58,7 @@ public class UserAccountEditMyPreferencesPage extends AbstractUserAccountBasedPa
 	private void save() {
 		userAccount.setColor(color);
 		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields(UserAccount.PROPERTY_COLOR));
+		session.getUserInterface(Boolean.TRUE).getTheme(Boolean.TRUE).setColor(userAccount.getColor());
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.cyk.utility.__kernel__.AbstractApplicationScopeLifeCycleListener;
+import org.cyk.utility.__kernel__.object.LifeCycleListener;
 
 @ApplicationScoped
 public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeLifeCycleListener implements Serializable {
@@ -13,6 +14,7 @@ public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeL
 	@Override
 	public void __initialize__(Object object) {
 		__inject__(ci.gouv.dgbf.system.usermanagement.client.controller.api.ApplicationScopeLifeCycleListener.class).initialize(null);
+		__setQualifierClassTo__(ci.gouv.dgbf.system.usermanagement.server.annotation.System.class, LifeCycleListener.class);
 	}
 	
 	@Override
