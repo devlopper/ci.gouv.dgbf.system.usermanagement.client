@@ -10,6 +10,7 @@
 	
     <cyk:page value="#{accountEditMyPassPage}" >
     	<ui:define name="centerCenter">
+    		<!--
     		<h:outputText value="Vous êtes connecté en tant que #{accountEditMyPassPage.userAccount.account.identifier}" />
     		<p:separator/>
     		<p:panelGrid columns="3">
@@ -26,6 +27,11 @@
     			<p:password id="confirmationnouveaumotdepasse" value="#{accountEditMyPassPage.newPassConfirmation}" styleClass="cyk_input"/>
     			<p:message for="confirmationnouveaumotdepasse" />
     		</p:panelGrid>
+    		-->
+    		<pre>
+    			Un mail vous sera envoyé afin de mettre à jour votre mot de passe.
+    		</pre>
+    		<cyk:commandable value="#{accountEditMyPassPage.sendEmailCommandable}" />
     	</ui:define>
     </cyk:page>
     

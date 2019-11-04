@@ -6,6 +6,6 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Acc
 
 public interface AccountController extends ControllerEntity<Account> {
 
-	AccountController authenticate(Account account);
+	AccountController sendUpdatePasswordEmailByPrincipalName(String principalName);
 	
 }
