@@ -10,6 +10,8 @@ public interface Scope extends DataIdentifiedByStringAndLinkedByStringAndNamed {
 	String getCode();
 	Scope setCode(String code);
 	
+	String getCodeAndName();
+	
 	@Override Scope setIdentifier(String identifier);
 	
 	String PROPERTY_CODE = "code";
