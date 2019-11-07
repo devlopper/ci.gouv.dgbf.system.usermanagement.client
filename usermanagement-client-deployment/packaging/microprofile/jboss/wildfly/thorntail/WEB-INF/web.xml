@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	
-	<display-name>usermanagement Client</display-name>
+	<display-name>User Management Client</display-name>
 	
 	<context-param>
 		<param-name>cyk.variable.system.name</param-name>
@@ -12,8 +12,8 @@
 	</context-param>
 	
 	<context-param>
-		<param-name>cyk.variable.proxy.uniform.resource.identifier</param-name>
-		<param-value>${cyk.variable.proxy.uniform.resource.identifier}</param-value>
+		<param-name>cyk.variable.system.proxy.uniform.resource.identifier</param-name>
+		<param-value>${cyk.variable.system.proxy.uniform.resource.identifier}</param-value>
 	</context-param>
 	
 	<context-param>
@@ -22,7 +22,7 @@
 	</context-param>
 	
 	<context-param>
-		<param-name>primefaces.THEME</param-name>
+		<param-name>cyk.variable.user.interface.theme.primefaces</param-name>
 		<param-value>${cyk.variable.user.interface.theme.primefaces}</param-value>
 	</context-param>
 	
@@ -67,11 +67,6 @@
 		<param-value>${cyk.variable.user.interface.theme.logo.file.name.extension}</param-value>
 	</context-param>
 	
-	<context-param>
-		<param-name>primefaces.THEME</param-name>
-		<param-value>${cyk.variable.user.interface.theme.primefaces}</param-value>
-	</context-param>
-	
 	<!-- Security -->
 	
 	<security-role>
@@ -90,5 +85,5 @@
 	<login-config>
 		<auth-method>KEYCLOAK</auth-method>
 	</login-config>
-		
+	
 </web-app>

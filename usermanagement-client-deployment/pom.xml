@@ -55,6 +55,7 @@
 			<properties>
 				<deployment.standalone.port.offset>2</deployment.standalone.port.offset>
 				<deployment.client.proxy.port>8081</deployment.client.proxy.port>
+				<cyk.variable.system.proxy.uniform.resource.identifier>http://localhost:8081/api</cyk.variable.system.proxy.uniform.resource.identifier>
 			</properties>
 		</profile>
 		
@@ -64,6 +65,7 @@
 				<deployment.standalone.port.offset>0</deployment.standalone.port.offset>
 				<deployment.client.proxy.host>mic-utilisateur-gestion-server</deployment.client.proxy.host>
 				<deployment.client.proxy.port>80</deployment.client.proxy.port>
+				<cyk.variable.system.proxy.uniform.resource.identifier>http://mic-utilisateur-gestion-server/api</cyk.variable.system.proxy.uniform.resource.identifier>
 			</properties>
 		</profile>
 	</profiles>
