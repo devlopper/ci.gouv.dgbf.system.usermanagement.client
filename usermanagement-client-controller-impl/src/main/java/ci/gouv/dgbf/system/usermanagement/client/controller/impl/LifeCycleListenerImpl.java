@@ -23,8 +23,13 @@ public class LifeCycleListenerImpl extends AbstractLifeCycleListenerImpl impleme
 		super.listenConstructing(object);
 		if(object instanceof Session) {
 			Session session = (Session) object;
-			UserAccount userAccount = CollectionHelper.getFirst(DependencyInjection.inject(UserAccountController.class).read(new Properties().setFilters(new FilterDto()
-					.addField("account.identifier",  session.getUserName()))));
+			UserAccount userAccount = null;
+			try {
+				userAccount = CollectionHelper.getFirst(DependencyInjection.inject(UserAccountController.class).read(new Properties().setFilters(new FilterDto()
+						.addField("account.identifier",  session.getUserName()))));
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
 			if(userAccount == null)
 				return;
 			session.getUserInterface(Boolean.TRUE).getTheme(Boolean.TRUE).setColor(userAccount.getColor());
