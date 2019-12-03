@@ -8,7 +8,7 @@ import org.cyk.utility.client.controller.component.input.choice.ChoiceProperty;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
 
-@ci.gouv.dgbf.system.usermanagement.server.annotation.System
+@ci.gouv.dgbf.system.usermanagement.server.annotation.System @Deprecated
 public class ChoicePropertyValueBuilderImpl extends AbstractChoicePropertyValueBuilderImpl implements Serializable {
 	private static final long serialVersionUID = 1L;
 

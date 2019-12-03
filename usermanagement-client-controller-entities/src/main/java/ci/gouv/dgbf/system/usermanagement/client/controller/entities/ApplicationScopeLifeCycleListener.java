@@ -4,8 +4,7 @@ import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.cyk.utility.client.controller.AbstractApplicationScopeLifeCycleListenerEntities;
-import org.cyk.utility.client.controller.component.input.choice.ChoicePropertyValueBuilder;
-import org.cyk.utility.client.controller.component.menu.MenuBuilderMapGetter;
+import org.cyk.utility.client.controller.component.menu.MenuBuilderMapInstantiator;
 import org.cyk.utility.client.controller.data.DataFieldDescriptionsGetter;
 
 @ApplicationScoped
@@ -15,8 +14,8 @@ public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeL
 	@Override
 	public void __initialize__(Object object) {
 		super.__initialize__(object);
-		__setQualifierClassTo__(ci.gouv.dgbf.system.usermanagement.server.annotation.System.class, MenuBuilderMapGetter.class
-				,DataFieldDescriptionsGetter.class,ChoicePropertyValueBuilder.class);
+		__setQualifierClassTo__(ci.gouv.dgbf.system.usermanagement.server.annotation.System.class, MenuBuilderMapInstantiator.class
+				,DataFieldDescriptionsGetter.class);
 	}
 	
 	@Override

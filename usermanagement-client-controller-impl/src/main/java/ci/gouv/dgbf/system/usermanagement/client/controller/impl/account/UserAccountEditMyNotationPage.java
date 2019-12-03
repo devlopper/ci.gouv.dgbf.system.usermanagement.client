@@ -24,8 +24,8 @@ public class UserAccountEditMyNotationPage extends AbstractUserAccountBasedPageC
 	private Commandable saveCommandable;
 	
 	@Override
-	protected void __listenPostConstruct__() {
-		super.__listenPostConstruct__();
+	protected void __listenPostConstructUserAccountIsNotNull__() {
+		super.__listenPostConstructUserAccountIsNotNull__();
 		notation = userAccount.getNotation();
 		CommandableBuilder saveCommandableBuilder = __inject__(CommandableBuilder.class);
 		saveCommandableBuilder.setName("Enregistrer").setCommandFunctionActionClass(SystemActionCustom.class).addCommandFunctionTryRunRunnable(

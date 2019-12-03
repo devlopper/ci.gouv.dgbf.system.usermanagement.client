@@ -27,8 +27,8 @@ public class UserAccountScopeListPage extends AbstractUserAccountBasedPageContai
 	private List<ScopesTab> scopesTabs = new ArrayList<>();
 	
 	@Override
-	protected void __listenPostConstruct__() {
-		super.__listenPostConstruct__();	
+	protected void __listenPostConstructUserAccountIsNotNull__() {
+		super.__listenPostConstructUserAccountIsNotNull__();	
 		Collection<ScopeType> scopeTypes = __inject__(ScopeTypeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
 		Collection<Scope> scopes = userAccount.getScopes();
 		if(CollectionHelper.isNotEmpty(scopes)) {

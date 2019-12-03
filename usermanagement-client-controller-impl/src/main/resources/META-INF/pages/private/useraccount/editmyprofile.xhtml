@@ -10,12 +10,14 @@
 	
     <cyk:page value="#{userAccountEditMyProfilePage}" >
     	<ui:define name="centerCenter">
-    		<p:outputPanel id="outputPanel">
-	    		<ui:include src="userInput.xhtml">
-	    			<ui:param name="user" value="#{userAccountEditMyProfilePage.user}"/>
-	    		</ui:include>
-    		</p:outputPanel>
-    		<cyk:commandable value="#{userAccountEditMyProfilePage.saveCommandable}" />
+    		<ui:fragment rendered="#{userAccountEditMyProfilePage.userAccount != null}">
+	    		<p:outputPanel id="outputPanel">
+		    		<ui:include src="userInput.xhtml">
+		    			<ui:param name="user" value="#{userAccountEditMyProfilePage.user}"/>
+		    		</ui:include>
+	    		</p:outputPanel>
+	    		<cyk:commandable value="#{userAccountEditMyProfilePage.saveCommandable}" />
+	    	</ui:fragment>
     	</ui:define>
     </cyk:page>
     

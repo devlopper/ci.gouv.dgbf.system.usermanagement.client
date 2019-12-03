@@ -27,8 +27,8 @@ public class UserAccountEditMyProfilePage extends AbstractUserAccountBasedPageCo
 	private Commandable saveCommandable;
 	
 	@Override
-	protected void __listenPostConstruct__() {
-		super.__listenPostConstruct__();
+	protected void __listenPostConstructUserAccountIsNotNull__() {
+		super.__listenPostConstructUserAccountIsNotNull__();
 		user.setFirstName(userAccount.getUser().getFirstName());
 		user.setLastNames(userAccount.getUser().getLastNames());
 		user.setElectronicMailAddress(userAccount.getUser().getElectronicMailAddress());

@@ -35,7 +35,12 @@ public class UserAccountControllerImpl extends AbstractControllerEntityImpl<User
 		if(filterDto == null) {
 			properties.setFilters(new FilterDto().addField("account.identifier", username));	
 		}
-		Collection<UserAccount> userAccounts = read(properties);		
+		Collection<UserAccount> userAccounts = null;
+		try {
+			userAccounts = read(properties);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}		
 		return CollectionHelper.getFirst(userAccounts);
 	}
 	

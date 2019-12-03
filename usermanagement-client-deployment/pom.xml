@@ -16,6 +16,10 @@
 	
 	<properties>
 		<microprofile.archive.name>usermanagement-client</microprofile.archive.name>
+		<!--
+		<web-app.security-constraint.web-resource-collection.all.url-pattern>/_d_i_s_a_b_l_e_d_/*</web-app.security-constraint.web-resource-collection.all.url-pattern>
+		<web-app.login-config.auth-method>BASIC</web-app.login-config.auth-method>
+		-->
 	</properties>
 	
 	<dependencies>
@@ -66,6 +70,8 @@
 				<deployment.client.proxy.host>mic-utilisateur-gestion-server</deployment.client.proxy.host>
 				<deployment.client.proxy.port>80</deployment.client.proxy.port>
 				<cyk.variable.system.proxy.uniform.resource.identifier>http://mic-utilisateur-gestion-server/api</cyk.variable.system.proxy.uniform.resource.identifier>
+				<web-app.security-constraint.web-resource-collection.all.url-pattern>/*</web-app.security-constraint.web-resource-collection.all.url-pattern>
+				<web-app.login-config.auth-method>KEYCLOAK</web-app.login-config.auth-method>
 			</properties>
 		</profile>
 	</profiles>

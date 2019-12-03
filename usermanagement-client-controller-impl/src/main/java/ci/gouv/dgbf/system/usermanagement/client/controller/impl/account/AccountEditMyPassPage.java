@@ -24,8 +24,8 @@ public class AccountEditMyPassPage extends AbstractUserAccountBasedPageContainer
 	private Commandable sendEmailCommandable;
 	
 	@Override
-	protected void __listenPostConstruct__() {
-		super.__listenPostConstruct__();
+	protected void __listenPostConstructUserAccountIsNotNull__() {
+		super.__listenPostConstructUserAccountIsNotNull__();
 		CommandableBuilder commandableBuilder = __inject__(CommandableBuilder.class);
 		commandableBuilder.setName("M'envoyer un mail").setCommandFunctionActionClass(SystemActionCustom.class).addCommandFunctionTryRunRunnable(
 			new Runnable() {

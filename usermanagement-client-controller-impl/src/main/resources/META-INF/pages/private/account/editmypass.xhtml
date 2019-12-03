@@ -28,10 +28,12 @@
     			<p:message for="confirmationnouveaumotdepasse" />
     		</p:panelGrid>
     		-->
-    		<pre>
-    			Un mail vous sera envoyé afin de mettre à jour votre mot de passe.
-    		</pre>
-    		<cyk:commandable value="#{accountEditMyPassPage.sendEmailCommandable}" />
+    		<ui:fragment rendered="#{accountEditMyPassPage.userAccount != null}">
+    			<pre>
+	    			Un mail vous sera envoyé afin de mettre à jour votre mot de passe.
+	    		</pre>
+	    		<cyk:commandable value="#{accountEditMyPassPage.sendEmailCommandable}" />
+	    	</ui:fragment>   	
     	</ui:define>
     </cyk:page>
     
