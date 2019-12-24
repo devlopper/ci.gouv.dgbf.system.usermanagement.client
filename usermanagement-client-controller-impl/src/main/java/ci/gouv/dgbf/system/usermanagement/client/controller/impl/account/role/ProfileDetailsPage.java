@@ -73,7 +73,7 @@ public class ProfileDetailsPage extends AbstractPageContainerManagedImpl impleme
 	
 	@Override
 	protected String __getWindowTitleValue__() {
-		return "Profile : "+profile.getCode()+" - "+profile.getName();
+		return "Définition des privilèges du profile : "+profile.getName();
 	}
 	
 	@Override

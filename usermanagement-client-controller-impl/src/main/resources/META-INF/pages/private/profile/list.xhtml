@@ -16,13 +16,15 @@
 		    			<p:column headerText="Code"><h:outputText value="#{profile.code}" /></p:column>
 		    			<p:column headerText="Nom"><h:outputText value="#{profile.name}" /></p:column>
 		    			<p:column headerText="Actions" width="100">
-		    				<p:commandButton value="Détails" action="#{profileListPage.selectProfile(profile)}"/>
+		    				<p:commandButton value="Privilèges" action="#{profileListPage.selectProfile(profile)}"/>
 		    			</p:column>
 		    		</p:dataTable>
 	    		</p:tab>
+	    		<!--
 	    		<p:tab title="Utilisateur">
 	    			
 	    		</p:tab>
+	    		-->
     		</p:tabView>
     	</ui:define>
     </cyk:page>

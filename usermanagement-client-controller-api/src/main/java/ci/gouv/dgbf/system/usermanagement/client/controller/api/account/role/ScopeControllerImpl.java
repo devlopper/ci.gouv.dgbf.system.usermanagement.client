@@ -6,10 +6,10 @@ import javax.enterprise.context.ApplicationScoped;
 
 import org.cyk.utility.client.controller.AbstractControllerEntityImpl;
 
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeImpl;
 
 @ApplicationScoped
-public class ScopeControllerImpl extends AbstractControllerEntityImpl<Scope> implements ScopeController,Serializable {
+public class ScopeControllerImpl extends AbstractControllerEntityImpl<ScopeImpl> implements ScopeController,Serializable {
 	private static final long serialVersionUID = 1L;
 	
 }

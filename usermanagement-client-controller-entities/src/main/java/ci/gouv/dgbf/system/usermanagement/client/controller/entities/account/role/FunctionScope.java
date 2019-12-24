@@ -7,8 +7,8 @@ public interface FunctionScope extends DataIdentifiedByStringAndCodedAndNamed {
 	Function getFunction();
 	FunctionScope setFunction(Function function);
 	
-	Scope getScope();
-	FunctionScope setScope(Scope scope);
+	ScopeImpl getScope();
+	FunctionScope setScope(ScopeImpl scope);
 	
 	@Override FunctionScope setIdentifier(String identifier);
 	@Override FunctionScope setCode(String code);

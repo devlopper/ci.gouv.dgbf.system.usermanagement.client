@@ -2,23 +2,23 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.ro
 
 import java.io.Serializable;
 
-import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringAndCodedAndNamedImpl;
+import org.cyk.utility.client.controller.data.AbstractDataIdentifiableSystemStringIdentifiableBusinessStringNamableImpl;
 
-public class ScopeTypeImpl extends AbstractDataIdentifiedByStringAndCodedAndNamedImpl implements ScopeType,Serializable {
+public class ScopeTypeImpl extends AbstractDataIdentifiableSystemStringIdentifiableBusinessStringNamableImpl implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Override
-	public ScopeType setIdentifier(String identifier) {
-		return (ScopeType) super.setIdentifier(identifier);
+	public ScopeTypeImpl setIdentifier(String identifier) {
+		return (ScopeTypeImpl) super.setIdentifier(identifier);
 	}
 	
 	@Override
-	public ScopeType setCode(String code) {
-		return (ScopeType) super.setCode(code);
+	public ScopeTypeImpl setCode(String code) {
+		return (ScopeTypeImpl) super.setCode(code);
 	}
 	
 	@Override
-	public ScopeType setName(String name) {
-		return (ScopeType) super.setName(name);
+	public ScopeTypeImpl setName(String name) {
+		return (ScopeTypeImpl) super.setName(name);
 	}
 }

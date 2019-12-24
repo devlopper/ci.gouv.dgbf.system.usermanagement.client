@@ -27,8 +27,8 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.rol
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ProfileFunction;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ProfileType;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeImpl;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeTypeImpl;
 
 public class ControllerIntegrationTest extends AbstractControllerArquillianIntegrationTestWithDefaultDeployment {
 	private static final long serialVersionUID = 1L;
@@ -94,8 +94,8 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 
 	@Test
 	public void create_scope() throws Exception{
-		ScopeType scopeType = __inject__(ScopeType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
-		Scope scope = __inject__(Scope.class).setIdentifier(__getRandomCode__()).setType(scopeType);
+		ScopeTypeImpl scopeType = __inject__(ScopeTypeImpl.class).setCode(__getRandomCode__()).setName(__getRandomName__());
+		ScopeImpl scope = __inject__(ScopeImpl.class).setIdentifier(__getRandomCode__()).setType(scopeType);
 		FunctionType functionType = __inject__(FunctionType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		Function function = __inject__(Function.class).setCode(__getRandomCode__()).setName(__getRandomName__()).setType(functionType);
 		__inject__(TestControllerCreate.class).addObjectsToBeCreatedArray(scopeType,scope,functionType,function).addObjects(__inject__(FunctionScope.class).setFunction(function).setScope(scope)).execute();
@@ -205,9 +205,9 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 	
 	@Test
 	public void create_userAccount() throws Exception{
-		ScopeType scopeType = __inject__(ScopeType.class).setCode("MINISTERE").setName("Ministère");
+		ScopeTypeImpl scopeType = __inject__(ScopeTypeImpl.class).setCode("MINISTERE").setName("Ministère");
 		__inject__(ScopeTypeController.class).create(scopeType);
-		Scope scope = __inject__(Scope.class).setIdentifier("21").setType(scopeType);
+		ScopeImpl scope = __inject__(ScopeImpl.class).setIdentifier("21").setType(scopeType);
 		__inject__(ScopeController.class).create(scope);
 		FunctionType functionType = __inject__(FunctionType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		__inject__(FunctionTypeController.class).create(functionType);
@@ -265,9 +265,9 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 	@Test
 	public void update_userAccount() throws Exception{
 		assertThat(__inject__(UserAccountFunctionScopeController.class).count()).isEqualTo(0l);
-		ScopeType scopeType = __inject__(ScopeType.class).setCode("MINISTERE").setName("Ministère");
+		ScopeTypeImpl scopeType = __inject__(ScopeTypeImpl.class).setCode("MINISTERE").setName("Ministère");
 		__inject__(ScopeTypeController.class).create(scopeType);
-		Scope scope = __inject__(Scope.class).setIdentifier("21").setType(scopeType);
+		ScopeImpl scope = __inject__(ScopeImpl.class).setIdentifier("21").setType(scopeType);
 		__inject__(ScopeController.class).create(scope);
 		FunctionType functionType = __inject__(FunctionType.class).setCode(__getRandomCode__()).setName(__getRandomName__());
 		__inject__(FunctionTypeController.class).create(functionType);
@@ -309,12 +309,12 @@ public class ControllerIntegrationTest extends AbstractControllerArquillianInteg
 		
 		assertThat(__inject__(UserAccountScopeController.class).count()).isEqualTo(0l);
 		assertThat(userAccount.getScopes()).isNull();
-		userAccount.addScopes(__inject__(Scope.class).setIdentifier("21"));
+		userAccount.addScopes(__inject__(ScopeImpl.class).setIdentifier("21"));
 		__inject__(UserAccountController.class).update(userAccount,new Properties().setFields("scopes"));
 		assertThat(__inject__(UserAccountScopeController.class).count()).isEqualTo(1l);
 		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(userAccount.getIdentifier(), new Properties().setFields("identifier,scopes"));
 		assertThat(userAccount.getScopes()).isNotNull();
-		assertThat(userAccount.getScopes().stream().map(Scope::getIdentifier).collect(Collectors.toList())).contains("21");
+		assertThat(userAccount.getScopes().stream().map(ScopeImpl::getIdentifier).collect(Collectors.toList())).contains("21");
 	}
 	
 	//@Test

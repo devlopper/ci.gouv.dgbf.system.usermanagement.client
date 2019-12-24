@@ -3,10 +3,7 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.impl;
 import java.io.Serializable;
 import java.security.Principal;
 
-import org.cyk.user.interface_.theme.web.jsf.primefaces.atlantis.DesktopDefaultImpl;
 import org.cyk.utility.__kernel__.icon.Icon;
-import org.cyk.utility.__kernel__.identifier.resource.UniformResourceIdentifierAsFunctionParameter;
-import org.cyk.utility.__kernel__.identifier.resource.UniformResourceIdentifierHelper;
 import org.cyk.utility.client.controller.component.menu.AbstractMenuBuilderMapInstantiatorImpl;
 import org.cyk.utility.client.controller.component.menu.MenuBuilder;
 import org.cyk.utility.client.controller.component.menu.MenuItemBuilder;
@@ -18,8 +15,8 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.rol
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.PrivilegeType;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ProfileType;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeImpl;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeTypeImpl;
 
 @ci.gouv.dgbf.system.usermanagement.server.annotation.System
 public class MenuBuilderMapInstantiatorImpl extends AbstractMenuBuilderMapInstantiatorImpl implements Serializable {
@@ -34,7 +31,7 @@ public class MenuBuilderMapInstantiatorImpl extends AbstractMenuBuilderMapInstan
 					,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des profiles").setCommandableIcon(Icon.FILE)
 						.listOrTree(Profile.class,ProfileType.class,Function.class,FunctionType.class)
 					,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des visibilités").setCommandableIcon(Icon.EYE)
-						.listOrTree(Scope.class,ScopeType.class)
+						.listOrTree(ScopeImpl.class,ScopeTypeImpl.class)
 					,__inject__(MenuItemBuilder.class).setCommandableName("Gestion des utilisateurs").setCommandableIcon(Icon.USERS).addChild(
 							__inject__(MenuItemBuilder.class).setCommandableName("Création").setCommandableIcon(Icon.PLUS)
 							.setCommandableNavigationIdentifier("userAccountCreateListUserView")
@@ -66,8 +63,9 @@ public class MenuBuilderMapInstantiatorImpl extends AbstractMenuBuilderMapInstan
 	public static final String MY_ACCOUNT = "moncompte";
 	
 	static {
+		/*
 		UniformResourceIdentifierAsFunctionParameter parameter;
-		DesktopDefaultImpl.USER_MENU_UL_LIS.clear();
+		DesktopDefault.USER_MENU_UL_LIS.clear();
 		
 		parameter = new UniformResourceIdentifierAsFunctionParameter();
 		parameter.getPath(Boolean.TRUE).setIdentifier("logoutView");		
@@ -95,6 +93,7 @@ public class MenuBuilderMapInstantiatorImpl extends AbstractMenuBuilderMapInstan
 		
 		DesktopDefaultImpl.addUserMenuUlLi("Demandes de compte utilisateur", null,"fa fa-file-text");
 		DesktopDefaultImpl.addUserMenuUlLi("M'abonner à une publication", null,"fa fa-comments");
+		*/
 	}
 
 }

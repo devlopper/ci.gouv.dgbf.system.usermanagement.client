@@ -22,8 +22,8 @@ import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAcco
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ScopeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ScopeTypeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeImpl;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeTypeImpl;
 import ci.gouv.dgbf.system.usermanagement.client.controller.impl.account.role.ScopesTab;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,22 +41,22 @@ public class UserAccountScopeAssignProcessUserAccountPage extends AbstractPageCo
 	protected void __listenPostConstruct__() {
 		super.__listenPostConstruct__();
 		userAccount = __inject__(UserAccountController.class).readBySystemIdentifier(Faces.getRequestParameter("identifier"),new Properties().setFields(__fields__));
-		Collection<ScopeType> scopeTypes = __inject__(ScopeTypeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
-		Collection<Scope> scopes = __inject__(ScopeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
+		Collection<ScopeTypeImpl> scopeTypes = __inject__(ScopeTypeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
+		Collection<ScopeImpl> scopes = __inject__(ScopeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
 		if(CollectionHelper.isNotEmpty(scopes)) {
 			if(CollectionHelper.isNotEmpty(scopeTypes)) {
-				for(ScopeType index : scopeTypes) {
+				for(ScopeTypeImpl index : scopeTypes) {
 					ScopesTab scopesTab = new ScopesTab();
 					scopesTab.setType(index);
-					Collection<Scope> availableScopes = new ArrayList<>();
-					for(Scope indexScope : scopes)
+					Collection<ScopeImpl> availableScopes = new ArrayList<>();
+					for(ScopeImpl indexScope : scopes)
 						if(indexScope.getType().equals(index))
 							availableScopes.add(indexScope);
 					
-					Collection<Scope> selectedScopes = null;
+					Collection<ScopeImpl> selectedScopes = null;
 					if(CollectionHelper.isNotEmpty(userAccount.getScopes())) {
 						selectedScopes = new ArrayList<>();
-						for(Scope indexScope : userAccount.getScopes())
+						for(ScopeImpl indexScope : userAccount.getScopes())
 							if(indexScope.getType().equals(index))
 								selectedScopes.add(indexScope);	
 					}
@@ -99,7 +99,7 @@ public class UserAccountScopeAssignProcessUserAccountPage extends AbstractPageCo
 		userAccount.getScopes(Boolean.TRUE).clear();
 		for(ScopesTab index : scopesTabs) {
 			if(index.getScopes().getTarget()!=null) {
-				for(Scope indexScope : index.getScopes().getTarget())
+				for(ScopeImpl indexScope : index.getScopes().getTarget())
 					userAccount.getScopes(Boolean.TRUE).add(indexScope);
 			}
 		}
