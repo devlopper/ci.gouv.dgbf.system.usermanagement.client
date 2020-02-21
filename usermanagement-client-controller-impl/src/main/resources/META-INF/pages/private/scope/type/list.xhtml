@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+	
+    <cyk:page value="#{userAccountListPage}" >
+    	<ui:define name="centerCenter">
+    		<p:dataTable value="#{userAccountListPage.userAccounts}" var="userAccount" lazy="true" rows="25" paginator="true" paginatorPosition="bottom">
+    			<f:facet name="header">
+    				<p:button value="Créer" outcome="userAccountCreateView"/>
+    			</f:facet>
+    			<p:column headerText="Nom d'utilisateur"><h:outputText value="#{userAccount.account.identifier}" /></p:column>
+    			<p:column headerText="Nom et prénoms"><h:outputText value="#{userAccount.user.names}" /></p:column>
+    			<p:column headerText="Actions" width="100">
+    				<p:button icon="fa fa-eye" outcome="userAccountReadView">
+    					<f:param name="identifier" value="#{userAccount.identifier}" />
+    				</p:button>
+    			</p:column>
+    		</p:dataTable>
+    	</ui:define>
+    </cyk:page>
+    
+</html>

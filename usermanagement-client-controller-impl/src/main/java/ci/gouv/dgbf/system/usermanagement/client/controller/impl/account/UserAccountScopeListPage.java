@@ -13,8 +13,8 @@ import org.cyk.utility.__kernel__.properties.Properties;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.ScopeTypeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeImpl;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeTypeImpl;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
 import ci.gouv.dgbf.system.usermanagement.client.controller.impl.AbstractUserAccountBasedPageContainerManagedImplMonCompte;
 import ci.gouv.dgbf.system.usermanagement.client.controller.impl.account.role.ScopesTab;
 import lombok.Getter;
@@ -29,17 +29,17 @@ public class UserAccountScopeListPage extends AbstractUserAccountBasedPageContai
 	@Override
 	protected void __listenPostConstructUserAccountIsNotNull__() {
 		super.__listenPostConstructUserAccountIsNotNull__();	
-		Collection<ScopeTypeImpl> scopeTypes = __inject__(ScopeTypeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
-		Collection<ScopeImpl> scopes = userAccount.getScopes();
+		Collection<ScopeType> scopeTypes = __inject__(ScopeTypeController.class).read(new Properties().setIsPageable(Boolean.FALSE));
+		Collection<Scope> scopes = userAccount.getScopes();
 		if(CollectionHelper.isNotEmpty(scopes)) {
 			if(CollectionHelper.isNotEmpty(scopeTypes)) {
-				for(ScopeTypeImpl index : scopeTypes) {
+				for(ScopeType index : scopeTypes) {
 					ScopesTab scopesTab = new ScopesTab();
 					scopesTab.setType(index);
-					Collection<ScopeImpl> selectedScopes = null;
+					Collection<Scope> selectedScopes = null;
 					if(CollectionHelper.isNotEmpty(userAccount.getScopes())) {
 						selectedScopes = new ArrayList<>();
-						for(ScopeImpl indexScope : userAccount.getScopes())
+						for(Scope indexScope : userAccount.getScopes())
 							if(indexScope.getType().equals(index))
 								selectedScopes.add(indexScope);	
 					}

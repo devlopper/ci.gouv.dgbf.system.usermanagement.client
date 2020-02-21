@@ -16,7 +16,7 @@ import org.cyk.utility.client.controller.data.AbstractDataIdentifiedByStringImpl
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeImpl;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -34,7 +34,7 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	private List<Function> functions;
 	
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyAutoComplete
-	private List<ScopeImpl> scopes;
+	private List<Scope> scopes;
 	
 	@Input @InputChoice @InputChoiceMany @InputChoiceManyCheckBox
 	private List<Profile> profiles;
@@ -114,31 +114,31 @@ public class UserAccountImpl extends AbstractDataIdentifiedByStringImpl implemen
 	}
 	
 	@Override
-	public List<ScopeImpl> getScopes() {
+	public List<Scope> getScopes() {
 		return scopes;
 	}
 	
 	@Override
-	public UserAccount setScopes(List<ScopeImpl> scopes) {
+	public UserAccount setScopes(List<Scope> scopes) {
 		this.scopes = scopes;
 		return this;
 	}
 	
 	@Override
-	public List<ScopeImpl> getScopes(Boolean injectIfNull) {
+	public List<Scope> getScopes(Boolean injectIfNull) {
 		if(scopes == null && Boolean.TRUE.equals(injectIfNull))
 			scopes = new ArrayList<>();
 		return scopes;
 	}
 	
 	@Override
-	public UserAccount addScopes(Collection<ScopeImpl> scopes) {
+	public UserAccount addScopes(Collection<Scope> scopes) {
 		getScopes(Boolean.TRUE).addAll(scopes);
 		return this;
 	}
 	
 	@Override
-	public UserAccount addScopes(ScopeImpl... scopes) {
+	public UserAccount addScopes(Scope... scopes) {
 		addScopes(CollectionHelper.listOf(scopes));
 		return this;
 	}

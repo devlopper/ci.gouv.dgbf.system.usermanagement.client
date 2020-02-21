@@ -15,17 +15,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-public class ScopeImpl extends AbstractDataIdentifiableSystemStringIdentifiableBusinessStringNamableImpl implements Serializable {
+public class Scope extends AbstractDataIdentifiableSystemStringIdentifiableBusinessStringNamableImpl implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Getter @Setter @Accessors(chain=true)
 	@NotNull
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneCombo
-	private ScopeTypeImpl type;
+	private ScopeType type;
 	
 	@Override
-	public ScopeImpl setIdentifier(String identifier) {
-		return (ScopeImpl) super.setIdentifier(identifier);
+	public Scope setIdentifier(String identifier) {
+		return (Scope) super.setIdentifier(identifier);
 	}
 	
 	public String getCodeAndName() {

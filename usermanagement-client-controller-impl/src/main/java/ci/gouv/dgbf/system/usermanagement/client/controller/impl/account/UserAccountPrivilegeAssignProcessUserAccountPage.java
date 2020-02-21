@@ -18,7 +18,7 @@ import org.cyk.utility.client.controller.component.window.WindowBuilder;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.Tree;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.TreeSelectionMode;
-import org.cyk.utility.server.persistence.query.filter.FilterDto;
+import org.cyk.utility.__kernel__.persistence.query.filter.FilterDto;
 import org.omnifaces.util.Faces;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;

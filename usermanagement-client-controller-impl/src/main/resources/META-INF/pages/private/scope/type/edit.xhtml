@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cyk="http://primefaces.jsf.web.utility.cyk.org">
+	
+    <cyk:page value="#{userAccountCreatePage}" >
+    	<ui:define name="centerCenter">
+    		<p:fieldset id="identification" legend="Identification">
+	    		<p:panelGrid columns="3" layout="grid">
+	    			<p:outputLabel for="nom" value="Nom" />
+	    			<p:inputText id="nom" value="#{userAccountCreatePage.firstName}" styleClass="cyk_input"/>
+	    			<p:message for="nom" />
+	    			
+	    			<p:outputLabel for="prenoms" value="Prénoms" />
+	    			<p:inputText id="prenoms" value="#{userAccountCreatePage.lastNames}" styleClass="cyk_input"/>
+	    			<p:message for="prenoms" />
+	    			
+	    			<p:outputLabel for="email" value="Adresse de courrier électronique" />
+	    			<p:inputText id="email" value="#{userAccountCreatePage.electronicMailAddress}" styleClass="cyk_input"/>
+	    			<p:message for="email" />
+	    			
+	    			<p:outputLabel for="fonctions" value="Fonctions" />
+	    			<p:pickList id="fonctions" value="#{userAccountCreatePage.functions}" var="fonction" converter="#{objectConverter}" itemValue="#{fonction}" itemLabel="#{fonction.name}"
+	    			 required="true">
+	    			
+	    			</p:pickList>
+	    			<p:message for="fonctions" />
+	    		</p:panelGrid>
+    		</p:fieldset>
+    		<br/>
+    		<p:fieldset id="account" legend="Compte">
+	    		<p:panelGrid columns="3">
+	    			<p:outputLabel for="nomutilisateur" value="Nom d'utilisateur" />
+	    			<p:inputText id="nomutilisateur" value="#{userAccountCreatePage.userIdentifier}" styleClass="cyk_input"/>
+	    			<p:message for="nomutilisateur" />
+	    			
+	    			<p:outputLabel for="motdepasse" value="Mot de passe" />
+	    			<p:password id="motdepasse" value="#{userAccountCreatePage.pass}" feedback="true" weakLabel="Faible" goodLabel="Bon" strongLabel="Fort" inline="true"
+	    				 promptLabel="Veuillez saisir votre mot de passe" match="confirmationmotdepasse" styleClass="cyk_input"/>
+	    			<p:message for="motdepasse" />
+	    			
+	    			<p:outputLabel for="confirmationmotdepasse" value="Confirmation du mot de passe" />
+	    			<p:password id="confirmationmotdepasse" value="#{userAccountCreatePage.passConfirmation}" styleClass="cyk_input"/>
+	    			<p:message for="confirmationmotdepasse" />
+	    		</p:panelGrid>
+    		</p:fieldset>
+    		<br/>			
+			<!--
+			<cyk:commandable value="#{userAccountCreatePage.createCommandable}" />	 
+			-->
+			<p:commandButton value="Enregistrer" action="#{userAccountCreatePage.save}" update="#{componentHelper.globalMessagesTargetsIdentifiers},identification,account" />
+			<style>
+				.ui-picklist .ui-picklist-list{
+				    width:200px !important;
+				}
+			</style>		
+    	</ui:define>
+    </cyk:page>
+    
+</html>

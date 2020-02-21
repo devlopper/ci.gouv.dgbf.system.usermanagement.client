@@ -9,13 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor //@Accessors(chain=true)
-public class ScopeTypeProfile extends AbstractDataIdentifiableSystemStringImpl implements Serializable {
+public class ScopeTypeFunction extends AbstractDataIdentifiableSystemStringImpl implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Profile profile;
-	private ScopeTypeImpl scopeType;
+	private ScopeType scopeType;
+	private Function function;
 	
-	public static final String FIELD_PROFILE = "profile";
 	public static final String FIELD_SCOPE_TYPE = "scopeType";
-	
+	public static final String FIELD_FUNCTION = "function";
 }

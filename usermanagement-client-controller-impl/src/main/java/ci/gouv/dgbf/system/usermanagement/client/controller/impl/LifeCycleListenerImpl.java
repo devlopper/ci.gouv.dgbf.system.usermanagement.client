@@ -9,7 +9,7 @@ import org.cyk.utility.__kernel__.collection.CollectionHelper;
 import org.cyk.utility.__kernel__.object.AbstractLifeCycleListenerImpl;
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.__kernel__.session.Session;
-import org.cyk.utility.server.persistence.query.filter.FilterDto;
+import org.cyk.utility.__kernel__.persistence.query.filter.FilterDto;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;

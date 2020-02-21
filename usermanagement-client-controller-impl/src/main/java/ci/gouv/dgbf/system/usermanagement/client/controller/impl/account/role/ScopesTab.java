@@ -6,8 +6,8 @@ import java.util.Collection;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeImpl;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeTypeImpl;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,10 +15,10 @@ import lombok.Setter;
 public class ScopesTab implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private ScopeTypeImpl type;
-	private DualListModel<ScopeImpl> scopes;
+	private ScopeType type;
+	private DualListModel<Scope> scopes;
 	private Listener listener;
-	private Collection<ScopeImpl> collection;
+	private Collection<Scope> collection;
 	
 	/**/
 	

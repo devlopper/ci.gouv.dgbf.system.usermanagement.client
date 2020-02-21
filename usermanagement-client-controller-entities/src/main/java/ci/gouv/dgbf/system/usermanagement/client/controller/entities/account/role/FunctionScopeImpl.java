@@ -19,7 +19,7 @@ public class FunctionScopeImpl extends AbstractDataIdentifiedByStringAndCodedAnd
 	private Function function;
 	
 	@Input @InputChoice @InputChoiceOne @InputChoiceOneAutoComplete
-	private ScopeImpl scope;
+	private Scope scope;
 	
 	@Override
 	public Function getFunction() {
@@ -32,12 +32,12 @@ public class FunctionScopeImpl extends AbstractDataIdentifiedByStringAndCodedAnd
 	}
 	
 	@Override
-	public ScopeImpl getScope() {
+	public Scope getScope() {
 		return scope;
 	}
 	
 	@Override
-	public FunctionScope setScope(ScopeImpl scope) {
+	public FunctionScope setScope(Scope scope) {
 		this.scope = scope;
 		return this;
 	}

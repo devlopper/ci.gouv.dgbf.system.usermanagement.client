@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.Tree;
 import org.cyk.utility.__kernel__.collection.CollectionHelper;
-import org.cyk.utility.server.persistence.query.filter.FilterDto;
+import org.cyk.utility.__kernel__.persistence.query.filter.FilterDto;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.PrivilegeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Privilege;

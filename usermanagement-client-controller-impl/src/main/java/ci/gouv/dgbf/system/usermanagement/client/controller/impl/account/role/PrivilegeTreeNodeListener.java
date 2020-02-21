@@ -7,7 +7,7 @@ import java.util.List;
 import org.cyk.utility.__kernel__.object.dynamic.AbstractObject;
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.data.hierarchy.TreeNodeListener;
-import org.cyk.utility.server.persistence.query.filter.FilterDto;
+import org.cyk.utility.__kernel__.persistence.query.filter.FilterDto;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.PrivilegeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Privilege;

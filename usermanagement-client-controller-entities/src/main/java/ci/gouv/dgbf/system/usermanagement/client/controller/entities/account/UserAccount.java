@@ -8,7 +8,7 @@ import org.cyk.utility.client.controller.data.DataIdentifiedByString;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Function;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.FunctionScope;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Profile;
-import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.ScopeImpl;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Scope;
 
 public interface UserAccount extends DataIdentifiedByString {
 
@@ -28,11 +28,11 @@ public interface UserAccount extends DataIdentifiedByString {
 	String getColor();
 	UserAccount setColor(String color);
 	
-	List<ScopeImpl> getScopes();
-	List<ScopeImpl> getScopes(Boolean injectIfNull);
-	UserAccount setScopes(List<ScopeImpl> scopes);
-	UserAccount addScopes(Collection<ScopeImpl> scopes);
-	UserAccount addScopes(ScopeImpl...scopes);
+	List<Scope> getScopes();
+	List<Scope> getScopes(Boolean injectIfNull);
+	UserAccount setScopes(List<Scope> scopes);
+	UserAccount addScopes(Collection<Scope> scopes);
+	UserAccount addScopes(Scope...scopes);
 	
 	List<Function> getFunctions();
 	List<Function> getFunctions(Boolean injectIfNull);
