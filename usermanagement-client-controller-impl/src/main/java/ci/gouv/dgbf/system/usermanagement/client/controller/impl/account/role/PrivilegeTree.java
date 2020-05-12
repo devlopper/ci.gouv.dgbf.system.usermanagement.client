@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.cyk.utility.__kernel__.collection.CollectionHelper;
+import org.cyk.utility.__kernel__.persistence.query.filter.Filter;
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.Tree;
-import org.cyk.utility.__kernel__.collection.CollectionHelper;
-import org.cyk.utility.__kernel__.persistence.query.filter.FilterDto;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.role.PrivilegeController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.role.Privilege;
@@ -32,7 +32,7 @@ public class PrivilegeTree extends Tree implements Serializable {
 		 */
 		Collection<Privilege> initialSelectedPrivileges = null;
 		if(CollectionHelper.isNotEmpty(initialSelectedProfiles)) {
-			FilterDto filter = new FilterDto();
+			Filter.Dto filter = new Filter.Dto();
 			filter.addField(Privilege.PROPERTY_PROFILES, initialSelectedProfiles.stream().map(Profile::getIdentifier).collect(Collectors.toList()));
 			initialSelectedPrivileges = __inject__(PrivilegeController.class).read(new Properties().setFilters(filter).setIsPageable(Boolean.FALSE));
 		}

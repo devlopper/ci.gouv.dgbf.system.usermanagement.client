@@ -7,9 +7,9 @@ import javax.enterprise.context.ApplicationScoped;
 import org.cyk.utility.__kernel__.DependencyInjection;
 import org.cyk.utility.__kernel__.collection.CollectionHelper;
 import org.cyk.utility.__kernel__.object.AbstractLifeCycleListenerImpl;
+import org.cyk.utility.__kernel__.persistence.query.filter.Filter;
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.__kernel__.session.Session;
-import org.cyk.utility.__kernel__.persistence.query.filter.FilterDto;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.api.account.UserAccountController;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
@@ -25,7 +25,7 @@ public class LifeCycleListenerImpl extends AbstractLifeCycleListenerImpl impleme
 			Session session = (Session) object;
 			UserAccount userAccount = null;
 			try {
-				userAccount = CollectionHelper.getFirst(DependencyInjection.inject(UserAccountController.class).read(new Properties().setFilters(new FilterDto()
+				userAccount = CollectionHelper.getFirst(DependencyInjection.inject(UserAccountController.class).read(new Properties().setFilters(new Filter.Dto()
 						.addField("account.identifier",  session.getUserName()))));
 			} catch (Exception exception) {
 				exception.printStackTrace();

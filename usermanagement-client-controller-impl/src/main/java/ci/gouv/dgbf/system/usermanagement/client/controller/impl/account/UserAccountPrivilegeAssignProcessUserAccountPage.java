@@ -10,6 +10,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.cyk.utility.__kernel__.collection.CollectionHelper;
+import org.cyk.utility.__kernel__.persistence.query.filter.Filter;
 import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.__kernel__.system.action.SystemActionCustom;
 import org.cyk.utility.client.controller.component.command.Commandable;
@@ -18,7 +19,6 @@ import org.cyk.utility.client.controller.component.window.WindowBuilder;
 import org.cyk.utility.client.controller.web.jsf.primefaces.AbstractPageContainerManagedImpl;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.Tree;
 import org.cyk.utility.client.controller.web.jsf.primefaces.tag.TreeSelectionMode;
-import org.cyk.utility.__kernel__.persistence.query.filter.FilterDto;
 import org.omnifaces.util.Faces;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
@@ -61,7 +61,7 @@ public class UserAccountPrivilegeAssignProcessUserAccountPage extends AbstractPa
 					,new Properties().setFields("identifier,privileges"));
 		}
 		Collection<Profile> __systemProfiles__ = __inject__(ProfileController.class).read(new Properties()
-				.setFilters(new FilterDto().useKlass(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Profile.class)
+				.setFilters(new Filter.Dto().useKlass(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Profile.class)
 						.addField(ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.role.Profile.FIELD_TYPE, Arrays.asList(ProfileType.CODE_SYSTEM)))
 				.setIsPageable(Boolean.FALSE));
 		
